@@ -12,7 +12,7 @@ final class ViewController: UIViewController {
     private var busy = false
     private var loadBlocked = false
     private var notice: String?
-    private var latestMessage = "改造格子，规划下一转"
+    private var latestMessage = "Shape your wheel. Plan your next spin."
     private var selectedUpgrade: Upgrade?
     private var selectedSlot = 1
     private var selectedKind: Tile = .wood
@@ -25,20 +25,20 @@ final class ViewController: UIViewController {
         }
         #endif
         repository = SaveRepository(directory: directory)
-        do { (state, notice) = try repository.load() } catch { loadBlocked = true; notice = "无法打开存档：\(error.localizedDescription) 为保护进度，游戏暂时不能写入。" }
+        do { (state, notice) = try repository.load() } catch { loadBlocked = true; notice = "Unable to load your save: \(error.localizedDescription) Your progress is protected. Saving is temporarily unavailable." }
         NotificationCenter.default.addObserver(self, selector: #selector(background), name: UIApplication.didEnterBackgroundNotification, object: nil)
         render()
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if let notice { self.notice = nil; info("存档提示", notice) }
+        if let notice { self.notice = nil; info("Save notice", notice) }
         else if !state.settings.tutorialSeen { tutorial() }
     }
     @objc private func background() { Feedback.shared.stop() }
     private func commit(_ change: (inout SaveEnvelope) throws -> Void) -> Bool {
-        guard !loadBlocked else { info("存档未就绪", "请重新打开应用后再试，现有存档未被覆盖。"); return false }
+        guard !loadBlocked else { info("Save unavailable", "Please reopen the app and try again. Your existing save has not been overwritten."); return false }
         do { var next = state; try change(&next); try repository.write(next); state = next; return true }
-        catch { info("操作未完成", "\(error.localizedDescription)\n进度未变更，可以重试。"); return false }
+        catch { info("Action not completed", "\(error.localizedDescription)\nYour progress has not changed. Please try again."); return false }
     }
     private func go(_ destination: Page) { guard !busy else { return }; page = destination; render() }
     private func render() {
@@ -49,7 +49,7 @@ final class ViewController: UIViewController {
         scroll = UIScrollView(); scroll.alwaysBounceVertical = true; scroll.showsVerticalScrollIndicator = false; view.addSubview(scroll)
         let nav = UIStackView(); nav.distribution = .fillEqually; nav.spacing = 6
         if page != .game && page != .workshop {
-            for (title, symbol, destination) in [("小岛","house.fill", Page.island),("收藏","star.fill",Page.collection),("设置","gearshape.fill",Page.settings)] {
+            for (title, symbol, destination) in [("Island","house.fill", Page.island),("Collection","star.fill",Page.collection),("Settings","gearshape.fill",Page.settings)] {
                 let b = Theme.button(title, symbol: symbol) { [weak self] in self?.go(destination) }; b.accessibilityIdentifier = "tab.\(title)"
                 var config = b.configuration!; config.imagePlacement = .top; config.imagePadding = 4
                 config.contentInsets = .init(top: 8, leading: 6, bottom: 8, trailing: 6)
@@ -66,11 +66,13 @@ final class ViewController: UIViewController {
     }
     private func add(_ v: UIView) { stack.addArrangedSubview(v) }
     private func heading(_ eyebrow: String, _ title: String, _ subtitle: String? = nil) {
-        add(Theme.label(eyebrow, size: 12, color: Theme.teal))
+        let eyebrowLabel = Theme.label(eyebrow, size: 12, color: Theme.teal)
         let titleLabel = Theme.label(title, size: 30)
         if [.island, .levels, .collection, .settings].contains(page) {
             let row = UIStackView(); row.axis = .horizontal; row.alignment = .center; row.spacing = 12
-            row.addArrangedSubview(titleLabel)
+            let largeText = traitCollection.preferredContentSizeCategory.isAccessibilityCategory
+            if !largeText { add(eyebrowLabel) }
+            row.addArrangedSubview(largeText ? eyebrowLabel : titleLabel)
             let decoration = UIImageView(image: WheelDecoration.image)
             decoration.contentMode = .scaleAspectFit
             decoration.isAccessibilityElement = false
@@ -79,26 +81,27 @@ final class ViewController: UIViewController {
             let size: CGFloat = traitCollection.preferredContentSizeCategory.isAccessibilityCategory ? 54 : 76
             decoration.snp.makeConstraints { $0.width.height.equalTo(size) }
             add(row)
+            if largeText { add(titleLabel) }
         } else {
-            add(titleLabel)
+            add(eyebrowLabel); add(titleLabel)
         }
         if let subtitle { add(Theme.label(subtitle, size: 15, color: Theme.ink.withAlphaComponent(0.65))) }
     }
     private func island() {
-        heading("LUCKY ISLAND  /  用你的策略，建一座小岛", "幸运小岛", "改造八格转盘，读懂潮汐与林地，让每次选择留下风景。")
-        let scene = IslandView(completed: state.completed); add(scene); scene.snp.makeConstraints { $0.height.equalTo(scene.snp.width).multipliedBy(0.93) }
+        heading("BUILD YOUR OWN LITTLE WORLD", "Lucky Island", "Shape your wheel, follow the tides, and build an island with every choice.")
+        let scene = IslandView(completed: state.completed); add(scene); scene.snp.makeConstraints { $0.height.equalTo(scene.snp.width).multipliedBy(0.80) }
         let levelID = min((0..<15).first(where: { !state.completed.contains($0) }) ?? 14, 14)
         let l = Content.levels[levelID]
-        let content = Theme.stack([Theme.label("\(Content.regions[l.region])  ·  \(state.completed.count)/15", size: 13, color: Theme.teal), Theme.label("下一站：\(l.name)", size: 22), Theme.label(l.story, size: 15)])
+        let content = Theme.stack([Theme.label("\(Content.regions[l.region])  ·  \(state.completed.count)/15", size: 13, color: Theme.teal), Theme.label("Next stop: \(l.name)", size: 22), Theme.label(l.story, size: 15)])
         if let r = state.run, r.phase == .ready || r.phase == .upgrade || r.pending != nil {
-            content.addArrangedSubview(Theme.button("继续 · \(Content.levels[r.level].name)", symbol: "play.fill", primary: true) { [weak self] in self?.go(.game) })
+            content.addArrangedSubview(Theme.button("Continue · \(Content.levels[r.level].name)", symbol: "play.fill", primary: true) { [weak self] in self?.go(.game) })
         } else {
-            content.addArrangedSubview(Theme.button("开始挑战", symbol: "arrow.right", primary: true) { [weak self] in self?.detail(levelID) })
+            content.addArrangedSubview(Theme.button("Start challenge", symbol: "arrow.right", primary: true) { [weak self] in self?.detail(levelID) })
         }
-        add(Theme.card(content)); add(Theme.button("探索三片区域 · 选择关卡", symbol: "map") { [weak self] in self?.go(.levels) })
+        add(Theme.card(content)); add(Theme.button("Explore the island", symbol: "map") { [weak self] in self?.go(.levels) })
     }
     private func levels() {
-        heading("一座岛，十五段小小的故事", "小岛地图")
+        heading("ONE ISLAND. FIFTEEN LITTLE STORIES.", "Island map")
         for region in 0..<3 {
             add(Theme.label(Content.regions[region], size: 22))
             for l in Content.levels where l.region == region {
@@ -110,39 +113,54 @@ final class ViewController: UIViewController {
     }
     private func detail(_ id: Int) {
         let l = Content.levels[id]
-        let reward = id < 12 ? Content.buildings[id] : (id == 12 ? "珊瑚转盘" : (id == 13 ? "星夜转盘" : "庆典成就"))
-        let a = UIAlertController(title: l.name, message: "\(l.story)\n\n目标：\(l.target)\n本关机制：\(l.rule.title)\n\(l.rule.detail)\n初始机会：\(l.turns) 次\n解锁：\(reward)\n额外挑战：获胜时剩余至少 3 次机会。\n\n\(state.run != nil ? "开始新挑战将替换当前对局，已有收藏保留。" : "每 3 次转动或遇见宝箱，可选择一次升级。")", preferredStyle: .alert)
-        a.addAction(UIAlertAction(title: "开始挑战", style: .default) { [weak self] _ in
-            guard let self else { return }; if self.commit({ try GameEngine.start(id, in: &$0) }) { self.latestMessage = "先试试免费换格，为目标资源腾出位置"; self.go(.game) }
-        }); a.addAction(UIAlertAction(title: "再看看", style: .cancel)); present(a, animated: true)
+        let reward = id < 12 ? Content.buildings[id] : (id == 12 ? "Coral wheel" : (id == 13 ? "Starlight wheel" : "Island Festival achievement"))
+        let a = UIAlertController(title: l.name, message: "\(l.story)\n\nGoal: \(l.target)\nIsland rule: \(l.rule.title)\n\(l.rule.detail)\nStarting spins: \(l.turns)\nUnlock: \(reward)\nBonus challenge: win with at least 3 spins left.\n\n\(state.run != nil ? "Starting a new challenge replaces your current run. Your collection is kept." : "Choose an upgrade every 3 spins or when you land on a chest.")", preferredStyle: .alert)
+        a.addAction(UIAlertAction(title: "Start challenge", style: .default) { [weak self] _ in
+            guard let self else { return }; if self.commit({ try GameEngine.start(id, in: &$0) }) { self.latestMessage = "Plan your next spin in the workshop."; self.go(.game) }
+        }); a.addAction(UIAlertAction(title: "Not now", style: .cancel)); present(a, animated: true)
     }
     private func game() {
         guard let r = state.run else { page = .island; island(); return }
-        let header = UIStackView(); header.spacing = 10; header.distribution = .fill
-        let back = Theme.button("小岛", symbol: "chevron.left") { [weak self] in self?.go(.island) }; header.addArrangedSubview(back)
-        let title = Theme.label(Content.levels[r.level].name, size: 21); title.textAlignment = .center; header.addArrangedSubview(title)
-        header.addArrangedSubview(Theme.button("规则", symbol: nil) { [weak self] in self?.rules() }); add(header)
+        stack.spacing = 12
+        let header = UIStackView(); header.spacing = 10; header.alignment = .center
+        let back = Theme.button("", symbol: "chevron.left") { [weak self] in self?.go(.island) }
+        let help = Theme.button("", symbol: "questionmark") { [weak self] in self?.rules() }
+        back.accessibilityLabel = "Island"; help.accessibilityLabel = "Rules"
+        for button in [back, help] {
+            var config = button.configuration!
+            config.contentInsets = .init(top: 12, leading: 10, bottom: 12, trailing: 10)
+            button.configuration = config
+            button.snp.makeConstraints { $0.width.equalTo(48) }
+        }
+        let title = Theme.label(Content.levels[r.level].name, size: 21); title.textAlignment = .center
+        header.addArrangedSubview(back); header.addArrangedSubview(title); header.addArrangedSubview(help); add(header)
         if r.pending == nil && r.phase == .upgrade { upgrades(r); return }
         if r.pending == nil && (r.phase == .won || r.phase == .lost) { result(r); return }
         #if DEBUG
-        if ProcessInfo.processInfo.environment["ISLAND_UI_FIXED_WOOD"] == "1" { add(Theme.label("自动测试模式 · 固定格子结果", size: 12, color: .systemRed)) }
+        if ProcessInfo.processInfo.environment["ISLAND_UI_FIXED_WOOD"] == "1" { add(Theme.label("UI TEST MODE · FIXED RESULT", size: 12, color: .systemRed)) }
         #endif
         let l = Content.levels[r.level]
         let progress = Theme.stack([], spacing: 8)
-        for (title, value, goal) in [("木材",r.wood,l.wood),("金币",r.coins,l.coins),("贝壳",r.shells,l.shells)] where goal > 0 {
+        for (title, value, goal) in [("Wood",r.wood,l.wood),("Coins",r.coins,l.coins),("Shells",r.shells,l.shells)] where goal > 0 {
             progress.addArrangedSubview(Theme.label("\(title)  \(value) / \(goal)", size: 20))
-            let bar = UIProgressView(progressViewStyle: .default); bar.progressTintColor = Theme.teal; bar.trackTintColor = Theme.ink.withAlphaComponent(0.1); bar.progress = min(1, Float(value)/Float(goal)); bar.accessibilityLabel = title; bar.accessibilityValue = "\(value)，目标 \(goal)"; progress.addArrangedSubview(bar)
+            let bar = UIProgressView(progressViewStyle: .default); bar.progressTintColor = Theme.teal; bar.trackTintColor = Theme.ink.withAlphaComponent(0.1); bar.progress = min(1, Float(value)/Float(goal)); bar.accessibilityLabel = title; bar.accessibilityValue = "\(value) of \(goal)"; progress.addArrangedSubview(bar)
         }
         progress.addArrangedSubview(Theme.label(r.ruleStatus, size: 14, color: Theme.teal))
         add(Theme.card(progress))
-        let stats = Theme.label("金币 \(r.coins)    ·    剩余 \(r.remaining) 次\(r.level >= 5 ? "    ·    贝壳 \(r.shells)" : "")", size: 17); stats.textAlignment = .center; add(stats)
-        let w = WheelView(run: r, skin: state.settings.skin); wheel = w; add(w); w.snp.makeConstraints { $0.height.equalTo(w.snp.width) }
-        let msg = Theme.label(r.pending != nil ? "已有转动结果已保存，点击查看" : latestMessage, size: 15, color: Theme.teal); msg.textAlignment = .center; msg.accessibilityIdentifier = "game.message"; add(msg)
-        if r.doubleNext { let wind = Theme.label("顺风已就绪 · 下次木材或金币 ×2", size: 14); wind.textAlignment = .center; add(wind) }
-        let spin = Theme.button(r.pending == nil ? "转动转盘" : "查看已保存的结果", symbol: "sparkles", primary: true) { [weak self] in self?.spin() }; spin.accessibilityIdentifier = "game.spin"; add(spin)
-        let craft = Theme.button((r.freeRefits ?? 0) > 0 ? "免费换一格 · 规划转盘" : "转盘工坊 · 调整资源布局", symbol: "hammer.fill") { [weak self] in self?.craft() }; craft.accessibilityIdentifier = "game.workshop"; craft.isEnabled = r.pending == nil; add(craft)
-        if (r.freeRefits ?? 0) > 0 { add(Theme.label("试着把金币格换成木材格：木材命中率从 37.5% 变为 50%。首次换格免费，后续每次 6 金币。", size: 14, color: Theme.teal)) }
-        let caption = Theme.label("8 格等概率 · 每格 12.5%\n工具 +\(r.boost)  ·  每 3 转升级一次  ·  仅本局生效", size: 12, color: Theme.ink.withAlphaComponent(0.6)); caption.textAlignment = .center; add(caption)
+        let stats = Theme.label("Coins \(r.coins)    ·    Spins left \(r.remaining)\(r.level >= 5 ? "    ·    Shells \(r.shells)" : "")", size: 17); stats.textAlignment = .center; add(stats)
+        let wheelContainer = UIView(); add(wheelContainer)
+        let w = WheelView(run: r, skin: state.settings.skin); wheel = w; wheelContainer.addSubview(w)
+        w.snp.makeConstraints {
+            $0.top.bottom.centerX.equalToSuperview()
+            $0.width.lessThanOrEqualToSuperview(); $0.width.equalToSuperview().priority(750)
+            $0.width.lessThanOrEqualTo(300); $0.height.equalTo(w.snp.width)
+        }
+        let msg = Theme.label(r.pending != nil ? "Your spin is saved. Tap to reveal it." : latestMessage, size: 15, color: Theme.teal); msg.textAlignment = .center; msg.accessibilityIdentifier = "game.message"; add(msg)
+        if r.doubleNext { let wind = Theme.label("Breeze ready · Next Wood or Coins ×2", size: 14); wind.textAlignment = .center; add(wind) }
+        let spin = Theme.button(r.pending == nil ? "Spin the wheel" : "Reveal saved spin", symbol: "sparkles", primary: true) { [weak self] in self?.spin() }; spin.accessibilityIdentifier = "game.spin"; add(spin)
+        let craft = Theme.button((r.freeRefits ?? 0) > 0 ? "Free swap · Shape your wheel" : "Wheel workshop", symbol: "hammer.fill") { [weak self] in self?.craft() }; craft.accessibilityIdentifier = "game.workshop"; craft.isEnabled = r.pending == nil; add(craft)
+        if (r.freeRefits ?? 0) > 0 { add(Theme.label("Swap a Coins tile for Wood to raise its chance from 37.5% to 50%. Your first swap is free, then 6 coins each.", size: 14, color: Theme.teal)) }
+        let caption = Theme.label("8 equal tiles · 12.5% each\nTools +\(r.boost) · Upgrade every 3 spins · This run only", size: 12, color: Theme.ink.withAlphaComponent(0.6)); caption.textAlignment = .center; add(caption)
     }
     private func spin() {
         guard !busy else { return }
@@ -172,8 +190,8 @@ final class ViewController: UIViewController {
         let finish: () -> Void = { [weak self] in
             guard let self else { return }; self.busy = false; self.stack.isUserInteractionEnabled = true
             if self.commit({ try GameEngine.acknowledge(&$0, id: record.id) }) {
-                self.latestMessage = record.message; self.render(); self.rewardFlight(record)
-                UIAccessibility.post(notification: .announcement, argument: record.message)
+                self.latestMessage = record.displayMessage; self.render(); self.rewardFlight(record)
+                UIAccessibility.post(notification: .announcement, argument: record.displayMessage)
                 if self.state.run?.phase == .won { Feedback.shared.play(self.state.settings, success: true) }
             } else { self.render() }
         }
@@ -192,7 +210,7 @@ final class ViewController: UIViewController {
         CATransaction.begin(); CATransaction.setCompletionBlock { [weak icon] in icon?.removeFromSuperview() }; icon.layer.add(travel, forKey: "reward"); CATransaction.commit()
     }
     private func upgrades(_ r: RunState) {
-        heading("成长、续航，还是即时补给？", "选择一项升级", "\(latestMessage)\n\(r.ruleStatus)\n升级仅在当前挑战内生效。")
+        heading("GROW, KEEP GOING, OR STOCK UP?", "Choose an upgrade", "\(latestMessage)\n\(r.ruleStatus)\nUpgrades last for this challenge only.")
         let selected = r.offers.contains(selectedUpgrade ?? .tools) ? (selectedUpgrade ?? .tools) : r.offers[0]
         selectedUpgrade = selected
         for upgrade in r.offers {
@@ -205,27 +223,27 @@ final class ViewController: UIViewController {
             config.titleAlignment = .leading; config.imagePadding = 16
             b.configuration = config; b.layer.cornerRadius = 22; b.layer.borderWidth = upgrade == selected ? 2 : 0
             b.layer.borderColor = Theme.teal.cgColor
-            b.accessibilityLabel = "\(upgrade.title)，\(upgrade.detail)"
+            b.accessibilityLabel = "\(upgrade.title), \(upgrade.detail)"
             b.accessibilityTraits = upgrade == selected ? [.button, .selected] : .button; add(b)
         }
-        add(Theme.button("确认升级", primary: true) { [weak self] in
+        add(Theme.button("Confirm upgrade", primary: true) { [weak self] in
             guard let self, let choice = self.selectedUpgrade else { return }
-            if self.commit({ try GameEngine.choose(choice, in: &$0) }) { self.selectedUpgrade = nil; self.latestMessage = "\(choice.title)已生效"; Feedback.shared.play(self.state.settings); self.render() }
+            if self.commit({ try GameEngine.choose(choice, in: &$0) }) { self.selectedUpgrade = nil; self.latestMessage = "\(choice.title) is now active"; Feedback.shared.play(self.state.settings); self.render() }
         })
-        add(Theme.label("剩余 \(r.remaining) 次 · 木材 \(r.wood) · 金币 \(r.coins)\n最后一次转动仍可选择增加机会的升级。", size: 14))
+        add(Theme.label("Spins left \(r.remaining) · Wood \(r.wood) · Coins \(r.coins)\nEven on your last spin, an upgrade can give you more chances.", size: 14))
     }
     private func result(_ r: RunState) {
         let won = r.phase == .won
-        heading(won ? "又一份幸运，成为小岛的风景" : "海风会带来下一次机会", won ? "\(Content.levels[r.level].name) · 完成" : "差一点就完成了", won ? (r.level < 12 ? "建设成果已自动加入小岛与收藏。" : (r.level < 14 ? "新转盘外观已加入收藏，可前往衣橱使用。" : "小岛庆典成就已解锁，谢谢你为小岛带来这么多风景。")) : "\(Content.levels[r.level].rule.detail) 下次试试不同的格子布局。")
+        heading(won ? "A LITTLE LUCK. A NEW LANDMARK." : "A FRESH BREEZE. ANOTHER CHANCE.", won ? "\(Content.levels[r.level].name) · Complete" : "So close!", won ? (r.level < 12 ? "Your new landmark is now on your island and in your collection." : (r.level < 14 ? "A new wheel style is in your collection. Visit Wheel styles to equip it." : "Island Festival unlocked. Thank you for bringing this little island to life.")) : "\(Content.levels[r.level].rule.detail) Try a different tile layout next time.")
         if r.level < 12 {
             let art = UIImageView(image: Art.building(r.level)); art.contentMode = .scaleAspectFit; add(art); art.snp.makeConstraints { $0.height.equalTo(220) }
         } else {
             let preview = WheelView(run: r, skin: r.level == 12 ? 1 : 2); add(preview); preview.snp.makeConstraints { $0.height.equalTo(preview.snp.width) }
         }
-        add(Theme.card(Theme.stack([Theme.label("木材 \(r.wood)   金币 \(r.coins)   贝壳 \(r.shells)",size:18), Theme.label("转动 \(r.spins) 次 · 改造 \(r.crafts) 次",size:15),Theme.label(won && r.remaining >= 3 ? "★ 额外挑战完成：留有余裕" : "额外挑战：获胜时保留至少 3 次机会",size:14)])))
-        if won && r.level < 14 { add(Theme.button("下一站", symbol: "arrow.right", primary: true) { [weak self] in self?.detail(r.level + 1) }) }
-        add(Theme.button("再挑战一次", symbol: "arrow.clockwise", primary: !won) { [weak self] in self?.detail(r.level) })
-        add(Theme.button("回到小岛", symbol: "house.fill") { [weak self] in self?.go(.island) })
+        add(Theme.card(Theme.stack([Theme.label("Wood \(r.wood)   Coins \(r.coins)   Shells \(r.shells)",size:18), Theme.label("\(r.spins) spins · \(r.crafts) upgrades and swaps",size:15),Theme.label(won && r.remaining >= 3 ? "★ Bonus challenge complete: Room to Spare" : "Bonus: win with at least 3 spins left",size:14)])))
+        if won && r.level < 14 { add(Theme.button("Next stop", symbol: "arrow.right", primary: true) { [weak self] in self?.detail(r.level + 1) }) }
+        add(Theme.button("Try again", symbol: "arrow.clockwise", primary: !won) { [weak self] in self?.detail(r.level) })
+        add(Theme.button("Back to island", symbol: "house.fill") { [weak self] in self?.go(.island) })
     }
     private func craft() {
         guard let r = state.run, r.pending == nil, r.phase == .ready else { return }
@@ -240,101 +258,103 @@ final class ViewController: UIViewController {
     }
     private func workshop() {
         guard let r = state.run else { go(.island); return }
-        add(Theme.button("返回对局", symbol: "chevron.left") { [weak self] in self?.go(.game) })
-        heading("每个格子，都是一次选择", "转盘工坊", "金币 \(r.coins) · \(r.ruleStatus)\n\(r.mechanicsVersion == 1 ? Content.levels[r.level].rule.detail : "当前对局沿用经典规则。")")
+        add(Theme.button("Back to game", symbol: "chevron.left") { [weak self] in self?.go(.game) })
+        heading("EVERY TILE IS A CHOICE.", "Wheel workshop", "Coins \(r.coins) · \(r.ruleStatus)\n\(r.mechanicsVersion == 1 ? Content.levels[r.level].rule.detail : "This run uses classic rules.")")
         if r.canReplace {
-            add(Theme.label("1 · 选择原格子", size: 20))
-            add(Theme.label("从转盘顶部起顺时针编号 1–8。替换宝箱或顺风，也会失去对应效果。", size: 13))
+            add(Theme.label("1 · Choose a tile", size: 20))
+            add(Theme.label("Tiles are numbered 1–8 clockwise from the original top position. Replacing a Chest or Breeze removes its effect.", size: 13))
             var slotRow = UIStackView()
+            let columns = traitCollection.preferredContentSizeCategory.isAccessibilityCategory ? 1 : 2
             for (index, tile) in r.wheel.enumerated() {
-                if index % 2 == 0 { slotRow = UIStackView(); slotRow.spacing = 8; slotRow.distribution = .fillEqually; add(slotRow) }
-                let b = Theme.button("\(index + 1)  \(tile.kind.title) · 基础 \(tile.value)", symbol: selectedSlot == index ? "checkmark.circle.fill" : "circle") { [weak self] in
+                if index % columns == 0 { slotRow = UIStackView(); slotRow.spacing = 8; slotRow.distribution = .fillEqually; add(slotRow) }
+                let b = Theme.button("\(index + 1)  \(tile.kind.title) · Base \(tile.value)", symbol: selectedSlot == index ? "checkmark.circle.fill" : "circle") { [weak self] in
                     self?.selectedSlot = index; self?.refreshWorkshop()
                 }
                 b.accessibilityIdentifier = "workshop.slot.\(index)"; slotRow.addArrangedSubview(b)
             }
-            add(Theme.label("2 · 选择新资源", size: 20))
+            add(Theme.label("2 · Choose a resource", size: 20))
             for kind in r.level >= 5 ? [Tile.wood, .coin, .shell] : [.wood, .coin] {
-                let b = Theme.button("\(kind.title) · 基础 +2", symbol: selectedKind == kind ? "checkmark.circle.fill" : "circle") { [weak self] in
+                let b = Theme.button("\(kind.title) · Base +2", symbol: selectedKind == kind ? "checkmark.circle.fill" : "circle") { [weak self] in
                     self?.selectedKind = kind; self?.refreshWorkshop()
                 }
                 b.accessibilityIdentifier = "workshop.kind.\(kind.rawValue)"; add(b)
             }
             var preview = r
             preview.wheel[selectedSlot] = Segment(kind: selectedKind, value: 2)
-            var lines = ["第 \(selectedSlot + 1) 格：\(r.wheel[selectedSlot].kind.title) → \(selectedKind.title)"]
+            var lines = ["Tile \(selectedSlot + 1): \(r.wheel[selectedSlot].kind.title) → \(selectedKind.title)"]
             for kind in r.level >= 5 ? [Tile.wood, .coin, .shell] : [.wood, .coin] {
-                lines.append("\(kind.title)命中率：\(r.probability(kind))% → \(preview.probability(kind))%")
+                lines.append("\(kind.title) chance: \(r.probability(kind))% → \(preview.probability(kind))%")
             }
-            lines.append("下一转若命中此格：+\(preview.yield(at: selectedSlot, spinNumber: r.spins + 1)) \(selectedKind.title)（含当前加成）")
-            if r.rule == .grove { lines.append("相邻木材也会获得连携加成；1 号与 8 号格相邻。") }
+            lines.append("If this tile lands next: +\(preview.yield(at: selectedSlot, spinNumber: r.spins + 1)) \(selectedKind.title) (bonuses included)")
+            if r.rule == .grove { lines.append("Neighboring Wood tiles also gain the grove bonus. Tiles 1 and 8 are neighbors.") }
             let level = Content.levels[r.level]
             for (kind, held, target) in [(Tile.wood, r.wood, level.wood), (.coin, r.coins, level.coins), (.shell, r.shells, level.shells)] where held < target && preview.probability(kind) == 0 {
-                lines.append("注意：\(kind.title)目标尚未完成，换格后转盘不再产出该资源。")
+                lines.append("Note: you still need \(kind.title), but this swap removes its last tile.")
             }
-            lines.append("花费 \(r.replacementCost) 金币 · 剩余 \(max(0, r.coins - r.replacementCost)) 金币\(level.coins > 0 ? " · 通关需保留 \(level.coins) 金币" : "")")
+            lines.append("Cost: \(r.replacementCost) coins · Balance: \(max(0, r.coins - r.replacementCost))\(level.coins > 0 ? " · Keep \(level.coins) coins to win" : "")")
             let previewLabel = Theme.label(lines.joined(separator: "\n"), size: 15)
             previewLabel.accessibilityIdentifier = "workshop.preview"; add(Theme.card(previewLabel))
             let same = r.wheel[selectedSlot] == preview.wheel[selectedSlot]
-            let apply = Theme.button(same ? "此格已是相同配置" : (r.replacementCost == 0 ? "确认免费换格" : "确认换格 · 6 金币"), symbol: "hammer.fill", primary: true) { [weak self] in
+            let apply = Theme.button(same ? "This tile already matches" : (r.replacementCost == 0 ? "Confirm free swap" : "Confirm swap · 6 coins"), symbol: "hammer.fill", primary: true) { [weak self] in
                 guard let self else { return }; self.buyCraft(index: self.selectedSlot, kind: self.selectedKind)
             }
             apply.accessibilityIdentifier = "workshop.apply"
             apply.isEnabled = !same && r.coins >= r.replacementCost; add(apply)
         }
-        add(Theme.label("另一种选择 · 保持布局，提高产出", size: 18))
-        let reinforce = Theme.button("4 金币 · 所有木材格 +1", symbol: "wrench.fill") { [weak self] in self?.buyCraft() }
+        add(Theme.label("Or keep your layout and boost its yield", size: 18))
+        let reinforce = Theme.button("4 coins · All Wood tiles +1", symbol: "wrench.fill") { [weak self] in self?.buyCraft() }
         reinforce.isEnabled = r.coins >= 4; add(reinforce)
-        add(Theme.label("强化可叠加，不改变命中率。全部改造仅本局有效。", size: 13))
+        add(Theme.label("Boosts stack without changing the odds. All changes last for this run only.", size: 13))
     }
     private func buyCraft(index: Int? = nil, kind: Tile = .wood) {
         guard let before = state.run else { return }
         if commit({ try GameEngine.craft(&$0, replacing: index, with: kind) }) {
-            latestMessage = index == nil ? "木材格产出 +1，布局保持不变" : "\(kind.title)命中率 \(before.probability(kind))% → \(state.run!.probability(kind))%"
+            latestMessage = index == nil ? "Wood tiles +1. Your layout stays the same." : "\(kind.title) chance \(before.probability(kind))% → \(state.run!.probability(kind))%"
             Feedback.shared.play(state.settings); go(.game)
         }
     }
     private func collection() {
-        heading("每一份幸运，都留下了痕迹", "小岛收藏", "建筑 \(state.completed.filter { $0 < 12 }.count)/12 · 成就 \(state.achievements.filter { $0 }.count)/10")
+        heading("EVERY LITTLE LUCK LEAVES A MARK.", "Collection", "Landmarks \(state.completed.filter { $0 < 12 }.count)/12 · Achievements \(state.achievements.filter { $0 }.count)/10")
         for i in 0..<12 {
             let unlocked = state.completed.contains(i)
             let row = UIStackView(); row.spacing = 14; row.alignment = .center
+            if traitCollection.preferredContentSizeCategory.isAccessibilityCategory { row.axis = .vertical; row.alignment = .leading }
             let image = UIImageView(image: Art.building(i)); image.contentMode = .scaleAspectFit; image.alpha = unlocked ? 1 : 0.28; row.addArrangedSubview(image); image.snp.makeConstraints { $0.width.height.equalTo(82) }
-            row.addArrangedSubview(Theme.stack([Theme.label(Content.buildings[i],size:19), Theme.label(unlocked ? "已建成 · 小岛上见" : "完成第 \(i+1) 关解锁", size:13,color:Theme.teal)])); add(Theme.card(row))
+            row.addArrangedSubview(Theme.stack([Theme.label(Content.buildings[i],size:19), Theme.label(unlocked ? "Built · Find it on your island" : "Complete level \(i+1) to unlock", size:13,color:Theme.teal)])); add(Theme.card(row))
         }
-        add(Theme.label("旅途成就",size:24))
+        add(Theme.label("Achievements",size:24))
         for (i, achieved) in state.achievements.enumerated() { add(Theme.card(Theme.stack([Theme.label("\(achieved ? "★" : "☆")  \(SaveEnvelope.achievementNames[i])",size:18),Theme.label(SaveEnvelope.achievementDetails[i],size:14)]))) }
-        add(Theme.label("转盘衣橱",size:24))
-        for (i, name) in ["海风","珊瑚","星夜"].enumerated() {
+        add(Theme.label("Wheel styles",size:24))
+        for (i, name) in ["Breeze","Coral","Starlight"].enumerated() {
             let unlocked = i == 0 || state.completed.contains(i == 1 ? 12 : 13)
-            let b = Theme.button("\(name)\(state.settings.skin == i ? " · 使用中" : "")\(unlocked ? "" : " · 第 \(i == 1 ? 13 : 14) 关解锁")",symbol:unlocked ? "circle.lefthalf.filled" : "lock.fill") { [weak self] in guard let self else { return }; if self.commit({ $0.settings.skin = i }) { self.render() } }; b.isEnabled = unlocked; add(b)
+            let b = Theme.button("\(name)\(state.settings.skin == i ? " · Equipped" : "")\(unlocked ? "" : " · Unlock at level \(i == 1 ? 13 : 14)")",symbol:unlocked ? "circle.lefthalf.filled" : "lock.fill") { [weak self] in guard let self else { return }; if self.commit({ $0.settings.skin = i }) { self.render() } }; b.isEnabled = unlocked; add(b)
         }
     }
     private func settings() {
-        heading("按自己的节奏，享受小岛时光", "设置")
-        for (name,key) in [("游戏音效",0),("触感反馈",1),("快速转动",2)] {
+        heading("ISLAND TIME, AT YOUR OWN PACE.", "Settings")
+        for (name,key) in [("Sound effects",0),("Haptics",1),("Quick spins",2)] {
             let row = UIStackView(); row.alignment = .center; row.spacing = 16
             row.addArrangedSubview(Theme.label(name)); let toggle = UISwitch(); toggle.onTintColor = Theme.teal; toggle.isOn = key == 0 ? state.settings.sound : (key == 1 ? state.settings.haptics : state.settings.fast); toggle.accessibilityLabel = name
             toggle.addAction(UIAction { [weak self, weak toggle] _ in guard let self, let toggle else { return }; let on = toggle.isOn; if !self.commit({ if key == 0 { $0.settings.sound = on } else if key == 1 { $0.settings.haptics = on } else { $0.settings.fast = on } }) { toggle.isOn = !on }; if key == 0 && !on { Feedback.shared.stop() } }, for: .valueChanged); row.addArrangedSubview(toggle); add(Theme.card(row))
         }
-        add(Theme.button("重新查看教学",symbol:"questionmark.circle") { [weak self] in self?.tutorial() })
-        add(Theme.button("玩法与概率",symbol:"info.circle") { [weak self] in self?.rules() })
-        add(Theme.button("隐私与本地存档",symbol:"lock.shield") { [weak self] in self?.info("你的岛，只在你的设备上", "本应用无需账号，不接入广告、分析或服务器，不收集或传输个人信息。游戏进度和设置仅保存在设备上，无云同步。删除应用可能导致进度丢失。\n\n每次操作自动保存，转动中离开也不会重新抽取。系统减弱动态效果开启时自动缩短转盘动画。") })
-        add(Theme.button("关于幸运小岛",symbol:"info.circle") { [weak self] in
+        add(Theme.button("How to play",symbol:"questionmark.circle") { [weak self] in self?.tutorial() })
+        add(Theme.button("Rules and odds",symbol:"info.circle") { [weak self] in self?.rules() })
+        add(Theme.button("Privacy and saves",symbol:"lock.shield") { [weak self] in self?.info("Your island stays on your device", "No account, ads, analytics, or servers. The app does not collect or transmit personal information. Progress and settings are saved only on your device, without cloud sync. Deleting the app may erase your progress.\n\nEvery action saves automatically. Leaving during a spin never draws a new result. Turning on Reduce Motion in system settings shortens wheel animations.") })
+        add(Theme.button("About Lucky Island",symbol:"info.circle") { [weak self] in
             let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "1.0"
-            self?.info("幸运小岛 · \(version)", "改造转盘，收集资源，让每一次选择成为小岛的风景。\n\n探索海风港湾、花语丘陵与星光海岸，建造属于你的小岛。无需联网，随时继续你的旅程。")
+            self?.info("Lucky Island · \(version)", "Shape your wheel, gather resources, and turn each choice into a new island landmark.\n\nExplore Breeze Harbor, Blossom Hills, and Starlight Coast. Build your own little island, offline and at your own pace.")
         })
-        add(Theme.button("清空所有进度",symbol:"trash") { [weak self] in self?.reset() })
-        add(Theme.label("本地自动保存 · 无广告 · 无内购",size:13,color:Theme.ink.withAlphaComponent(0.6)))
+        add(Theme.button("Reset all progress",symbol:"trash") { [weak self] in self?.reset() })
+        add(Theme.label("Saved on device · No ads · No purchases",size:13,color:Theme.ink.withAlphaComponent(0.6)))
     }
     private func reset() {
-        let a = UIAlertController(title:"清空这座小岛？",message:"当前对局、所有建筑与成就将被删除，无法撤销。",preferredStyle:.alert)
-        a.addAction(UIAlertAction(title:"清空进度",style:.destructive) { [weak self] _ in guard let self, !self.loadBlocked else { return }; do { try self.repository.reset(); self.state = SaveEnvelope(); self.go(.island) } catch { self.info("未能清空", error.localizedDescription) } }); a.addAction(UIAlertAction(title:"保留小岛",style:.cancel)); present(a,animated:true)
+        let a = UIAlertController(title:"Reset your island?",message:"Your current run, all landmarks, and all achievements will be deleted. This cannot be undone.",preferredStyle:.alert)
+        a.addAction(UIAlertAction(title:"Reset progress",style:.destructive) { [weak self] _ in guard let self, !self.loadBlocked else { return }; do { try self.repository.reset(); self.state = SaveEnvelope(); self.go(.island) } catch { self.info("Could not reset", error.localizedDescription) } }); a.addAction(UIAlertAction(title:"Keep my island",style:.cancel)); present(a,animated:true)
     }
     private func tutorial() {
-        let a = UIAlertController(title:"欢迎来到幸运小岛",message:"① 选择建设目标，先到工坊免费换一格。增加目标资源格，就能提高命中率。\n\n② 每 3 次转动或遇见宝箱，选择一次升级。工具可以叠加，顺风只保留一次。\n\n③ 林地关把木材格连起来；潮汐关留意每第 3 转的涨潮；集市关交替奖励木材与金币。在机会耗尽前达成目标。成功后建筑永久保留，失败可随时重试。\n\n所有格子等概率，没有体力等待。进度会自动保存。",preferredStyle:.alert)
-        a.addAction(UIAlertAction(title:"让好运靠岸",style:.default) { [weak self] _ in _ = self?.commit { $0.settings.tutorialSeen = true } }); present(a,animated:true)
+        let a = UIAlertController(title:"Welcome to Lucky Island",message:"1. Pick a goal, then try a free tile swap in the workshop. More tiles of a resource means a higher chance of landing on it.\n\n2. Choose an upgrade every 3 spins or from a chest. Tool boosts stack; Breeze does not.\n\n3. Connect Wood tiles in the grove, watch every third spin at high tide, and alternate resources at the market. Meet all goals before your spins run out. Landmarks stay forever; you can always retry.\n\nEvery tile has equal odds. No energy timers. Progress saves automatically.",preferredStyle:.alert)
+        a.addAction(UIAlertAction(title:"Let's begin",style:.default) { [weak self] _ in _ = self?.commit { $0.settings.tutorialSeen = true } }); present(a,animated:true)
     }
-    private func rules() { info("公开规则 · 每格 12.5%", "8 个等大格子均匀抽取，没有隐藏概率调整。\n\n木材、金币：基础值加工具加成，再乘顺风倍率。顺风仅对下次木材或金币生效，不叠加、不被其他格子消耗。\n\n宝箱：三选一升级；天气：获得顺风。贝壳：基础值加贝壳工艺。补给：机会 +1、木材 +1。\n\n每转动 3 次可升级，与宝箱同时触发只选一次。最后一转先结算目标，再处理升级，最后检查次数。\n\n新对局首次换格免费，之后 6 金币替换一格，新格基础产出 2；4 金币强化所有木材格。工坊预览命中率和下一转产出。\n\n林地：每个相邻木材格使命中木材 +1；潮汐：每第 3 转贝壳 +3，其余转木材 +1；集市：奇数转木材 +2、偶数转金币 +2。关卡加成在顺风翻倍之前计算，盘面数值为基础值加工具；关卡加成与顺风计入实际结算，工坊可预览。旧版进行中对局保持经典规则。局内改造不带入下一局。\n\n额外挑战：获胜时保留至少 3 次机会。") }
-    private func info(_ title: String, _ message: String) { guard presentedViewController == nil else { return }; let a = UIAlertController(title:title,message:message,preferredStyle:.alert); a.addAction(UIAlertAction(title:"知道了",style:.default)); present(a,animated:true) }
+    private func rules() { info("Fair odds · 12.5% per tile", "All 8 tiles have equal odds, with no hidden adjustments.\n\nWood and Coins: base yield + tools + island bonus, then Breeze doubles the result. Breeze affects only the next Wood or Coins reward. It does not stack, and other tiles do not use it up.\n\nChest: choose one of 3 upgrades. Breeze: prepare a double reward. Shells: base yield + shell tools. Supply: +1 spin and +1 Wood.\n\nUpgrade every 3 spins. A chest on the same spin gives only one choice. On your last spin, check goals first, then upgrades, then remaining spins.\n\nYour first swap is free; later swaps cost 6 coins and create a tile with base yield 2. Spend 4 coins to boost all Wood tiles by 1. The workshop previews odds and next-spin yields.\n\nGrove: +1 Wood per neighboring Wood tile. Tide: +3 Shells every third spin; otherwise +1 Wood. Market: +2 Wood on odd spins, +2 Coins on even spins. Wheel labels show base yield plus tools; the workshop includes all active bonuses. Older runs keep classic rules. Changes last for this run only.\n\nBonus challenge: win with at least 3 spins left.") }
+    private func info(_ title: String, _ message: String) { guard presentedViewController == nil else { return }; let a = UIAlertController(title:title,message:message,preferredStyle:.alert); a.addAction(UIAlertAction(title:"Got it",style:.default)); present(a,animated:true) }
 }

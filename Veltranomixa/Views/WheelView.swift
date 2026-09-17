@@ -27,14 +27,14 @@ final class WheelView: UIView {
             content.transform = CGAffineTransform(rotationAngle: CGFloat(i) * .pi / 4)
             let bonus = tile.kind == .wood ? run.boost : (tile.kind == .coin ? run.coinBoost : (tile.kind == .shell ? run.shellBoost : 0))
             let value = [.wood,.coin,.shell].contains(tile.kind) ? "+\(tile.value + bonus)" : (tile.kind == .wind ? "×2" : "+1")
-            let label = Theme.label("\(tile.kind.title)\n\(value)", size: 14, color: i % 2 == 0 ? .white : Theme.ink); label.textAlignment = .center; label.font = .systemFont(ofSize: 14, weight: .heavy); content.addSubview(label); labels.append(label)
+            let label = Theme.label("\(tile.kind.title)\n\(value)", size: 14, color: i % 2 == 0 ? .white : Theme.ink); label.textAlignment = .center; label.adjustsFontSizeToFitWidth = true; label.minimumScaleFactor = 0.8; label.numberOfLines = 2; label.font = .systemFont(ofSize: 14, weight: .heavy); content.addSubview(label); labels.append(label)
             let icon = UIImageView(image: Art.item(tile.kind)); icon.contentMode = .scaleAspectFit; content.addSubview(icon); icons.append(icon)
         }
         hub.clipsToBounds = true; hub.text = "✦"; hub.font = .systemFont(ofSize: 44); hub.textColor = Theme.orange; hub.textAlignment = .center; hub.backgroundColor = Theme.cream; hub.layer.borderWidth = 5; hub.layer.borderColor = UIColor(red: 0.91, green: 0.67, blue: 0.35, alpha: 1).cgColor
         addSubview(hub); hub.snp.makeConstraints { $0.center.equalToSuperview(); $0.width.height.equalToSuperview().multipliedBy(0.25) }
         pointer.tintColor = Theme.orange; pointer.contentMode = .scaleAspectFit; pointer.layer.shadowOpacity = 0.25; pointer.layer.shadowRadius = 3
         addSubview(pointer); pointer.snp.makeConstraints { $0.centerX.equalToSuperview(); $0.top.equalToSuperview(); $0.width.equalTo(34); $0.height.equalTo(40) }
-        isAccessibilityElement = true; accessibilityLabel = "八格转盘。" + tiles.enumerated().map { "第 \($0.offset + 1) 格，\($0.element.kind.title)，下一转产出 \(run.yield(at: $0.offset, spinNumber: run.spins + 1))" }.joined(separator: "，"); accessibilityHint = "每格概率 12.5%，使用下方按钮抽取；指针指向抽中的格子"
+        isAccessibilityElement = true; accessibilityLabel = "Eight-tile wheel. " + tiles.enumerated().map { "Tile \($0.offset + 1), \($0.element.kind.title), next-spin yield \(run.yield(at: $0.offset, spinNumber: run.spins + 1))" }.joined(separator: ", "); accessibilityHint = "Each tile has a 12.5% chance. Use the button below to spin. The pointer marks the winning tile."
     }
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
     override func layoutSubviews() {

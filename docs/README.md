@@ -1,23 +1,18 @@
-# 幸运小岛 · 开发资料
+# Lucky Island · Project documentation
 
-整理日期：2026-09-16。当前采用单人转盘游戏方案，娱乐类互动小岛留作备用。布局确定采用 UIKit + SnapKit，通过 CocoaPods 引入。
+Lucky Island is a single-player, offline wheel strategy game built in the existing Veltranomixa Xcode target. Open **Veltranomixa.xcworkspace** to develop and run it. The app uses Swift, UIKit, and CocoaPods-managed SnapKit 5.7.1.
 
-| 资料 | 文件 |
-|---|---|
-| 产品方案 | [01-product-plan.md](01-product-plan.md) |
-| 原型说明 | [02-prototype-guide.md](02-prototype-guide.md) |
-| 视觉原型 | [lucky-island-visual-v1.png](prototypes/lucky-island-visual-v1.png) |
-| 可交互原型 | [lucky-island-interactive-v1.html](prototypes/lucky-island-interactive-v1.html) |
-| 技术方案 | [03-technical-plan.md](03-technical-plan.md) |
+| Document | Purpose |
+| --- | --- |
+| [Product plan](01-product-plan.md) | Game concept, original lighthouse rules, content budget, and release prerequisites |
+| [Prototype guide](02-prototype-guide.md) | Visual reference and historical HTML interaction prototype |
+| [Technical plan](03-technical-plan.md) | Architecture, transactions, persistence, dependencies, and verification |
+| [Implementation and validation](04-implementation-and-validation.md) | Implemented features, build instructions, test evidence, and limitations |
+| [English edition](06-english-edition.md) | English copy, layout adaptation, legacy saves, and validation |
+| [Strategy polish](05-strategy-polish.md) | Free swaps, workshop previews, island rules, and radial wheel layout |
 
-先看产品方案，再体验原型，最后按技术方案进入实现。源片段保存在 prototypes/lucky-island-source-v1.html，独立 HTML 可直接在浏览器打开。
+Read the product plan first, then the prototype guide and technical plan. The native implementation supersedes the original HTML prototype. The interactive prototype is not embedded in the app.
 
-范围说明：本轮仅整理文件并导出原型；没有改动现有 Xcode 工程、安装 Pods 或执行 iOS 应用构建。SnapKit 计划固定 5.7.1（6.0 已移除 CocoaPods 支持）。中国大陆发行资质路径仍待解决，不与技术实现完成混为一谈。
+Current app copy, source comments, tests, and editable documentation are English. Original visual references and historical test captures remain archival evidence of earlier builds; they are not shipped in the app. New English validation captures are recorded separately.
 
-## 原生实现
-
-原生应用已接入当前工程，使用 `Veltranomixa.xcworkspace` 开发。实现范围、运行方法和实测限制见 [实现与验证](04-implementation-and-validation.md)。上方“本轮仅整理文件”描述的是最初资料整理阶段。
-
-## 策略体验更新
-
-新增免费换格、工坊收益预览、林地／潮汐／集市规则，详见 [策略体验打磨](05-strategy-polish.md)。此文档描述最新玩法，早期方案中的换格开放时间以本次更新为准。
+Mainland China is required in the planned launch, but its publishing prerequisites remain unresolved. A successful build is not a release approval. Bundle ID and signing settings remain unchanged.

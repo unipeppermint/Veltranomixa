@@ -15,6 +15,7 @@ enum Theme {
         var config = UIButton.Configuration.filled(); config.title = title
         config.baseBackgroundColor = primary ? orange : cream; config.baseForegroundColor = primary ? .white : ink
         config.preferredSymbolConfigurationForImage = UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold)
+        config.titleLineBreakMode = .byWordWrapping; config.subtitleLineBreakMode = .byWordWrapping
         config.cornerStyle = .large; config.contentInsets = .init(top: 16, leading: 18, bottom: 16, trailing: 18)
         if let symbol { config.image = UIImage(systemName: symbol); config.imagePadding = 9 }
         config.titleTextAttributesTransformer = UIConfigurationTextAttributesTransformer { var a = $0; a.font = font(17, .bold); return a }
@@ -68,7 +69,7 @@ final class IslandView: UIView {
         for index in 0..<12 where completed.contains(index) {
             let v = UIImageView(image: Art.building(index)); v.contentMode = .scaleAspectFit; v.tag = index; addSubview(v); buildings.append(v)
         }
-        isAccessibilityElement = true; accessibilityLabel = "我的小岛，已建成 \(completed.filter { $0 < 12 }.count) 处景观"
+        isAccessibilityElement = true; accessibilityLabel = "My island, \(completed.filter { $0 < 12 }.count) landmarks built"
     }
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
     override func layoutSubviews() {

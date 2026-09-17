@@ -1,0 +1,1274 @@
+Command line invocation:
+    /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -workspace Veltranomixa.xcworkspace -scheme Veltranomixa -configuration Debug -destination "platform=iOS Simulator,id=19B6FBB7-1244-42EC-8390-A86FBD49AF1E" -derivedDataPath /tmp/LuckyIslandEnglish -resultBundlePath /tmp/LuckyIslandEnglishSE.xcresult CODE_SIGNING_ALLOWED=NO test
+
+Build settings from command line:
+    CODE_SIGNING_ALLOWED = NO
+
+Writing result bundle at path:
+	/tmp/LuckyIslandEnglishSE.xcresult
+
+ComputePackagePrebuildTargetDependencyGraph
+
+Prepare packages
+
+CreateBuildRequest
+
+SendProjectDescription
+
+CreateBuildOperation
+
+ComputeTargetDependencyGraph
+note: Building targets in dependency order
+note: Target dependency graph (5 targets)
+    Target 'LuckyIslandUITests' in project 'Veltranomixa'
+        ➜ Explicit dependency on target 'Veltranomixa' in project 'Veltranomixa'
+    Target 'Veltranomixa' in project 'Veltranomixa'
+        ➜ Implicit dependency on target 'Pods-Veltranomixa' in project 'Pods' via file 'Pods_Veltranomixa.framework' in build phase 'Link Binary'
+        ➜ Implicit dependency on target 'SnapKit' in project 'Pods' via options '-framework SnapKit' in build setting 'OTHER_LDFLAGS'
+    Target 'Pods-Veltranomixa' in project 'Pods'
+        ➜ Explicit dependency on target 'SnapKit' in project 'Pods'
+    Target 'SnapKit' in project 'Pods'
+        ➜ Explicit dependency on target 'SnapKit-SnapKit_Privacy' in project 'Pods'
+    Target 'SnapKit-SnapKit_Privacy' in project 'Pods' (no dependencies)
+
+GatherProvisioningInputs
+
+CreateBuildDescription
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -v -E -dM -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.5.sdk -x c -c /dev/null
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -v -E -dM -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.5.sdk -x c -c /dev/null
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/usr/bin/actool --print-asset-tag-combinations --output-format xml1 /Users/mac/Desktop/Projects/Veltranomixa/Veltranomixa/Assets.xcassets
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/usr/bin/ibtool --version --output-format xml1
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc --version
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld -version_details
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -v -E -dM -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.5.sdk -x objective-c -c /dev/null
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/libtool -V
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/usr/bin/actool --version --output-format xml1
+
+Build description signature: e3f2e0822ace1ad30aa912b9a98a68b5
+Build description path: /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/XCBuildData/e3f2e0822ace1ad30aa912b9a98a68b5.xcbuilddata
+ClangStatCache /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.5.sdk /tmp/LuckyIslandEnglish/SDKStatCaches.noindex/iphonesimulator26.5-23F81a-6cfe768891a92b912361537c460fe42b.sdkstatcache
+    cd /Users/mac/Desktop/Projects/Veltranomixa
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.5.sdk -o /tmp/LuckyIslandEnglish/SDKStatCaches.noindex/iphonesimulator26.5-23F81a-6cfe768891a92b912361537c460fe42b.sdkstatcache
+
+ProcessInfoPlistFile /tmp/LuckyIslandEnglish/Build/Products/Debug-iphonesimulator/SnapKit/SnapKit_Privacy.bundle/Info.plist /Users/mac/Desktop/Projects/Veltranomixa/Pods/Target\ Support\ Files/SnapKit/ResourceBundle-SnapKit_Privacy-SnapKit-Info.plist (in target 'SnapKit-SnapKit_Privacy' from project 'Pods')
+    cd /Users/mac/Desktop/Projects/Veltranomixa/Pods
+    builtin-infoPlistUtility /Users/mac/Desktop/Projects/Veltranomixa/Pods/Target\ Support\ Files/SnapKit/ResourceBundle-SnapKit_Privacy-SnapKit-Info.plist -producttype com.apple.product-type.bundle -expandbuildsettings -format binary -platform iphonesimulator -o /tmp/LuckyIslandEnglish/Build/Products/Debug-iphonesimulator/SnapKit/SnapKit_Privacy.bundle/Info.plist
+
+ProcessInfoPlistFile /tmp/LuckyIslandEnglish/Build/Products/Debug-iphonesimulator/SnapKit/SnapKit.framework/Info.plist /Users/mac/Desktop/Projects/Veltranomixa/Pods/Target\ Support\ Files/SnapKit/SnapKit-Info.plist (in target 'SnapKit' from project 'Pods')
+    cd /Users/mac/Desktop/Projects/Veltranomixa/Pods
+    builtin-infoPlistUtility /Users/mac/Desktop/Projects/Veltranomixa/Pods/Target\ Support\ Files/SnapKit/SnapKit-Info.plist -producttype com.apple.product-type.framework -expandbuildsettings -format binary -platform iphonesimulator -o /tmp/LuckyIslandEnglish/Build/Products/Debug-iphonesimulator/SnapKit/SnapKit.framework/Info.plist
+
+ProcessInfoPlistFile /tmp/LuckyIslandEnglish/Build/Products/Debug-iphonesimulator/Pods_Veltranomixa.framework/Info.plist /Users/mac/Desktop/Projects/Veltranomixa/Pods/Target\ Support\ Files/Pods-Veltranomixa/Pods-Veltranomixa-Info.plist (in target 'Pods-Veltranomixa' from project 'Pods')
+    cd /Users/mac/Desktop/Projects/Veltranomixa/Pods
+    builtin-infoPlistUtility /Users/mac/Desktop/Projects/Veltranomixa/Pods/Target\ Support\ Files/Pods-Veltranomixa/Pods-Veltranomixa-Info.plist -producttype com.apple.product-type.framework -expandbuildsettings -format binary -platform iphonesimulator -o /tmp/LuckyIslandEnglish/Build/Products/Debug-iphonesimulator/Pods_Veltranomixa.framework/Info.plist
+
+PhaseScriptExecution [CP]\ Check\ Pods\ Manifest.lock /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/Script-8592E567CAE7681A032CC72C.sh (in target 'Veltranomixa' from project 'Veltranomixa')
+    cd /Users/mac/Desktop/Projects/Veltranomixa
+    /bin/sh -c /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/Script-8592E567CAE7681A032CC72C.sh
+
+SwiftDriver Veltranomixa normal arm64 com.apple.xcode.tools.swift.compiler (in target 'Veltranomixa' from project 'Veltranomixa')
+    cd /Users/mac/Desktop/Projects/Veltranomixa
+    builtin-SwiftDriver -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name Veltranomixa -Onone @/tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/Objects-normal/arm64/Veltranomixa.SwiftFileList -DDEBUG -D COCOAPODS -default-isolation\=MainActor -enable-bare-slash-regex -enable-upcoming-feature DisableOutwardActorInference -enable-upcoming-feature InferSendableFromCaptures -enable-upcoming-feature GlobalActorIsolatedTypesUsability -enable-upcoming-feature MemberImportVisibility -enable-upcoming-feature InferIsolatedConformances -enable-upcoming-feature NonisolatedNonsendingByDefault -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.5.sdk -target arm64-apple-ios16.0-simulator -g -module-cache-path /tmp/LuckyIslandEnglish/ModuleCache.noindex -Xfrontend -serialize-debugging-options -enable-testing -index-store-path /tmp/LuckyIslandEnglish/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /tmp/LuckyIslandEnglish/Build/Products/Debug-iphonesimulator -F /tmp/LuckyIslandEnglish/Build/Products/Debug-iphonesimulator -F /tmp/LuckyIslandEnglish/Build/Products/Debug-iphonesimulator/SnapKit -emit-localized-strings -emit-localized-strings-path /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/Objects-normal/arm64 -c -j10 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /tmp/LuckyIslandEnglish/SDKStatCaches.noindex/iphonesimulator26.5-23F81a-6cfe768891a92b912361537c460fe42b.sdkstatcache -output-file-map /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/Objects-normal/arm64/Veltranomixa-OutputFileMap.json -use-frontend-parseable-output -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /tmp/LuckyIslandEnglish/ModuleCache.noindex -sdk-module-cache-path /tmp/LuckyIslandEnglish/ModuleCache.noindex -serialize-diagnostics -emit-dependencies -emit-module -emit-module-path /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/Objects-normal/arm64/Veltranomixa.swiftmodule -validate-clang-modules-once -clang-build-session-file /tmp/LuckyIslandEnglish/ModuleCache.noindex/Session.modulevalidation -Xcc -I/tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/swift-overrides.hmap -emit-const-values -Xfrontend -const-gather-protocols-file -Xfrontend /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/Objects-normal/arm64/Veltranomixa_const_extract_protocols.json -Xcc -iquote -Xcc /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/Veltranomixa-generated-files.hmap -Xcc -I/tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/Veltranomixa-own-target-headers.hmap -Xcc -I/tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/Veltranomixa-all-non-framework-target-headers.hmap -Xcc -ivfsoverlay -Xcc /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa-2f7f37c4e042546f4a70b6a168734a01-VFS-iphonesimulator/all-product-headers.yaml -Xcc -iquote -Xcc /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/Veltranomixa-project-headers.hmap -Xcc -I/tmp/LuckyIslandEnglish/Build/Products/Debug-iphonesimulator/include -Xcc -I/tmp/LuckyIslandEnglish/Build/Products/Debug-iphonesimulator/SnapKit/SnapKit.framework/Headers -Xcc -I/tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/DerivedSources-normal/arm64 -Xcc -I/tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/DerivedSources/arm64 -Xcc -I/tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/DerivedSources -Xcc -DDEBUG\=1 -Xcc -DCOCOAPODS\=1 -emit-objc-header -emit-objc-header-path /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/Objects-normal/arm64/Veltranomixa-Swift.h -working-directory /Users/mac/Desktop/Projects/Veltranomixa -experimental-emit-module-separately -disable-cmo
+
+CompileAssetCatalogVariant thinned /tmp/LuckyIslandEnglish/Build/Products/Debug-iphonesimulator/Veltranomixa.app /Users/mac/Desktop/Projects/Veltranomixa/Veltranomixa/Assets.xcassets (in target 'Veltranomixa' from project 'Veltranomixa')
+    cd /Users/mac/Desktop/Projects/Veltranomixa
+    /Applications/Xcode.app/Contents/Developer/usr/bin/actool /Users/mac/Desktop/Projects/Veltranomixa/Veltranomixa/Assets.xcassets --compile /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/assetcatalog_output/thinned --output-format human-readable-text --notices --warnings --export-dependency-info /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/assetcatalog_dependencies_thinned --output-partial-info-plist /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/assetcatalog_generated_info.plist_thinned --app-icon AppIcon --accent-color AccentColor --compress-pngs --enable-on-demand-resources YES --filter-for-thinning-device-configuration iPhone14,6 --filter-for-device-os-version 26.5 --development-region en --target-device iphone --minimum-deployment-target 16.0 --platform iphonesimulator
+/* com.apple.actool.compilation-results */
+/tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/assetcatalog_generated_info.plist_thinned
+/tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/assetcatalog_output/thinned/AppIcon60x60@2x.png
+/tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/assetcatalog_output/thinned/AppIcon76x76@2x~ipad.png
+/tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/assetcatalog_output/thinned/Assets.car
+
+
+SwiftEmitModule normal arm64 Emitting\ module\ for\ Veltranomixa (in target 'Veltranomixa' from project 'Veltranomixa')
+
+EmitSwiftModule normal arm64 (in target 'Veltranomixa' from project 'Veltranomixa')
+    cd /Users/mac/Desktop/Projects/Veltranomixa
+    
+
+SwiftDriverJobDiscovery normal arm64 Emitting module for Veltranomixa (in target 'Veltranomixa' from project 'Veltranomixa')
+
+SwiftDriver\ Compilation\ Requirements Veltranomixa normal arm64 com.apple.xcode.tools.swift.compiler (in target 'Veltranomixa' from project 'Veltranomixa')
+    cd /Users/mac/Desktop/Projects/Veltranomixa
+    builtin-Swift-Compilation-Requirements -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name Veltranomixa -Onone @/tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/Objects-normal/arm64/Veltranomixa.SwiftFileList -DDEBUG -D COCOAPODS -default-isolation\=MainActor -enable-bare-slash-regex -enable-upcoming-feature DisableOutwardActorInference -enable-upcoming-feature InferSendableFromCaptures -enable-upcoming-feature GlobalActorIsolatedTypesUsability -enable-upcoming-feature MemberImportVisibility -enable-upcoming-feature InferIsolatedConformances -enable-upcoming-feature NonisolatedNonsendingByDefault -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.5.sdk -target arm64-apple-ios16.0-simulator -g -module-cache-path /tmp/LuckyIslandEnglish/ModuleCache.noindex -Xfrontend -serialize-debugging-options -enable-testing -index-store-path /tmp/LuckyIslandEnglish/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /tmp/LuckyIslandEnglish/Build/Products/Debug-iphonesimulator -F /tmp/LuckyIslandEnglish/Build/Products/Debug-iphonesimulator -F /tmp/LuckyIslandEnglish/Build/Products/Debug-iphonesimulator/SnapKit -emit-localized-strings -emit-localized-strings-path /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/Objects-normal/arm64 -c -j10 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /tmp/LuckyIslandEnglish/SDKStatCaches.noindex/iphonesimulator26.5-23F81a-6cfe768891a92b912361537c460fe42b.sdkstatcache -output-file-map /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/Objects-normal/arm64/Veltranomixa-OutputFileMap.json -use-frontend-parseable-output -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /tmp/LuckyIslandEnglish/ModuleCache.noindex -sdk-module-cache-path /tmp/LuckyIslandEnglish/ModuleCache.noindex -serialize-diagnostics -emit-dependencies -emit-module -emit-module-path /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/Objects-normal/arm64/Veltranomixa.swiftmodule -validate-clang-modules-once -clang-build-session-file /tmp/LuckyIslandEnglish/ModuleCache.noindex/Session.modulevalidation -Xcc -I/tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/swift-overrides.hmap -emit-const-values -Xfrontend -const-gather-protocols-file -Xfrontend /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/Objects-normal/arm64/Veltranomixa_const_extract_protocols.json -Xcc -iquote -Xcc /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/Veltranomixa-generated-files.hmap -Xcc -I/tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/Veltranomixa-own-target-headers.hmap -Xcc -I/tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/Veltranomixa-all-non-framework-target-headers.hmap -Xcc -ivfsoverlay -Xcc /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa-2f7f37c4e042546f4a70b6a168734a01-VFS-iphonesimulator/all-product-headers.yaml -Xcc -iquote -Xcc /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/Veltranomixa-project-headers.hmap -Xcc -I/tmp/LuckyIslandEnglish/Build/Products/Debug-iphonesimulator/include -Xcc -I/tmp/LuckyIslandEnglish/Build/Products/Debug-iphonesimulator/SnapKit/SnapKit.framework/Headers -Xcc -I/tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/DerivedSources-normal/arm64 -Xcc -I/tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/DerivedSources/arm64 -Xcc -I/tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/DerivedSources -Xcc -DDEBUG\=1 -Xcc -DCOCOAPODS\=1 -emit-objc-header -emit-objc-header-path /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/Objects-normal/arm64/Veltranomixa-Swift.h -working-directory /Users/mac/Desktop/Projects/Veltranomixa -experimental-emit-module-separately -disable-cmo
+
+Copy /tmp/LuckyIslandEnglish/Build/Products/Debug-iphonesimulator/Veltranomixa.swiftmodule/Project/arm64-apple-ios-simulator.swiftsourceinfo /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/Objects-normal/arm64/Veltranomixa.swiftsourceinfo (in target 'Veltranomixa' from project 'Veltranomixa')
+    cd /Users/mac/Desktop/Projects/Veltranomixa
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/Objects-normal/arm64/Veltranomixa.swiftsourceinfo /tmp/LuckyIslandEnglish/Build/Products/Debug-iphonesimulator/Veltranomixa.swiftmodule/Project/arm64-apple-ios-simulator.swiftsourceinfo
+
+Copy /tmp/LuckyIslandEnglish/Build/Products/Debug-iphonesimulator/Veltranomixa.swiftmodule/arm64-apple-ios-simulator.abi.json /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/Objects-normal/arm64/Veltranomixa.abi.json (in target 'Veltranomixa' from project 'Veltranomixa')
+    cd /Users/mac/Desktop/Projects/Veltranomixa
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/Objects-normal/arm64/Veltranomixa.abi.json /tmp/LuckyIslandEnglish/Build/Products/Debug-iphonesimulator/Veltranomixa.swiftmodule/arm64-apple-ios-simulator.abi.json
+
+SwiftCompile normal arm64 Compiling\ Theme.swift /Users/mac/Desktop/Projects/Veltranomixa/Veltranomixa/Views/Theme.swift (in target 'Veltranomixa' from project 'Veltranomixa')
+
+SwiftCompile normal arm64 /Users/mac/Desktop/Projects/Veltranomixa/Veltranomixa/Views/Theme.swift (in target 'Veltranomixa' from project 'Veltranomixa')
+    cd /Users/mac/Desktop/Projects/Veltranomixa
+    
+
+SwiftCompile normal arm64 Compiling\ WheelView.swift /Users/mac/Desktop/Projects/Veltranomixa/Veltranomixa/Views/WheelView.swift (in target 'Veltranomixa' from project 'Veltranomixa')
+SwiftCompile normal arm64 /Users/mac/Desktop/Projects/Veltranomixa/Veltranomixa/Views/WheelView.swift (in target 'Veltranomixa' from project 'Veltranomixa')
+    cd /Users/mac/Desktop/Projects/Veltranomixa
+    
+
+SwiftCompile normal arm64 Compiling\ GameEngine.swift /Users/mac/Desktop/Projects/Veltranomixa/Veltranomixa/Domain/GameEngine.swift (in target 'Veltranomixa' from project 'Veltranomixa')
+SwiftCompile normal arm64 /Users/mac/Desktop/Projects/Veltranomixa/Veltranomixa/Domain/GameEngine.swift (in target 'Veltranomixa' from project 'Veltranomixa')
+    cd /Users/mac/Desktop/Projects/Veltranomixa
+    
+
+SwiftCompile normal arm64 Compiling\ AppDelegate.swift /Users/mac/Desktop/Projects/Veltranomixa/Veltranomixa/AppDelegate.swift (in target 'Veltranomixa' from project 'Veltranomixa')
+
+SwiftCompile normal arm64 /Users/mac/Desktop/Projects/Veltranomixa/Veltranomixa/AppDelegate.swift (in target 'Veltranomixa' from project 'Veltranomixa')
+    cd /Users/mac/Desktop/Projects/Veltranomixa
+    
+
+SwiftCompile normal arm64 Compiling\ ViewController.swift /Users/mac/Desktop/Projects/Veltranomixa/Veltranomixa/ViewController.swift (in target 'Veltranomixa' from project 'Veltranomixa')
+SwiftCompile normal arm64 /Users/mac/Desktop/Projects/Veltranomixa/Veltranomixa/ViewController.swift (in target 'Veltranomixa' from project 'Veltranomixa')
+    cd /Users/mac/Desktop/Projects/Veltranomixa
+    
+
+SwiftCompile normal arm64 Compiling\ SceneDelegate.swift /Users/mac/Desktop/Projects/Veltranomixa/Veltranomixa/SceneDelegate.swift (in target 'Veltranomixa' from project 'Veltranomixa')
+
+SwiftCompile normal arm64 /Users/mac/Desktop/Projects/Veltranomixa/Veltranomixa/SceneDelegate.swift (in target 'Veltranomixa' from project 'Veltranomixa')
+    cd /Users/mac/Desktop/Projects/Veltranomixa
+    
+
+SwiftCompile normal arm64 Compiling\ WheelDecoration.swift /Users/mac/Desktop/Projects/Veltranomixa/Veltranomixa/Views/WheelDecoration.swift (in target 'Veltranomixa' from project 'Veltranomixa')
+
+SwiftCompile normal arm64 /Users/mac/Desktop/Projects/Veltranomixa/Veltranomixa/Views/WheelDecoration.swift (in target 'Veltranomixa' from project 'Veltranomixa')
+    cd /Users/mac/Desktop/Projects/Veltranomixa
+    
+
+SwiftCompile normal arm64 Compiling\ SaveRepository.swift /Users/mac/Desktop/Projects/Veltranomixa/Veltranomixa/Data/SaveRepository.swift (in target 'Veltranomixa' from project 'Veltranomixa')
+
+SwiftCompile normal arm64 /Users/mac/Desktop/Projects/Veltranomixa/Veltranomixa/Data/SaveRepository.swift (in target 'Veltranomixa' from project 'Veltranomixa')
+    cd /Users/mac/Desktop/Projects/Veltranomixa
+    
+
+LinkAssetCatalog /Users/mac/Desktop/Projects/Veltranomixa/Veltranomixa/Assets.xcassets (in target 'Veltranomixa' from project 'Veltranomixa')
+    cd /Users/mac/Desktop/Projects/Veltranomixa
+    builtin-linkAssetCatalog --thinned /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/assetcatalog_output/thinned --thinned-dependencies /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/assetcatalog_dependencies_thinned --thinned-info-plist-content /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/assetcatalog_generated_info.plist_thinned --unthinned /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/assetcatalog_output/unthinned --unthinned-dependencies /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/assetcatalog_dependencies_unthinned --unthinned-info-plist-content /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/assetcatalog_generated_info.plist_unthinned --output /tmp/LuckyIslandEnglish/Build/Products/Debug-iphonesimulator/Veltranomixa.app --plist-output /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/assetcatalog_generated_info.plist
+note: Emplaced /tmp/LuckyIslandEnglish/Build/Products/Debug-iphonesimulator/Veltranomixa.app/AppIcon60x60@2x.png (in target 'Veltranomixa' from project 'Veltranomixa')
+note: Emplaced /tmp/LuckyIslandEnglish/Build/Products/Debug-iphonesimulator/Veltranomixa.app/Assets.car (in target 'Veltranomixa' from project 'Veltranomixa')
+note: Emplaced /tmp/LuckyIslandEnglish/Build/Products/Debug-iphonesimulator/Veltranomixa.app/AppIcon76x76@2x~ipad.png (in target 'Veltranomixa' from project 'Veltranomixa')
+
+ProcessInfoPlistFile /tmp/LuckyIslandEnglish/Build/Products/Debug-iphonesimulator/Veltranomixa.app/Info.plist /Users/mac/Desktop/Projects/Veltranomixa/Veltranomixa/Info.plist (in target 'Veltranomixa' from project 'Veltranomixa')
+    cd /Users/mac/Desktop/Projects/Veltranomixa
+    builtin-infoPlistUtility /Users/mac/Desktop/Projects/Veltranomixa/Veltranomixa/Info.plist -producttype com.apple.product-type.application -genpkginfo /tmp/LuckyIslandEnglish/Build/Products/Debug-iphonesimulator/Veltranomixa.app/PkgInfo -expandbuildsettings -format binary -platform iphonesimulator -additionalcontentfile /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/Base.lproj/LaunchScreen-SBPartialInfo.plist -additionalcontentfile /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/Base.lproj/Main-SBPartialInfo.plist -additionalcontentfile /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/assetcatalog_generated_info.plist -o /tmp/LuckyIslandEnglish/Build/Products/Debug-iphonesimulator/Veltranomixa.app/Info.plist
+
+SwiftDriverJobDiscovery normal arm64 Compiling AppDelegate.swift (in target 'Veltranomixa' from project 'Veltranomixa')
+
+SwiftDriverJobDiscovery normal arm64 Compiling SceneDelegate.swift (in target 'Veltranomixa' from project 'Veltranomixa')
+
+SwiftDriverJobDiscovery normal arm64 Compiling WheelDecoration.swift (in target 'Veltranomixa' from project 'Veltranomixa')
+
+SwiftDriverJobDiscovery normal arm64 Compiling SaveRepository.swift (in target 'Veltranomixa' from project 'Veltranomixa')
+
+SwiftDriverJobDiscovery normal arm64 Compiling Theme.swift (in target 'Veltranomixa' from project 'Veltranomixa')
+
+SwiftDriverJobDiscovery normal arm64 Compiling WheelView.swift (in target 'Veltranomixa' from project 'Veltranomixa')
+
+SwiftDriverJobDiscovery normal arm64 Compiling GameEngine.swift (in target 'Veltranomixa' from project 'Veltranomixa')
+
+SwiftDriverJobDiscovery normal arm64 Compiling ViewController.swift (in target 'Veltranomixa' from project 'Veltranomixa')
+
+SwiftDriver\ Compilation Veltranomixa normal arm64 com.apple.xcode.tools.swift.compiler (in target 'Veltranomixa' from project 'Veltranomixa')
+    cd /Users/mac/Desktop/Projects/Veltranomixa
+    builtin-Swift-Compilation -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name Veltranomixa -Onone @/tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/Objects-normal/arm64/Veltranomixa.SwiftFileList -DDEBUG -D COCOAPODS -default-isolation\=MainActor -enable-bare-slash-regex -enable-upcoming-feature DisableOutwardActorInference -enable-upcoming-feature InferSendableFromCaptures -enable-upcoming-feature GlobalActorIsolatedTypesUsability -enable-upcoming-feature MemberImportVisibility -enable-upcoming-feature InferIsolatedConformances -enable-upcoming-feature NonisolatedNonsendingByDefault -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.5.sdk -target arm64-apple-ios16.0-simulator -g -module-cache-path /tmp/LuckyIslandEnglish/ModuleCache.noindex -Xfrontend -serialize-debugging-options -enable-testing -index-store-path /tmp/LuckyIslandEnglish/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /tmp/LuckyIslandEnglish/Build/Products/Debug-iphonesimulator -F /tmp/LuckyIslandEnglish/Build/Products/Debug-iphonesimulator -F /tmp/LuckyIslandEnglish/Build/Products/Debug-iphonesimulator/SnapKit -emit-localized-strings -emit-localized-strings-path /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/Objects-normal/arm64 -c -j10 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /tmp/LuckyIslandEnglish/SDKStatCaches.noindex/iphonesimulator26.5-23F81a-6cfe768891a92b912361537c460fe42b.sdkstatcache -output-file-map /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/Objects-normal/arm64/Veltranomixa-OutputFileMap.json -use-frontend-parseable-output -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /tmp/LuckyIslandEnglish/ModuleCache.noindex -sdk-module-cache-path /tmp/LuckyIslandEnglish/ModuleCache.noindex -serialize-diagnostics -emit-dependencies -emit-module -emit-module-path /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/Objects-normal/arm64/Veltranomixa.swiftmodule -validate-clang-modules-once -clang-build-session-file /tmp/LuckyIslandEnglish/ModuleCache.noindex/Session.modulevalidation -Xcc -I/tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/swift-overrides.hmap -emit-const-values -Xfrontend -const-gather-protocols-file -Xfrontend /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/Objects-normal/arm64/Veltranomixa_const_extract_protocols.json -Xcc -iquote -Xcc /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/Veltranomixa-generated-files.hmap -Xcc -I/tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/Veltranomixa-own-target-headers.hmap -Xcc -I/tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/Veltranomixa-all-non-framework-target-headers.hmap -Xcc -ivfsoverlay -Xcc /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa-2f7f37c4e042546f4a70b6a168734a01-VFS-iphonesimulator/all-product-headers.yaml -Xcc -iquote -Xcc /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/Veltranomixa-project-headers.hmap -Xcc -I/tmp/LuckyIslandEnglish/Build/Products/Debug-iphonesimulator/include -Xcc -I/tmp/LuckyIslandEnglish/Build/Products/Debug-iphonesimulator/SnapKit/SnapKit.framework/Headers -Xcc -I/tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/DerivedSources-normal/arm64 -Xcc -I/tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/DerivedSources/arm64 -Xcc -I/tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/DerivedSources -Xcc -DDEBUG\=1 -Xcc -DCOCOAPODS\=1 -emit-objc-header -emit-objc-header-path /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/Objects-normal/arm64/Veltranomixa-Swift.h -working-directory /Users/mac/Desktop/Projects/Veltranomixa -experimental-emit-module-separately -disable-cmo
+
+Ld /tmp/LuckyIslandEnglish/Build/Products/Debug-iphonesimulator/Veltranomixa.app/Veltranomixa.debug.dylib normal (in target 'Veltranomixa' from project 'Veltranomixa')
+    cd /Users/mac/Desktop/Projects/Veltranomixa
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -Xlinker -reproducible -target arm64-apple-ios16.0-simulator -dynamiclib -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.5.sdk -O0 -L/tmp/LuckyIslandEnglish/Build/Intermediates.noindex/EagerLinkingTBDs/Debug-iphonesimulator -L/tmp/LuckyIslandEnglish/Build/Products/Debug-iphonesimulator -L/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator -L/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.5.sdk/usr/lib/swift -L/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.5.sdk/usr/lib/swift -F/tmp/LuckyIslandEnglish/Build/Intermediates.noindex/EagerLinkingTBDs/Debug-iphonesimulator -F/tmp/LuckyIslandEnglish/Build/Products/Debug-iphonesimulator -F/tmp/LuckyIslandEnglish/Build/Products/Debug-iphonesimulator/SnapKit -filelist /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/Objects-normal/arm64/Veltranomixa.LinkFileList -install_name @rpath/Veltranomixa.debug.dylib -Xlinker -rpath -Xlinker /usr/lib/swift -Xlinker -rpath -Xlinker @executable_path/Frameworks -Xlinker -dead_strip -Xlinker -object_path_lto -Xlinker /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/Objects-normal/arm64/Veltranomixa_lto.o -rdynamic -Xlinker -no_deduplicate -Xlinker -objc_abi_version -Xlinker 2 -Xlinker -dependency_info -Xlinker /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/Objects-normal/arm64/Veltranomixa_dependency_info.dat -fobjc-link-runtime -L/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator -L/usr/lib/swift -Xlinker -add_ast_path -Xlinker /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/Objects-normal/arm64/Veltranomixa.swiftmodule @/tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/Objects-normal/arm64/Veltranomixa-linker-args.resp -ObjC -lswiftCoreGraphics -framework SnapKit -Xlinker -alias -Xlinker _main -Xlinker ___debug_main_executable_dylib_entry_point -framework Pods_Veltranomixa -o /tmp/LuckyIslandEnglish/Build/Products/Debug-iphonesimulator/Veltranomixa.app/Veltranomixa.debug.dylib
+
+ConstructStubExecutorLinkFileList /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/Veltranomixa-ExecutorLinkFileList-normal-arm64.txt (in target 'Veltranomixa' from project 'Veltranomixa')
+    cd /Users/mac/Desktop/Projects/Veltranomixa
+    construct-stub-executor-link-file-list /tmp/LuckyIslandEnglish/Build/Products/Debug-iphonesimulator/Veltranomixa.app/Veltranomixa.debug.dylib /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib/libPreviewsJITStubExecutor_no_swift_entry_point.a /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib/libPreviewsJITStubExecutor.a --output /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/Veltranomixa-ExecutorLinkFileList-normal-arm64.txt
+note: Using stub executor library with Swift entry point. (in target 'Veltranomixa' from project 'Veltranomixa')
+
+Ld /tmp/LuckyIslandEnglish/Build/Products/Debug-iphonesimulator/Veltranomixa.app/Veltranomixa normal (in target 'Veltranomixa' from project 'Veltranomixa')
+    cd /Users/mac/Desktop/Projects/Veltranomixa
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -Xlinker -reproducible -target arm64-apple-ios16.0-simulator -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.5.sdk -O0 -L/tmp/LuckyIslandEnglish/Build/Products/Debug-iphonesimulator -L/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator -L/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.5.sdk/usr/lib/swift -L/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.5.sdk/usr/lib/swift -F/tmp/LuckyIslandEnglish/Build/Products/Debug-iphonesimulator -F/tmp/LuckyIslandEnglish/Build/Products/Debug-iphonesimulator/SnapKit -Xlinker -rpath -Xlinker @executable_path -Xlinker -rpath -Xlinker @executable_path/Frameworks -rdynamic -Xlinker -no_deduplicate -Xlinker -objc_abi_version -Xlinker 2 -e ___debug_blank_executor_main -Xlinker -sectcreate -Xlinker __TEXT -Xlinker __debug_dylib -Xlinker /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/Veltranomixa-DebugDylibPath-normal-arm64.txt -Xlinker -sectcreate -Xlinker __TEXT -Xlinker __debug_instlnm -Xlinker /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/Veltranomixa-DebugDylibInstallName-normal-arm64.txt -Xlinker -filelist -Xlinker /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/Veltranomixa-ExecutorLinkFileList-normal-arm64.txt /tmp/LuckyIslandEnglish/Build/Products/Debug-iphonesimulator/Veltranomixa.app/Veltranomixa.debug.dylib -o /tmp/LuckyIslandEnglish/Build/Products/Debug-iphonesimulator/Veltranomixa.app/Veltranomixa
+
+PhaseScriptExecution [CP]\ Copy\ Pods\ Resources /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/Script-A7C2F93DDE8FD53D8A40AD22.sh (in target 'Veltranomixa' from project 'Veltranomixa')
+    cd /Users/mac/Desktop/Projects/Veltranomixa
+    /bin/sh -c /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/Script-A7C2F93DDE8FD53D8A40AD22.sh
+/tmp/LuckyIslandEnglish/Build/Products/Debug-iphonesimulator/SnapKit/SnapKit_Privacy.bundle
+Transfer starting: 3 files
+
+sent 211 bytes  received 20 bytes  2310000 bytes/sec
+total size is 1130  speedup is 4.89
+
+ExtractAppIntentsMetadata (in target 'Veltranomixa' from project 'Veltranomixa')
+    cd /Users/mac/Desktop/Projects/Veltranomixa
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/appintentsmetadataprocessor --toolchain-dir /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain --module-name Veltranomixa --sdk-root /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.5.sdk --xcode-version 17F113 --platform-family iOS --deployment-target 16.0 --bundle-identifier com.ccvl.Veltranomixa --output /tmp/LuckyIslandEnglish/Build/Products/Debug-iphonesimulator/Veltranomixa.app --target-triple arm64-apple-ios16.0-simulator --binary-file /tmp/LuckyIslandEnglish/Build/Products/Debug-iphonesimulator/Veltranomixa.app/Veltranomixa --dependency-file /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/Objects-normal/arm64/Veltranomixa_dependency_info.dat --stringsdata-file /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/Objects-normal/arm64/ExtractedAppShortcutsMetadata.stringsdata --source-file-list /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/Objects-normal/arm64/Veltranomixa.SwiftFileList --metadata-file-list /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/Veltranomixa.DependencyMetadataFileList --static-metadata-file-list /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/Veltranomixa.DependencyStaticMetadataFileList --swift-const-vals-list /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/Objects-normal/arm64/Veltranomixa.SwiftConstValuesFileList --compile-time-extraction --deployment-aware-processing --validate-assistant-intents --no-app-shortcuts-localization
+2026-09-17 17:14:12.351 appintentsmetadataprocessor[25530:435047] Starting appintentsmetadataprocessor export
+2026-09-17 17:14:12.355 appintentsmetadataprocessor[25530:435047] warning: Metadata extraction skipped. No AppIntents.framework dependency found.
+
+SwiftDriver LuckyIslandUITests normal arm64 com.apple.xcode.tools.swift.compiler (in target 'LuckyIslandUITests' from project 'Veltranomixa')
+    cd /Users/mac/Desktop/Projects/Veltranomixa
+    builtin-SwiftDriver -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name LuckyIslandUITests -Onone @/tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/LuckyIslandUITests.build/Objects-normal/arm64/LuckyIslandUITests.SwiftFileList -DDEBUG -module-alias Testing\=_Testing_Unavailable -plugin-path /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing -enable-bare-slash-regex -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.5.sdk -target arm64-apple-ios16.0-simulator -g -module-cache-path /tmp/LuckyIslandEnglish/ModuleCache.noindex -Xfrontend -serialize-debugging-options -enable-testing -index-store-path /tmp/LuckyIslandEnglish/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /tmp/LuckyIslandEnglish/Build/Products/Debug-iphonesimulator -Isystem /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib -F /tmp/LuckyIslandEnglish/Build/Products/Debug-iphonesimulator -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.5.sdk/Developer/Library/Frameworks -parse-as-library -c -j10 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /tmp/LuckyIslandEnglish/SDKStatCaches.noindex/iphonesimulator26.5-23F81a-6cfe768891a92b912361537c460fe42b.sdkstatcache -output-file-map /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/LuckyIslandUITests.build/Objects-normal/arm64/LuckyIslandUITests-OutputFileMap.json -use-frontend-parseable-output -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /tmp/LuckyIslandEnglish/ModuleCache.noindex -sdk-module-cache-path /tmp/LuckyIslandEnglish/ModuleCache.noindex -serialize-diagnostics -emit-dependencies -emit-module -emit-module-path /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/LuckyIslandUITests.build/Objects-normal/arm64/LuckyIslandUITests.swiftmodule -validate-clang-modules-once -clang-build-session-file /tmp/LuckyIslandEnglish/ModuleCache.noindex/Session.modulevalidation -Xcc -I/tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/LuckyIslandUITests.build/swift-overrides.hmap -emit-const-values -Xfrontend -const-gather-protocols-file -Xfrontend /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/LuckyIslandUITests.build/Objects-normal/arm64/LuckyIslandUITests_const_extract_protocols.json -Xcc -iquote -Xcc /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/LuckyIslandUITests.build/LuckyIslandUITests-generated-files.hmap -Xcc -I/tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/LuckyIslandUITests.build/LuckyIslandUITests-own-target-headers.hmap -Xcc -I/tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/LuckyIslandUITests.build/LuckyIslandUITests-all-non-framework-target-headers.hmap -Xcc -ivfsoverlay -Xcc /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa-2f7f37c4e042546f4a70b6a168734a01-VFS-iphonesimulator/all-product-headers.yaml -Xcc -iquote -Xcc /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/LuckyIslandUITests.build/LuckyIslandUITests-project-headers.hmap -Xcc -I/tmp/LuckyIslandEnglish/Build/Products/Debug-iphonesimulator/include -Xcc -I/tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/LuckyIslandUITests.build/DerivedSources-normal/arm64 -Xcc -I/tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/LuckyIslandUITests.build/DerivedSources/arm64 -Xcc -I/tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/LuckyIslandUITests.build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/LuckyIslandUITests.build/Objects-normal/arm64/LuckyIslandUITests-Swift.h -working-directory /Users/mac/Desktop/Projects/Veltranomixa -experimental-emit-module-separately -disable-cmo
+
+CopySwiftLibs /tmp/LuckyIslandEnglish/Build/Products/Debug-iphonesimulator/Veltranomixa.app (in target 'Veltranomixa' from project 'Veltranomixa')
+    cd /Users/mac/Desktop/Projects/Veltranomixa
+    builtin-swiftStdLibTool --copy --verbose --scan-executable /tmp/LuckyIslandEnglish/Build/Products/Debug-iphonesimulator/Veltranomixa.app/Veltranomixa.debug.dylib --scan-folder /tmp/LuckyIslandEnglish/Build/Products/Debug-iphonesimulator/Veltranomixa.app/Frameworks --scan-folder /tmp/LuckyIslandEnglish/Build/Products/Debug-iphonesimulator/Veltranomixa.app/PlugIns --scan-folder /tmp/LuckyIslandEnglish/Build/Products/Debug-iphonesimulator/Veltranomixa.app/SystemExtensions --scan-folder /tmp/LuckyIslandEnglish/Build/Products/Debug-iphonesimulator/Veltranomixa.app/Extensions --scan-folder /tmp/LuckyIslandEnglish/Build/Products/Debug-iphonesimulator/Pods_Veltranomixa.framework --platform iphonesimulator --toolchain /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain --destination /tmp/LuckyIslandEnglish/Build/Products/Debug-iphonesimulator/Veltranomixa.app/Frameworks --strip-bitcode --strip-bitcode-tool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/bitcode_strip --emit-dependency-info /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa.build/SwiftStdLibToolInputDependencies.dep --filter-for-swift-os
+Ignoring --strip-bitcode because --sign was not passed
+
+SwiftEmitModule normal arm64 Emitting\ module\ for\ LuckyIslandUITests (in target 'LuckyIslandUITests' from project 'Veltranomixa')
+
+SwiftCompile normal arm64 /Users/mac/Desktop/Projects/Veltranomixa/UITests/LuckyIslandUITests.swift (in target 'LuckyIslandUITests' from project 'Veltranomixa')
+    cd /Users/mac/Desktop/Projects/Veltranomixa
+    
+
+SwiftCompile normal arm64 Compiling\ LuckyIslandUITests.swift /Users/mac/Desktop/Projects/Veltranomixa/UITests/LuckyIslandUITests.swift (in target 'LuckyIslandUITests' from project 'Veltranomixa')
+SwiftCompile normal arm64 /Users/mac/Desktop/Projects/Veltranomixa/UITests/LuckyIslandUITests.swift (in target 'LuckyIslandUITests' from project 'Veltranomixa')
+    cd /Users/mac/Desktop/Projects/Veltranomixa
+    
+
+SwiftDriverJobDiscovery normal arm64 Compiling LuckyIslandUITests.swift (in target 'LuckyIslandUITests' from project 'Veltranomixa')
+
+SwiftDriver\ Compilation LuckyIslandUITests normal arm64 com.apple.xcode.tools.swift.compiler (in target 'LuckyIslandUITests' from project 'Veltranomixa')
+    cd /Users/mac/Desktop/Projects/Veltranomixa
+    builtin-Swift-Compilation -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name LuckyIslandUITests -Onone @/tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/LuckyIslandUITests.build/Objects-normal/arm64/LuckyIslandUITests.SwiftFileList -DDEBUG -module-alias Testing\=_Testing_Unavailable -plugin-path /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing -enable-bare-slash-regex -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.5.sdk -target arm64-apple-ios16.0-simulator -g -module-cache-path /tmp/LuckyIslandEnglish/ModuleCache.noindex -Xfrontend -serialize-debugging-options -enable-testing -index-store-path /tmp/LuckyIslandEnglish/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /tmp/LuckyIslandEnglish/Build/Products/Debug-iphonesimulator -Isystem /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib -F /tmp/LuckyIslandEnglish/Build/Products/Debug-iphonesimulator -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.5.sdk/Developer/Library/Frameworks -parse-as-library -c -j10 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /tmp/LuckyIslandEnglish/SDKStatCaches.noindex/iphonesimulator26.5-23F81a-6cfe768891a92b912361537c460fe42b.sdkstatcache -output-file-map /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/LuckyIslandUITests.build/Objects-normal/arm64/LuckyIslandUITests-OutputFileMap.json -use-frontend-parseable-output -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /tmp/LuckyIslandEnglish/ModuleCache.noindex -sdk-module-cache-path /tmp/LuckyIslandEnglish/ModuleCache.noindex -serialize-diagnostics -emit-dependencies -emit-module -emit-module-path /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/LuckyIslandUITests.build/Objects-normal/arm64/LuckyIslandUITests.swiftmodule -validate-clang-modules-once -clang-build-session-file /tmp/LuckyIslandEnglish/ModuleCache.noindex/Session.modulevalidation -Xcc -I/tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/LuckyIslandUITests.build/swift-overrides.hmap -emit-const-values -Xfrontend -const-gather-protocols-file -Xfrontend /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/LuckyIslandUITests.build/Objects-normal/arm64/LuckyIslandUITests_const_extract_protocols.json -Xcc -iquote -Xcc /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/LuckyIslandUITests.build/LuckyIslandUITests-generated-files.hmap -Xcc -I/tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/LuckyIslandUITests.build/LuckyIslandUITests-own-target-headers.hmap -Xcc -I/tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/LuckyIslandUITests.build/LuckyIslandUITests-all-non-framework-target-headers.hmap -Xcc -ivfsoverlay -Xcc /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa-2f7f37c4e042546f4a70b6a168734a01-VFS-iphonesimulator/all-product-headers.yaml -Xcc -iquote -Xcc /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/LuckyIslandUITests.build/LuckyIslandUITests-project-headers.hmap -Xcc -I/tmp/LuckyIslandEnglish/Build/Products/Debug-iphonesimulator/include -Xcc -I/tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/LuckyIslandUITests.build/DerivedSources-normal/arm64 -Xcc -I/tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/LuckyIslandUITests.build/DerivedSources/arm64 -Xcc -I/tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/LuckyIslandUITests.build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/LuckyIslandUITests.build/Objects-normal/arm64/LuckyIslandUITests-Swift.h -working-directory /Users/mac/Desktop/Projects/Veltranomixa -experimental-emit-module-separately -disable-cmo
+
+SwiftDriverJobDiscovery normal arm64 Emitting module for LuckyIslandUITests (in target 'LuckyIslandUITests' from project 'Veltranomixa')
+
+SwiftDriver\ Compilation\ Requirements LuckyIslandUITests normal arm64 com.apple.xcode.tools.swift.compiler (in target 'LuckyIslandUITests' from project 'Veltranomixa')
+    cd /Users/mac/Desktop/Projects/Veltranomixa
+    builtin-Swift-Compilation-Requirements -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name LuckyIslandUITests -Onone @/tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/LuckyIslandUITests.build/Objects-normal/arm64/LuckyIslandUITests.SwiftFileList -DDEBUG -module-alias Testing\=_Testing_Unavailable -plugin-path /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing -enable-bare-slash-regex -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.5.sdk -target arm64-apple-ios16.0-simulator -g -module-cache-path /tmp/LuckyIslandEnglish/ModuleCache.noindex -Xfrontend -serialize-debugging-options -enable-testing -index-store-path /tmp/LuckyIslandEnglish/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /tmp/LuckyIslandEnglish/Build/Products/Debug-iphonesimulator -Isystem /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib -F /tmp/LuckyIslandEnglish/Build/Products/Debug-iphonesimulator -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.5.sdk/Developer/Library/Frameworks -parse-as-library -c -j10 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /tmp/LuckyIslandEnglish/SDKStatCaches.noindex/iphonesimulator26.5-23F81a-6cfe768891a92b912361537c460fe42b.sdkstatcache -output-file-map /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/LuckyIslandUITests.build/Objects-normal/arm64/LuckyIslandUITests-OutputFileMap.json -use-frontend-parseable-output -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /tmp/LuckyIslandEnglish/ModuleCache.noindex -sdk-module-cache-path /tmp/LuckyIslandEnglish/ModuleCache.noindex -serialize-diagnostics -emit-dependencies -emit-module -emit-module-path /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/LuckyIslandUITests.build/Objects-normal/arm64/LuckyIslandUITests.swiftmodule -validate-clang-modules-once -clang-build-session-file /tmp/LuckyIslandEnglish/ModuleCache.noindex/Session.modulevalidation -Xcc -I/tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/LuckyIslandUITests.build/swift-overrides.hmap -emit-const-values -Xfrontend -const-gather-protocols-file -Xfrontend /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/LuckyIslandUITests.build/Objects-normal/arm64/LuckyIslandUITests_const_extract_protocols.json -Xcc -iquote -Xcc /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/LuckyIslandUITests.build/LuckyIslandUITests-generated-files.hmap -Xcc -I/tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/LuckyIslandUITests.build/LuckyIslandUITests-own-target-headers.hmap -Xcc -I/tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/LuckyIslandUITests.build/LuckyIslandUITests-all-non-framework-target-headers.hmap -Xcc -ivfsoverlay -Xcc /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/Veltranomixa-2f7f37c4e042546f4a70b6a168734a01-VFS-iphonesimulator/all-product-headers.yaml -Xcc -iquote -Xcc /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/LuckyIslandUITests.build/LuckyIslandUITests-project-headers.hmap -Xcc -I/tmp/LuckyIslandEnglish/Build/Products/Debug-iphonesimulator/include -Xcc -I/tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/LuckyIslandUITests.build/DerivedSources-normal/arm64 -Xcc -I/tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/LuckyIslandUITests.build/DerivedSources/arm64 -Xcc -I/tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/LuckyIslandUITests.build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/LuckyIslandUITests.build/Objects-normal/arm64/LuckyIslandUITests-Swift.h -working-directory /Users/mac/Desktop/Projects/Veltranomixa -experimental-emit-module-separately -disable-cmo
+
+Copy /tmp/LuckyIslandEnglish/Build/Products/Debug-iphonesimulator/LuckyIslandUITests.swiftmodule/Project/arm64-apple-ios-simulator.swiftsourceinfo /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/LuckyIslandUITests.build/Objects-normal/arm64/LuckyIslandUITests.swiftsourceinfo (in target 'LuckyIslandUITests' from project 'Veltranomixa')
+    cd /Users/mac/Desktop/Projects/Veltranomixa
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/LuckyIslandUITests.build/Objects-normal/arm64/LuckyIslandUITests.swiftsourceinfo /tmp/LuckyIslandEnglish/Build/Products/Debug-iphonesimulator/LuckyIslandUITests.swiftmodule/Project/arm64-apple-ios-simulator.swiftsourceinfo
+
+Copy /tmp/LuckyIslandEnglish/Build/Products/Debug-iphonesimulator/LuckyIslandUITests.swiftmodule/arm64-apple-ios-simulator.abi.json /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/LuckyIslandUITests.build/Objects-normal/arm64/LuckyIslandUITests.abi.json (in target 'LuckyIslandUITests' from project 'Veltranomixa')
+    cd /Users/mac/Desktop/Projects/Veltranomixa
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/LuckyIslandUITests.build/Objects-normal/arm64/LuckyIslandUITests.abi.json /tmp/LuckyIslandEnglish/Build/Products/Debug-iphonesimulator/LuckyIslandUITests.swiftmodule/arm64-apple-ios-simulator.abi.json
+
+ExtractAppIntentsMetadata (in target 'LuckyIslandUITests' from project 'Veltranomixa')
+    cd /Users/mac/Desktop/Projects/Veltranomixa
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/appintentsmetadataprocessor --toolchain-dir /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain --module-name LuckyIslandUITests --sdk-root /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.5.sdk --xcode-version 17F113 --platform-family iOS --deployment-target 16.0 --bundle-identifier com.ccvl.Veltranomixa.UITests --output /tmp/LuckyIslandEnglish/Build/Products/Debug-iphonesimulator/LuckyIslandUITests-Runner.app/PlugIns/LuckyIslandUITests.xctest --target-triple arm64-apple-ios16.0-simulator --binary-file /tmp/LuckyIslandEnglish/Build/Products/Debug-iphonesimulator/LuckyIslandUITests-Runner.app/PlugIns/LuckyIslandUITests.xctest/LuckyIslandUITests --dependency-file /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/LuckyIslandUITests.build/Objects-normal/arm64/LuckyIslandUITests_dependency_info.dat --stringsdata-file /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/LuckyIslandUITests.build/Objects-normal/arm64/ExtractedAppShortcutsMetadata.stringsdata --source-file-list /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/LuckyIslandUITests.build/Objects-normal/arm64/LuckyIslandUITests.SwiftFileList --metadata-file-list /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/LuckyIslandUITests.build/LuckyIslandUITests.DependencyMetadataFileList --static-metadata-file-list /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/LuckyIslandUITests.build/LuckyIslandUITests.DependencyStaticMetadataFileList --swift-const-vals-list /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/LuckyIslandUITests.build/Objects-normal/arm64/LuckyIslandUITests.SwiftConstValuesFileList --compile-time-extraction --deployment-aware-processing --validate-assistant-intents --no-app-shortcuts-localization
+2026-09-17 17:14:12.750 appintentsmetadataprocessor[25534:435076] Starting appintentsmetadataprocessor export
+2026-09-17 17:14:12.751 appintentsmetadataprocessor[25534:435076] warning: Metadata extraction skipped. No AppIntents.framework dependency found.
+
+ProcessInfoPlistFile /tmp/LuckyIslandEnglish/Build/Products/Debug-iphonesimulator/LuckyIslandUITests-Runner.app/PlugIns/LuckyIslandUITests.xctest/Info.plist /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/LuckyIslandUITests.build/empty-LuckyIslandUITests.plist (in target 'LuckyIslandUITests' from project 'Veltranomixa')
+    cd /Users/mac/Desktop/Projects/Veltranomixa
+    builtin-infoPlistUtility /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/LuckyIslandUITests.build/empty-LuckyIslandUITests.plist -producttype com.apple.product-type.bundle.ui-testing -expandbuildsettings -format binary -platform iphonesimulator -additionalcontentfile /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/LuckyIslandUITests.build/ProductTypeInfoPlistAdditions.plist -o /tmp/LuckyIslandEnglish/Build/Products/Debug-iphonesimulator/LuckyIslandUITests-Runner.app/PlugIns/LuckyIslandUITests.xctest/Info.plist
+
+CopySwiftLibs /tmp/LuckyIslandEnglish/Build/Products/Debug-iphonesimulator/LuckyIslandUITests-Runner.app/PlugIns/LuckyIslandUITests.xctest (in target 'LuckyIslandUITests' from project 'Veltranomixa')
+    cd /Users/mac/Desktop/Projects/Veltranomixa
+    builtin-swiftStdLibTool --copy --verbose --scan-executable /tmp/LuckyIslandEnglish/Build/Products/Debug-iphonesimulator/LuckyIslandUITests-Runner.app/PlugIns/LuckyIslandUITests.xctest/LuckyIslandUITests --scan-folder /tmp/LuckyIslandEnglish/Build/Products/Debug-iphonesimulator/LuckyIslandUITests-Runner.app/PlugIns/LuckyIslandUITests.xctest/Frameworks --scan-folder /tmp/LuckyIslandEnglish/Build/Products/Debug-iphonesimulator/LuckyIslandUITests-Runner.app/PlugIns/LuckyIslandUITests.xctest/PlugIns --scan-folder /tmp/LuckyIslandEnglish/Build/Products/Debug-iphonesimulator/LuckyIslandUITests-Runner.app/PlugIns/LuckyIslandUITests.xctest/SystemExtensions --scan-folder /tmp/LuckyIslandEnglish/Build/Products/Debug-iphonesimulator/LuckyIslandUITests-Runner.app/PlugIns/LuckyIslandUITests.xctest/Extensions --scan-folder /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.0.sdk/System/Library/Frameworks/Foundation.framework --platform iphonesimulator --toolchain /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain --destination /tmp/LuckyIslandEnglish/Build/Products/Debug-iphonesimulator/LuckyIslandUITests-Runner.app/PlugIns/LuckyIslandUITests.xctest/Frameworks --strip-bitcode --scan-executable /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib/libXCTestSwiftSupport.dylib --strip-bitcode-tool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/bitcode_strip --emit-dependency-info /tmp/LuckyIslandEnglish/Build/Intermediates.noindex/Veltranomixa.build/Debug-iphonesimulator/LuckyIslandUITests.build/SwiftStdLibToolInputDependencies.dep --filter-for-swift-os
+Ignoring --strip-bitcode because --sign was not passed
+
+2026-09-17 17:14:46.780797+0800 LuckyIslandUITests-Runner[25824:438654] [Default] Running tests...
+objc[25824]: Class UIAccessibilityLoaderWebShared is implemented in both /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/System/Library/AccessibilityBundles/WebCore.axbundle/WebCore (0x10ae34310) and /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/System/Library/AccessibilityBundles/WebKit.axbundle/WebKit (0x1096f8398). This may cause spurious casting failures and mysterious crashes. One of the duplicates must be removed or renamed.
+    t =      nans Interface orientation changed to Portrait
+Test Suite 'All tests' started at 2026-09-17 17:14:58.673.
+Test Suite 'LuckyIslandUITests.xctest' started at 2026-09-17 17:14:58.675.
+Test Suite 'LuckyIslandUITests' started at 2026-09-17 17:14:58.675.
+Test Case '-[LuckyIslandUITests.LuckyIslandUITests testCompleteRunAndRecovery]' started.
+    t =     0.00s Start Test at 2026-09-17 17:14:58.678
+    t =     0.45s Set Up
+    t =     0.47s Open com.ccvl.Veltranomixa
+    t =     0.47s     Launch com.ccvl.Veltranomixa
+2026-09-17 17:14:59.690 xcodebuild[25467:434668] [MT] IDELaunchParametersSnapshot: The operation couldn’t be completed. (DebuggerLLDB.DebuggerVersionStore.StoreError error 0.)
+2026-09-17 17:14:59.690 xcodebuild[25467:434668] [MT] IDELaunchParametersSnapshot: no debugger version
+    t =     2.70s         Setting up automation session
+    t =     4.28s         Wait for com.ccvl.Veltranomixa to idle
+    t =     5.87s Waiting 3.0s for "Let's begin" Button to exist
+    t =     6.92s     Checking `Expect predicate `existsNoRetry == 1` for object "Let's begin" Button`
+    t =     6.92s         Checking existence of `"Let's begin" Button`
+    t =     6.99s Tap "Let's begin" Button
+    t =     7.00s     Wait for com.ccvl.Veltranomixa to idle
+    t =     7.02s     Find the "Let's begin" Button
+    t =     7.30s     Check for interrupting elements affecting "Let's begin" Button
+    t =     7.44s     Synthesize event
+    t =     7.85s     Wait for com.ccvl.Veltranomixa to idle
+    t =     8.10s Find the "tab.Settings" Button
+    t =     8.18s Find the "tab.Settings" Button
+    t =     8.27s Find the "tab.Settings" Button
+    t =     8.34s Find the "tab.Settings" Button
+    t =     8.38s Find the "tab.Settings" Button
+    t =     8.45s Waiting 5.0s for "tab.Settings" Button to exist
+    t =     9.50s     Checking `Expect predicate `existsNoRetry == 1` for object "tab.Settings" Button`
+    t =     9.50s         Checking existence of `"tab.Settings" Button`
+    t =     9.51s Tap "tab.Settings" Button
+    t =     9.51s     Wait for com.ccvl.Veltranomixa to idle
+    t =     9.52s     Find the "tab.Settings" Button
+    t =     9.53s     Check for interrupting elements affecting "tab.Settings" Button
+    t =     9.54s     Synthesize event
+    t =     9.83s     Wait for com.ccvl.Veltranomixa to idle
+    t =     9.84s Find the "Reset all progress" Button
+    t =     9.87s Swipe up Target Application 'com.ccvl.Veltranomixa'
+    t =     9.87s     Wait for com.ccvl.Veltranomixa to idle
+    t =     9.87s     Find the Target Application 'com.ccvl.Veltranomixa'
+    t =     9.88s     Check for interrupting elements affecting "Lucky Island" Application
+    t =     9.90s     Synthesize event
+    t =    10.32s     Wait for com.ccvl.Veltranomixa to idle
+    t =    10.78s Find the "Reset all progress" Button
+    t =    10.82s Find the "Reset all progress" Button
+    t =    10.95s Find the "Reset all progress" Button
+    t =    11.02s Find the "Reset all progress" Button
+    t =    11.11s Waiting 5.0s for "Reset all progress" Button to exist
+    t =    12.16s     Checking `Expect predicate `existsNoRetry == 1` for object "Reset all progress" Button`
+    t =    12.16s         Checking existence of `"Reset all progress" Button`
+    t =    12.20s Tap "Reset all progress" Button
+    t =    12.20s     Wait for com.ccvl.Veltranomixa to idle
+    t =    12.21s     Find the "Reset all progress" Button
+    t =    12.23s     Check for interrupting elements affecting "Reset all progress" Button
+    t =    12.28s     Synthesize event
+    t =    12.59s     Wait for com.ccvl.Veltranomixa to idle
+    t =    12.89s Tap "Reset progress" Button
+    t =    12.89s     Wait for com.ccvl.Veltranomixa to idle
+    t =    12.89s     Find the "Reset progress" Button
+    t =    12.92s     Check for interrupting elements affecting "Reset progress" Button
+    t =    12.95s     Synthesize event
+    t =    13.24s     Wait for com.ccvl.Veltranomixa to idle
+    t =    13.57s Added attachment named '01-island'
+    t =    13.57s Find the "Start challenge" Button
+    t =    13.70s Swipe up Target Application 'com.ccvl.Veltranomixa'
+    t =    13.70s     Wait for com.ccvl.Veltranomixa to idle
+    t =    13.70s     Find the Target Application 'com.ccvl.Veltranomixa'
+    t =    13.71s     Check for interrupting elements affecting "Lucky Island" Application
+    t =    13.72s     Synthesize event
+    t =    14.14s     Wait for com.ccvl.Veltranomixa to idle
+    t =    14.63s Find the "Start challenge" Button
+    t =    14.65s Find the "Start challenge" Button
+    t =    14.67s Find the "Start challenge" Button
+    t =    14.69s Find the "Start challenge" Button
+    t =    14.71s Waiting 5.0s for "Start challenge" Button to exist
+    t =    15.75s     Checking `Expect predicate `existsNoRetry == 1` for object "Start challenge" Button`
+    t =    15.75s         Checking existence of `"Start challenge" Button`
+    t =    15.76s Tap "Start challenge" Button
+    t =    15.76s     Wait for com.ccvl.Veltranomixa to idle
+    t =    15.77s     Find the "Start challenge" Button
+    t =    15.78s     Check for interrupting elements affecting "Start challenge" Button
+    t =    15.79s     Synthesize event
+    t =    16.08s     Wait for com.ccvl.Veltranomixa to idle
+    t =    16.34s Tap "Start challenge" Button
+    t =    16.34s     Wait for com.ccvl.Veltranomixa to idle
+    t =    16.35s     Find the "Start challenge" Button
+    t =    16.36s     Check for interrupting elements affecting "Start challenge" Button
+    t =    16.39s     Synthesize event
+    t =    16.67s     Wait for com.ccvl.Veltranomixa to idle
+    t =    17.06s Added attachment named '02-game'
+    t =    17.06s Find the "game.workshop" Button
+    t =    17.08s Swipe up Target Application 'com.ccvl.Veltranomixa'
+    t =    17.08s     Wait for com.ccvl.Veltranomixa to idle
+    t =    17.08s     Find the Target Application 'com.ccvl.Veltranomixa'
+    t =    17.09s     Check for interrupting elements affecting "Lucky Island" Application
+    t =    17.10s     Synthesize event
+    t =    17.52s     Wait for com.ccvl.Veltranomixa to idle
+    t =    17.98s Find the "game.workshop" Button
+    t =    18.00s Find the "game.workshop" Button
+    t =    18.02s Find the "game.workshop" Button
+    t =    18.04s Find the "game.workshop" Button
+    t =    18.07s Waiting 5.0s for "game.workshop" Button to exist
+    t =    19.11s     Checking `Expect predicate `existsNoRetry == 1` for object "game.workshop" Button`
+    t =    19.11s         Checking existence of `"game.workshop" Button`
+    t =    19.12s Tap "game.workshop" Button
+    t =    19.12s     Wait for com.ccvl.Veltranomixa to idle
+    t =    19.12s     Find the "game.workshop" Button
+    t =    19.14s     Check for interrupting elements affecting "game.workshop" Button
+    t =    19.15s     Synthesize event
+    t =    19.45s     Wait for com.ccvl.Veltranomixa to idle
+    t =    19.45s Find the "workshop.preview" StaticText
+    t =    19.47s Find the "workshop.slot.3" Button
+    t =    19.49s Find the "workshop.slot.3" Button
+    t =    19.51s Find the "workshop.slot.3" Button
+    t =    19.53s Find the "workshop.slot.3" Button
+    t =    19.56s Find the "workshop.slot.3" Button
+    t =    19.58s Waiting 5.0s for "workshop.slot.3" Button to exist
+    t =    20.62s     Checking `Expect predicate `existsNoRetry == 1` for object "workshop.slot.3" Button`
+    t =    20.62s         Checking existence of `"workshop.slot.3" Button`
+    t =    20.63s Tap "workshop.slot.3" Button
+    t =    20.63s     Wait for com.ccvl.Veltranomixa to idle
+    t =    20.63s     Find the "workshop.slot.3" Button
+    t =    20.65s     Check for interrupting elements affecting "workshop.slot.3" Button
+    t =    20.66s     Synthesize event
+    t =    20.95s     Wait for com.ccvl.Veltranomixa to idle
+    t =    20.95s Find the "workshop.preview" StaticText
+    t =    20.97s Find the "workshop.slot.1" Button
+    t =    20.99s Find the "workshop.slot.1" Button
+    t =    21.00s Find the "workshop.slot.1" Button
+    t =    21.02s Find the "workshop.slot.1" Button
+    t =    21.04s Find the "workshop.slot.1" Button
+    t =    21.06s Waiting 5.0s for "workshop.slot.1" Button to exist
+    t =    22.10s     Checking `Expect predicate `existsNoRetry == 1` for object "workshop.slot.1" Button`
+    t =    22.11s         Checking existence of `"workshop.slot.1" Button`
+    t =    22.14s Tap "workshop.slot.1" Button
+    t =    22.14s     Wait for com.ccvl.Veltranomixa to idle
+    t =    22.14s     Find the "workshop.slot.1" Button
+    t =    22.16s     Check for interrupting elements affecting "workshop.slot.1" Button
+    t =    22.18s     Synthesize event
+    t =    22.47s     Wait for com.ccvl.Veltranomixa to idle
+    t =    22.48s Find the "workshop.apply" Button
+    t =    22.51s Swipe up Target Application 'com.ccvl.Veltranomixa'
+    t =    22.51s     Wait for com.ccvl.Veltranomixa to idle
+    t =    22.51s     Find the Target Application 'com.ccvl.Veltranomixa'
+    t =    22.52s     Check for interrupting elements affecting "Lucky Island" Application
+    t =    22.54s     Synthesize event
+    t =    22.96s     Wait for com.ccvl.Veltranomixa to idle
+    t =    24.47s Find the "workshop.apply" Button
+    t =    24.50s Find the "workshop.apply" Button
+    t =    24.53s Find the "workshop.apply" Button
+    t =    24.56s Find the "workshop.apply" Button
+    t =    24.60s Waiting 5.0s for "workshop.apply" Button to exist
+    t =    25.63s     Checking `Expect predicate `existsNoRetry == 1` for object "workshop.apply" Button`
+    t =    25.63s         Checking existence of `"workshop.apply" Button`
+    t =    25.65s Tap "workshop.apply" Button
+    t =    25.65s     Wait for com.ccvl.Veltranomixa to idle
+    t =    25.65s     Find the "workshop.apply" Button
+    t =    25.66s     Check for interrupting elements affecting "workshop.apply" Button
+    t =    25.69s     Synthesize event
+    t =    25.98s     Wait for com.ccvl.Veltranomixa to idle
+    t =    26.06s Find the "game.message" StaticText
+    t =    26.14s Added attachment named '10-refitted-wheel'
+    t =    26.14s Find the "game.workshop" Button
+    t =    26.16s Swipe up Target Application 'com.ccvl.Veltranomixa'
+    t =    26.16s     Wait for com.ccvl.Veltranomixa to idle
+    t =    26.16s     Find the Target Application 'com.ccvl.Veltranomixa'
+    t =    26.17s     Check for interrupting elements affecting "Lucky Island" Application
+    t =    26.18s     Synthesize event
+    t =    26.60s     Wait for com.ccvl.Veltranomixa to idle
+    t =    27.06s Find the "game.workshop" Button
+    t =    27.09s Find the "game.workshop" Button
+    t =    27.11s Find the "game.workshop" Button
+    t =    27.13s Find the "game.workshop" Button
+    t =    27.15s Waiting 5.0s for "game.workshop" Button to exist
+    t =    28.19s     Checking `Expect predicate `existsNoRetry == 1` for object "game.workshop" Button`
+    t =    28.20s         Checking existence of `"game.workshop" Button`
+    t =    28.21s Tap "game.workshop" Button
+    t =    28.21s     Wait for com.ccvl.Veltranomixa to idle
+    t =    28.21s     Find the "game.workshop" Button
+    t =    28.22s     Check for interrupting elements affecting "game.workshop" Button
+    t =    28.24s     Synthesize event
+    t =    28.54s     Wait for com.ccvl.Veltranomixa to idle
+    t =    28.54s Find the "workshop.apply" Button
+    t =    28.56s Find the "workshop.apply" Button
+    t =    28.58s Find the "Back to game" Button
+    t =    28.62s Find the "Back to game" Button
+    t =    28.65s Find the "Back to game" Button
+    t =    28.68s Find the "Back to game" Button
+    t =    28.71s Find the "Back to game" Button
+    t =    28.73s Waiting 5.0s for "Back to game" Button to exist
+    t =    29.77s     Checking `Expect predicate `existsNoRetry == 1` for object "Back to game" Button`
+    t =    29.77s         Checking existence of `"Back to game" Button`
+    t =    29.78s Tap "Back to game" Button
+    t =    29.78s     Wait for com.ccvl.Veltranomixa to idle
+    t =    29.78s     Find the "Back to game" Button
+    t =    29.80s     Check for interrupting elements affecting "Back to game" Button
+    t =    29.81s     Synthesize event
+    t =    30.10s     Wait for com.ccvl.Veltranomixa to idle
+    t =    30.10s Find the "game.spin" Button
+    t =    30.12s Find the "game.spin" Button
+    t =    30.14s Find the "game.spin" Button
+    t =    30.15s Find the "game.spin" Button
+    t =    30.16s Find the "game.spin" Button
+    t =    30.18s Waiting 5.0s for "game.spin" Button to exist
+    t =    31.21s     Checking `Expect predicate `existsNoRetry == 1` for object "game.spin" Button`
+    t =    31.21s         Checking existence of `"game.spin" Button`
+    t =    31.22s Tap "game.spin" Button
+    t =    31.22s     Wait for com.ccvl.Veltranomixa to idle
+    t =    31.22s     Find the "game.spin" Button
+    t =    31.23s     Check for interrupting elements affecting "game.spin" Button
+    t =    31.24s     Synthesize event
+    t =    31.53s     Wait for com.ccvl.Veltranomixa to idle
+    t =    31.60s Terminate com.ccvl.Veltranomixa:25922
+    t =    32.68s Open com.ccvl.Veltranomixa
+    t =    32.68s     Launch com.ccvl.Veltranomixa
+2026-09-17 17:15:31.375 xcodebuild[25467:434668] [MT] IDELaunchParametersSnapshot: The operation couldn’t be completed. (DebuggerLLDB.DebuggerVersionStore.StoreError error 0.)
+2026-09-17 17:15:31.375 xcodebuild[25467:434668] [MT] IDELaunchParametersSnapshot: no debugger version
+    t =    32.92s         Setting up automation session
+    t =    33.65s         Wait for com.ccvl.Veltranomixa to idle
+    t =    35.01s Waiting 2.0s for "Let's begin" Button to exist
+    t =    36.04s     Checking `Expect predicate `existsNoRetry == 1` for object "Let's begin" Button`
+    t =    36.05s         Checking existence of `"Let's begin" Button`
+    t =    36.10s Tap "Let's begin" Button
+    t =    36.10s     Wait for com.ccvl.Veltranomixa to idle
+    t =    36.10s     Find the "Let's begin" Button
+    t =    36.12s     Check for interrupting elements affecting "Let's begin" Button
+    t =    36.14s     Synthesize event
+    t =    36.42s     Wait for com.ccvl.Veltranomixa to idle
+    t =    36.68s Waiting 5.0s for Button (First Match) to exist
+    t =    37.70s     Checking `Expect predicate `existsNoRetry == 1` for object Button (First Match)`
+    t =    37.70s         Checking existence of `Button (First Match)`
+    t =    37.72s Tap Button (First Match)
+    t =    37.72s     Wait for com.ccvl.Veltranomixa to idle
+    t =    37.72s     Find the Button (First Match)
+    t =    37.74s     Check for interrupting elements affecting "Continue · Light the Lighthouse" Button
+    t =    37.76s     Synthesize event
+    t =    37.76s         Scroll element to visible
+    t =    37.77s         Find the "Continue · Light the Lighthouse" Button
+    t =    37.79s         Computed hit point {187.5, 448.5} after scrolling to visible
+    t =    38.07s     Wait for com.ccvl.Veltranomixa to idle
+    t =    38.10s Added attachment named '03-recovered'
+    t =    38.11s Checking existence of `"Confirm upgrade" Button`
+    t =    38.11s Checking existence of `"Try again" Button`
+    t =    38.12s Find the "game.spin" Button
+    t =    38.14s Find the "game.spin" Button
+    t =    38.15s Find the "game.spin" Button
+    t =    38.16s Find the "game.spin" Button
+    t =    38.18s Find the "game.spin" Button
+    t =    38.19s Waiting 5.0s for "game.spin" Button to exist
+    t =    39.22s     Checking `Expect predicate `existsNoRetry == 1` for object "game.spin" Button`
+    t =    39.22s         Checking existence of `"game.spin" Button`
+    t =    39.25s Tap "game.spin" Button
+    t =    39.25s     Wait for com.ccvl.Veltranomixa to idle
+    t =    39.25s     Find the "game.spin" Button
+    t =    39.27s     Check for interrupting elements affecting "game.spin" Button
+    t =    39.28s     Synthesize event
+    t =    39.57s     Wait for com.ccvl.Veltranomixa to idle
+    t =    39.76s Waiting 4.0s for "Confirm upgrade" Button to exist
+    t =    40.79s     Checking `Expect predicate `existsNoRetry == 1` for object "Confirm upgrade" Button`
+    t =    40.79s         Checking existence of `"Confirm upgrade" Button`
+    t =    40.81s         Capturing element debug description
+    t =    41.84s     Checking `Expect predicate `existsNoRetry == 1` for object "Confirm upgrade" Button`
+    t =    41.84s         Checking existence of `"Confirm upgrade" Button`
+    t =    41.86s         Capturing element debug description
+    t =    42.78s     Checking `Expect predicate `existsNoRetry == 1` for object "Confirm upgrade" Button`
+    t =    42.79s         Checking existence of `"Confirm upgrade" Button`
+    t =    42.81s         Capturing element debug description
+    t =    43.77s     Checking `Expect predicate `existsNoRetry == 1` for object "Confirm upgrade" Button`
+    t =    43.77s         Checking existence of `"Confirm upgrade" Button`
+    t =    43.79s         Capturing element debug description
+    t =    43.80s     Checking existence of `"Confirm upgrade" Button`
+    t =    43.81s Collecting debug information to assist test failure triage
+    t =    43.81s     Requesting snapshot of accessibility hierarchy for app with pid 26022
+    t =    43.84s Checking existence of `"Confirm upgrade" Button`
+    t =    43.85s Checking existence of `"Try again" Button`
+    t =    43.86s Find the "game.spin" Button
+    t =    43.87s Find the "game.spin" Button
+    t =    43.88s Find the "game.spin" Button
+    t =    43.90s Find the "game.spin" Button
+    t =    43.91s Find the "game.spin" Button
+    t =    43.92s Waiting 5.0s for "game.spin" Button to exist
+    t =    44.95s     Checking `Expect predicate `existsNoRetry == 1` for object "game.spin" Button`
+    t =    44.95s         Checking existence of `"game.spin" Button`
+    t =    44.97s Tap "game.spin" Button
+    t =    44.98s     Wait for com.ccvl.Veltranomixa to idle
+    t =    44.98s     Find the "game.spin" Button
+    t =    44.99s     Check for interrupting elements affecting "game.spin" Button
+    t =    45.01s     Synthesize event
+    t =    45.30s     Wait for com.ccvl.Veltranomixa to idle
+    t =    45.36s Waiting 4.0s for "Confirm upgrade" Button to exist
+    t =    46.40s     Checking `Expect predicate `existsNoRetry == 1` for object "Confirm upgrade" Button`
+    t =    46.40s         Checking existence of `"Confirm upgrade" Button`
+    t =    46.42s         Capturing element debug description
+    t =    47.44s     Checking `Expect predicate `existsNoRetry == 1` for object "Confirm upgrade" Button`
+    t =    47.44s         Checking existence of `"Confirm upgrade" Button`
+    t =    47.45s         Capturing element debug description
+    t =    48.38s     Checking `Expect predicate `existsNoRetry == 1` for object "Confirm upgrade" Button`
+    t =    48.38s         Checking existence of `"Confirm upgrade" Button`
+    t =    48.41s         Capturing element debug description
+    t =    49.36s     Checking `Expect predicate `existsNoRetry == 1` for object "Confirm upgrade" Button`
+    t =    49.37s         Checking existence of `"Confirm upgrade" Button`
+    t =    49.39s         Capturing element debug description
+    t =    49.39s     Checking existence of `"Confirm upgrade" Button`
+    t =    49.40s Collecting debug information to assist test failure triage
+    t =    49.40s     Requesting snapshot of accessibility hierarchy for app with pid 26022
+    t =    49.42s Checking existence of `"Confirm upgrade" Button`
+    t =    49.43s Checking existence of `"Try again" Button`
+    t =    49.44s Find the "game.spin" Button
+    t =    49.45s Find the "game.spin" Button
+    t =    49.46s Find the "game.spin" Button
+    t =    49.48s Find the "game.spin" Button
+    t =    49.49s Find the "game.spin" Button
+    t =    49.50s Waiting 5.0s for "game.spin" Button to exist
+    t =    50.53s     Checking `Expect predicate `existsNoRetry == 1` for object "game.spin" Button`
+    t =    50.53s         Checking existence of `"game.spin" Button`
+    t =    50.55s Tap "game.spin" Button
+    t =    50.55s     Wait for com.ccvl.Veltranomixa to idle
+    t =    50.56s     Find the "game.spin" Button
+    t =    50.57s     Check for interrupting elements affecting "game.spin" Button
+    t =    50.58s     Synthesize event
+    t =    50.87s     Wait for com.ccvl.Veltranomixa to idle
+    t =    50.95s Waiting 4.0s for "Confirm upgrade" Button to exist
+    t =    51.98s     Checking `Expect predicate `existsNoRetry == 1` for object "Confirm upgrade" Button`
+    t =    51.98s         Checking existence of `"Confirm upgrade" Button`
+    t =    52.01s         Capturing element debug description
+    t =    53.03s     Checking `Expect predicate `existsNoRetry == 1` for object "Confirm upgrade" Button`
+    t =    53.03s         Checking existence of `"Confirm upgrade" Button`
+    t =    53.06s         Capturing element debug description
+    t =    53.99s     Checking `Expect predicate `existsNoRetry == 1` for object "Confirm upgrade" Button`
+    t =    53.99s         Checking existence of `"Confirm upgrade" Button`
+    t =    54.01s Checking existence of `"Confirm upgrade" Button`
+    t =    54.07s Added attachment named '04-upgrade'
+    t =    54.07s Find the "Confirm upgrade" Button
+    t =    54.08s Find the "Confirm upgrade" Button
+    t =    54.10s Find the "Confirm upgrade" Button
+    t =    54.11s Find the "Confirm upgrade" Button
+    t =    54.12s Find the "Confirm upgrade" Button
+    t =    54.13s Waiting 5.0s for "Confirm upgrade" Button to exist
+    t =    55.17s     Checking `Expect predicate `existsNoRetry == 1` for object "Confirm upgrade" Button`
+    t =    55.17s         Checking existence of `"Confirm upgrade" Button`
+    t =    55.19s Tap "Confirm upgrade" Button
+    t =    55.19s     Wait for com.ccvl.Veltranomixa to idle
+    t =    55.20s     Find the "Confirm upgrade" Button
+    t =    55.21s     Check for interrupting elements affecting "Confirm upgrade" Button
+    t =    55.22s     Synthesize event
+    t =    55.51s     Wait for com.ccvl.Veltranomixa to idle
+    t =    55.52s Checking existence of `"Confirm upgrade" Button`
+    t =    55.54s Checking existence of `"Try again" Button`
+    t =    55.55s Find the "game.spin" Button
+    t =    55.57s Find the "game.spin" Button
+    t =    55.58s Find the "game.spin" Button
+    t =    55.60s Find the "game.spin" Button
+    t =    55.61s Find the "game.spin" Button
+    t =    55.63s Waiting 5.0s for "game.spin" Button to exist
+    t =    56.64s     Checking `Expect predicate `existsNoRetry == 1` for object "game.spin" Button`
+    t =    56.64s         Checking existence of `"game.spin" Button`
+    t =    56.67s Tap "game.spin" Button
+    t =    56.67s     Wait for com.ccvl.Veltranomixa to idle
+    t =    56.67s     Find the "game.spin" Button
+    t =    56.68s     Check for interrupting elements affecting "game.spin" Button
+    t =    56.70s     Synthesize event
+    t =    56.99s     Wait for com.ccvl.Veltranomixa to idle
+    t =    57.06s Waiting 4.0s for "Confirm upgrade" Button to exist
+    t =    58.10s     Checking `Expect predicate `existsNoRetry == 1` for object "Confirm upgrade" Button`
+    t =    58.10s         Checking existence of `"Confirm upgrade" Button`
+    t =    58.12s         Capturing element debug description
+    t =    59.14s     Checking `Expect predicate `existsNoRetry == 1` for object "Confirm upgrade" Button`
+    t =    59.14s         Checking existence of `"Confirm upgrade" Button`
+    t =    59.16s         Capturing element debug description
+    t =    60.09s     Checking `Expect predicate `existsNoRetry == 1` for object "Confirm upgrade" Button`
+    t =    60.09s         Checking existence of `"Confirm upgrade" Button`
+    t =    60.12s         Capturing element debug description
+    t =    61.07s     Checking `Expect predicate `existsNoRetry == 1` for object "Confirm upgrade" Button`
+    t =    61.07s         Checking existence of `"Confirm upgrade" Button`
+    t =    61.09s         Capturing element debug description
+    t =    61.09s     Checking existence of `"Confirm upgrade" Button`
+    t =    61.10s Collecting debug information to assist test failure triage
+    t =    61.10s     Requesting snapshot of accessibility hierarchy for app with pid 26022
+    t =    61.12s Checking existence of `"Confirm upgrade" Button`
+    t =    61.13s Checking existence of `"Try again" Button`
+    t =    61.13s Find the "game.spin" Button
+    t =    61.15s Find the "game.spin" Button
+    t =    61.16s Find the "game.spin" Button
+    t =    61.17s Find the "game.spin" Button
+    t =    61.19s Find the "game.spin" Button
+    t =    61.20s Waiting 5.0s for "game.spin" Button to exist
+    t =    62.21s     Checking `Expect predicate `existsNoRetry == 1` for object "game.spin" Button`
+    t =    62.21s         Checking existence of `"game.spin" Button`
+    t =    62.23s Tap "game.spin" Button
+    t =    62.23s     Wait for com.ccvl.Veltranomixa to idle
+    t =    62.24s     Find the "game.spin" Button
+    t =    62.25s     Check for interrupting elements affecting "game.spin" Button
+    t =    62.26s     Synthesize event
+    t =    62.55s     Wait for com.ccvl.Veltranomixa to idle
+    t =    62.63s Waiting 4.0s for "Confirm upgrade" Button to exist
+    t =    63.66s     Checking `Expect predicate `existsNoRetry == 1` for object "Confirm upgrade" Button`
+    t =    63.66s         Checking existence of `"Confirm upgrade" Button`
+    t =    63.69s         Capturing element debug description
+    t =    64.71s     Checking `Expect predicate `existsNoRetry == 1` for object "Confirm upgrade" Button`
+    t =    64.71s         Checking existence of `"Confirm upgrade" Button`
+    t =    64.73s         Capturing element debug description
+    t =    65.66s     Checking `Expect predicate `existsNoRetry == 1` for object "Confirm upgrade" Button`
+    t =    65.66s         Checking existence of `"Confirm upgrade" Button`
+    t =    65.69s         Capturing element debug description
+    t =    66.64s     Checking `Expect predicate `existsNoRetry == 1` for object "Confirm upgrade" Button`
+    t =    66.64s         Checking existence of `"Confirm upgrade" Button`
+    t =    66.66s         Capturing element debug description
+    t =    66.66s     Checking existence of `"Confirm upgrade" Button`
+    t =    66.68s Collecting debug information to assist test failure triage
+    t =    66.68s     Requesting snapshot of accessibility hierarchy for app with pid 26022
+    t =    66.69s Checking existence of `"Confirm upgrade" Button`
+    t =    66.70s Checking existence of `"Try again" Button`
+    t =    66.71s Find the "game.spin" Button
+    t =    66.72s Find the "game.spin" Button
+    t =    66.73s Find the "game.spin" Button
+    t =    66.74s Find the "game.spin" Button
+    t =    66.76s Find the "game.spin" Button
+    t =    66.77s Waiting 5.0s for "game.spin" Button to exist
+    t =    67.80s     Checking `Expect predicate `existsNoRetry == 1` for object "game.spin" Button`
+    t =    67.80s         Checking existence of `"game.spin" Button`
+    t =    67.81s Tap "game.spin" Button
+    t =    67.81s     Wait for com.ccvl.Veltranomixa to idle
+    t =    67.81s     Find the "game.spin" Button
+    t =    67.82s     Check for interrupting elements affecting "game.spin" Button
+    t =    67.83s     Synthesize event
+    t =    68.13s     Wait for com.ccvl.Veltranomixa to idle
+    t =    68.20s Waiting 4.0s for "Confirm upgrade" Button to exist
+    t =    69.23s     Checking `Expect predicate `existsNoRetry == 1` for object "Confirm upgrade" Button`
+    t =    69.24s         Checking existence of `"Confirm upgrade" Button`
+    t =    69.26s         Capturing element debug description
+    t =    70.28s     Checking `Expect predicate `existsNoRetry == 1` for object "Confirm upgrade" Button`
+    t =    70.28s         Checking existence of `"Confirm upgrade" Button`
+    t =    70.30s         Capturing element debug description
+    t =    71.23s     Checking `Expect predicate `existsNoRetry == 1` for object "Confirm upgrade" Button`
+    t =    71.23s         Checking existence of `"Confirm upgrade" Button`
+    t =    71.25s Checking existence of `"Confirm upgrade" Button`
+    t =    71.31s Added attachment named '04-upgrade'
+    t =    71.31s Find the "Confirm upgrade" Button
+    t =    71.32s Find the "Confirm upgrade" Button
+    t =    71.33s Find the "Confirm upgrade" Button
+    t =    71.34s Find the "Confirm upgrade" Button
+    t =    71.36s Find the "Confirm upgrade" Button
+    t =    71.37s Waiting 5.0s for "Confirm upgrade" Button to exist
+    t =    72.41s     Checking `Expect predicate `existsNoRetry == 1` for object "Confirm upgrade" Button`
+    t =    72.41s         Checking existence of `"Confirm upgrade" Button`
+    t =    72.43s Tap "Confirm upgrade" Button
+    t =    72.43s     Wait for com.ccvl.Veltranomixa to idle
+    t =    72.44s     Find the "Confirm upgrade" Button
+    t =    72.45s     Check for interrupting elements affecting "Confirm upgrade" Button
+    t =    72.48s     Synthesize event
+    t =    72.77s     Wait for com.ccvl.Veltranomixa to idle
+    t =    72.78s Checking existence of `"Confirm upgrade" Button`
+    t =    72.80s Checking existence of `"Try again" Button`
+    t =    72.81s Find the "game.spin" Button
+    t =    72.83s Find the "game.spin" Button
+    t =    72.84s Find the "game.spin" Button
+    t =    72.85s Find the "game.spin" Button
+    t =    72.87s Find the "game.spin" Button
+    t =    72.88s Waiting 5.0s for "game.spin" Button to exist
+    t =    73.89s     Checking `Expect predicate `existsNoRetry == 1` for object "game.spin" Button`
+    t =    73.90s         Checking existence of `"game.spin" Button`
+    t =    73.92s Tap "game.spin" Button
+    t =    73.92s     Wait for com.ccvl.Veltranomixa to idle
+    t =    73.92s     Find the "game.spin" Button
+    t =    73.93s     Check for interrupting elements affecting "game.spin" Button
+    t =    73.95s     Synthesize event
+    t =    74.23s     Wait for com.ccvl.Veltranomixa to idle
+    t =    74.30s Waiting 4.0s for "Confirm upgrade" Button to exist
+    t =    75.33s     Checking `Expect predicate `existsNoRetry == 1` for object "Confirm upgrade" Button`
+    t =    75.33s         Checking existence of `"Confirm upgrade" Button`
+    t =    75.34s         Capturing element debug description
+    t =    76.36s     Checking `Expect predicate `existsNoRetry == 1` for object "Confirm upgrade" Button`
+    t =    76.37s         Checking existence of `"Confirm upgrade" Button`
+    t =    76.39s         Capturing element debug description
+    t =    77.31s     Checking `Expect predicate `existsNoRetry == 1` for object "Confirm upgrade" Button`
+    t =    77.31s         Checking existence of `"Confirm upgrade" Button`
+    t =    77.33s         Capturing element debug description
+    t =    78.31s     Checking `Expect predicate `existsNoRetry == 1` for object "Confirm upgrade" Button`
+    t =    78.31s         Checking existence of `"Confirm upgrade" Button`
+    t =    78.33s         Capturing element debug description
+    t =    78.33s     Checking existence of `"Confirm upgrade" Button`
+    t =    78.34s Collecting debug information to assist test failure triage
+    t =    78.34s     Requesting snapshot of accessibility hierarchy for app with pid 26022
+    t =    78.36s Checking existence of `"Confirm upgrade" Button`
+    t =    78.37s Checking existence of `"Try again" Button`
+    t =    78.37s Find the "game.spin" Button
+    t =    78.39s Find the "game.spin" Button
+    t =    78.40s Find the "game.spin" Button
+    t =    78.41s Find the "game.spin" Button
+    t =    78.43s Find the "game.spin" Button
+    t =    78.44s Waiting 5.0s for "game.spin" Button to exist
+    t =    79.46s     Checking `Expect predicate `existsNoRetry == 1` for object "game.spin" Button`
+    t =    79.46s         Checking existence of `"game.spin" Button`
+    t =    79.49s Tap "game.spin" Button
+    t =    79.49s     Wait for com.ccvl.Veltranomixa to idle
+    t =    79.49s     Find the "game.spin" Button
+    t =    79.51s     Check for interrupting elements affecting "game.spin" Button
+    t =    79.52s     Synthesize event
+    t =    79.81s     Wait for com.ccvl.Veltranomixa to idle
+    t =    79.88s Waiting 4.0s for "Confirm upgrade" Button to exist
+    t =    80.91s     Checking `Expect predicate `existsNoRetry == 1` for object "Confirm upgrade" Button`
+    t =    80.91s         Checking existence of `"Confirm upgrade" Button`
+    t =    80.94s         Capturing element debug description
+    t =    81.96s     Checking `Expect predicate `existsNoRetry == 1` for object "Confirm upgrade" Button`
+    t =    81.96s         Checking existence of `"Confirm upgrade" Button`
+    t =    81.98s         Capturing element debug description
+    t =    82.90s     Checking `Expect predicate `existsNoRetry == 1` for object "Confirm upgrade" Button`
+    t =    82.90s         Checking existence of `"Confirm upgrade" Button`
+    t =    82.92s         Capturing element debug description
+    t =    83.89s     Checking `Expect predicate `existsNoRetry == 1` for object "Confirm upgrade" Button`
+    t =    83.89s         Checking existence of `"Confirm upgrade" Button`
+    t =    83.89s         Capturing element debug description
+    t =    83.89s     Checking existence of `"Confirm upgrade" Button`
+    t =    83.90s Collecting debug information to assist test failure triage
+    t =    83.90s     Requesting snapshot of accessibility hierarchy for app with pid 26022
+    t =    83.91s Checking existence of `"Confirm upgrade" Button`
+    t =    83.91s Checking existence of `"Try again" Button`
+    t =    83.92s Checking existence of `"Next stop" Button`
+    t =    83.95s Added attachment named '05-result'
+    t =    83.95s Find the "Back to island" Button
+    t =    83.97s Swipe up Target Application 'com.ccvl.Veltranomixa'
+    t =    83.97s     Wait for com.ccvl.Veltranomixa to idle
+    t =    83.97s     Find the Target Application 'com.ccvl.Veltranomixa'
+    t =    83.97s     Check for interrupting elements affecting "Lucky Island" Application
+    t =    83.98s     Synthesize event
+    t =    84.40s     Wait for com.ccvl.Veltranomixa to idle
+    t =    84.86s Find the "Back to island" Button
+    t =    84.87s Find the "Back to island" Button
+    t =    84.89s Find the "Back to island" Button
+    t =    84.90s Find the "Back to island" Button
+    t =    84.91s Waiting 5.0s for "Back to island" Button to exist
+    t =    85.93s     Checking `Expect predicate `existsNoRetry == 1` for object "Back to island" Button`
+    t =    85.93s         Checking existence of `"Back to island" Button`
+    t =    85.94s Tap "Back to island" Button
+    t =    85.94s     Wait for com.ccvl.Veltranomixa to idle
+    t =    85.94s     Find the "Back to island" Button
+    t =    85.95s     Check for interrupting elements affecting "Back to island" Button
+    t =    85.96s     Synthesize event
+    t =    86.24s     Wait for com.ccvl.Veltranomixa to idle
+    t =    86.25s Find the "tab.Collection" Button
+    t =    86.26s Find the "tab.Collection" Button
+    t =    86.27s Find the "tab.Collection" Button
+    t =    86.28s Find the "tab.Collection" Button
+    t =    86.30s Find the "tab.Collection" Button
+    t =    86.31s Waiting 5.0s for "tab.Collection" Button to exist
+    t =    87.34s     Checking `Expect predicate `existsNoRetry == 1` for object "tab.Collection" Button`
+    t =    87.34s         Checking existence of `"tab.Collection" Button`
+    t =    87.36s Tap "tab.Collection" Button
+    t =    87.36s     Wait for com.ccvl.Veltranomixa to idle
+    t =    87.37s     Find the "tab.Collection" Button
+    t =    87.38s     Check for interrupting elements affecting "tab.Collection" Button
+    t =    87.39s     Synthesize event
+    t =    87.68s     Wait for com.ccvl.Veltranomixa to idle
+    t =    87.73s Added attachment named '06-collection'
+    t =    87.73s Find the "tab.Settings" Button
+    t =    87.76s Find the "tab.Settings" Button
+    t =    87.79s Find the "tab.Settings" Button
+    t =    87.81s Find the "tab.Settings" Button
+    t =    87.84s Find the "tab.Settings" Button
+    t =    87.86s Waiting 5.0s for "tab.Settings" Button to exist
+    t =    88.89s     Checking `Expect predicate `existsNoRetry == 1` for object "tab.Settings" Button`
+    t =    88.89s         Checking existence of `"tab.Settings" Button`
+    t =    88.92s Tap "tab.Settings" Button
+    t =    88.92s     Wait for com.ccvl.Veltranomixa to idle
+    t =    88.92s     Find the "tab.Settings" Button
+    t =    88.94s     Check for interrupting elements affecting "tab.Settings" Button
+    t =    88.96s     Synthesize event
+    t =    89.25s     Wait for com.ccvl.Veltranomixa to idle
+    t =    89.28s Added attachment named '07-settings'
+    t =    89.29s Checking existence of `"Sound effects" Switch`
+    t =    89.31s Tear Down
+Test Case '-[LuckyIslandUITests.LuckyIslandUITests testCompleteRunAndRecovery]' passed (89.735 seconds).
+Test Case '-[LuckyIslandUITests.LuckyIslandUITests testLargeTextSettingsAndCollection]' started.
+    t =     0.00s Start Test at 2026-09-17 17:16:28.414
+    t =     0.04s Set Up
+    t =     0.04s Open com.ccvl.Veltranomixa
+    t =     0.04s     Launch com.ccvl.Veltranomixa
+    t =     0.04s         Terminate com.ccvl.Veltranomixa:26022
+2026-09-17 17:16:29.543 xcodebuild[25467:434668] [MT] IDELaunchParametersSnapshot: The operation couldn’t be completed. (DebuggerLLDB.DebuggerVersionStore.StoreError error 0.)
+2026-09-17 17:16:29.543 xcodebuild[25467:434668] [MT] IDELaunchParametersSnapshot: no debugger version
+    t =     1.34s         Setting up automation session
+    t =     1.94s         Wait for com.ccvl.Veltranomixa to idle
+    t =     3.10s Waiting 2.0s for "Let's begin" Button to exist
+    t =     4.12s     Checking `Expect predicate `existsNoRetry == 1` for object "Let's begin" Button`
+    t =     4.12s         Checking existence of `"Let's begin" Button`
+    t =     4.17s         Capturing element debug description
+    t =     5.11s     Checking `Expect predicate `existsNoRetry == 1` for object "Let's begin" Button`
+    t =     5.11s         Checking existence of `"Let's begin" Button`
+    t =     5.13s         Capturing element debug description
+    t =     5.13s     Checking existence of `"Let's begin" Button`
+    t =     5.14s Collecting debug information to assist test failure triage
+    t =     5.14s     Requesting snapshot of accessibility hierarchy for app with pid 26147
+    t =     5.16s Find the "tab.Collection" Button
+    t =     5.18s Find the "tab.Collection" Button
+    t =     5.19s Find the "tab.Collection" Button
+    t =     5.20s Find the "tab.Collection" Button
+    t =     5.22s Find the "tab.Collection" Button
+    t =     5.23s Waiting 5.0s for "tab.Collection" Button to exist
+    t =     6.25s     Checking `Expect predicate `existsNoRetry == 1` for object "tab.Collection" Button`
+    t =     6.25s         Checking existence of `"tab.Collection" Button`
+    t =     6.27s Tap "tab.Collection" Button
+    t =     6.27s     Wait for com.ccvl.Veltranomixa to idle
+    t =     6.28s     Find the "tab.Collection" Button
+    t =     6.29s     Check for interrupting elements affecting "tab.Collection" Button
+    t =     6.30s     Synthesize event
+    t =     6.60s     Wait for com.ccvl.Veltranomixa to idle
+    t =     6.65s Added attachment named '08-large-text-collection'
+    t =     6.65s Find the "tab.Settings" Button
+    t =     6.68s Find the "tab.Settings" Button
+    t =     6.70s Find the "tab.Settings" Button
+    t =     6.72s Find the "tab.Settings" Button
+    t =     6.75s Find the "tab.Settings" Button
+    t =     6.77s Waiting 5.0s for "tab.Settings" Button to exist
+    t =     7.80s     Checking `Expect predicate `existsNoRetry == 1` for object "tab.Settings" Button`
+    t =     7.80s         Checking existence of `"tab.Settings" Button`
+    t =     7.85s Tap "tab.Settings" Button
+    t =     7.85s     Wait for com.ccvl.Veltranomixa to idle
+    t =     7.85s     Find the "tab.Settings" Button
+    t =     7.87s     Check for interrupting elements affecting "tab.Settings" Button
+    t =     7.89s     Synthesize event
+    t =     8.18s     Wait for com.ccvl.Veltranomixa to idle
+    t =     8.24s Added attachment named '09-large-text-settings'
+    t =     8.24s Checking existence of `"Sound effects" Switch`
+    t =     8.26s Tap "Sound effects" Switch
+    t =     8.26s     Wait for com.ccvl.Veltranomixa to idle
+    t =     8.26s     Find the "Sound effects" Switch
+    t =     8.27s     Check for interrupting elements affecting "Sound effects" Switch
+    t =     8.28s     Synthesize event
+    t =     8.57s     Wait for com.ccvl.Veltranomixa to idle
+    t =     9.90s Find the "Sound effects" Switch
+    t =     9.92s Terminate com.ccvl.Veltranomixa:26147
+    t =    10.98s Open com.ccvl.Veltranomixa
+    t =    10.98s     Launch com.ccvl.Veltranomixa
+2026-09-17 17:16:39.398 xcodebuild[25467:434668] [MT] IDELaunchParametersSnapshot: The operation couldn’t be completed. (DebuggerLLDB.DebuggerVersionStore.StoreError error 0.)
+2026-09-17 17:16:39.399 xcodebuild[25467:434668] [MT] IDELaunchParametersSnapshot: no debugger version
+    t =    11.19s         Setting up automation session
+    t =    11.76s         Wait for com.ccvl.Veltranomixa to idle
+    t =    12.92s Find the "tab.Settings" Button
+    t =    12.97s Find the "tab.Settings" Button
+    t =    12.99s Find the "tab.Settings" Button
+    t =    13.01s Find the "tab.Settings" Button
+    t =    13.02s Find the "tab.Settings" Button
+    t =    13.03s Waiting 5.0s for "tab.Settings" Button to exist
+    t =    14.06s     Checking `Expect predicate `existsNoRetry == 1` for object "tab.Settings" Button`
+    t =    14.06s         Checking existence of `"tab.Settings" Button`
+    t =    14.08s Tap "tab.Settings" Button
+    t =    14.08s     Wait for com.ccvl.Veltranomixa to idle
+    t =    14.08s     Find the "tab.Settings" Button
+    t =    14.09s     Check for interrupting elements affecting "tab.Settings" Button
+    t =    14.10s     Synthesize event
+    t =    14.39s     Wait for com.ccvl.Veltranomixa to idle
+    t =    14.40s Find the "Sound effects" Switch
+    t =    14.42s Tear Down
+Test Case '-[LuckyIslandUITests.LuckyIslandUITests testLargeTextSettingsAndCollection]' passed (14.642 seconds).
+Test Case '-[LuckyIslandUITests.LuckyIslandUITests testLargeTextWorkshopPreview]' started.
+    t =     0.00s Start Test at 2026-09-17 17:16:43.056
+    t =     0.02s Set Up
+    t =     0.02s Open com.ccvl.Veltranomixa
+    t =     0.02s     Launch com.ccvl.Veltranomixa
+    t =     0.03s         Terminate com.ccvl.Veltranomixa:26159
+2026-09-17 17:16:44.131 xcodebuild[25467:434668] [MT] IDELaunchParametersSnapshot: The operation couldn’t be completed. (DebuggerLLDB.DebuggerVersionStore.StoreError error 0.)
+2026-09-17 17:16:44.131 xcodebuild[25467:434668] [MT] IDELaunchParametersSnapshot: no debugger version
+    t =     1.28s         Setting up automation session
+    t =     1.87s         Wait for com.ccvl.Veltranomixa to idle
+    t =     3.04s Waiting 2.0s for "Let's begin" Button to exist
+    t =     4.08s     Checking `Expect predicate `existsNoRetry == 1` for object "Let's begin" Button`
+    t =     4.08s         Checking existence of `"Let's begin" Button`
+    t =     4.10s         Capturing element debug description
+    t =     5.05s     Checking `Expect predicate `existsNoRetry == 1` for object "Let's begin" Button`
+    t =     5.05s         Checking existence of `"Let's begin" Button`
+    t =     5.07s         Capturing element debug description
+    t =     5.07s     Checking existence of `"Let's begin" Button`
+    t =     5.09s Collecting debug information to assist test failure triage
+    t =     5.09s     Requesting snapshot of accessibility hierarchy for app with pid 26167
+    t =     5.10s Find the "tab.Settings" Button
+    t =     5.12s Find the "tab.Settings" Button
+    t =     5.13s Find the "tab.Settings" Button
+    t =     5.15s Find the "tab.Settings" Button
+    t =     5.16s Find the "tab.Settings" Button
+    t =     5.17s Waiting 5.0s for "tab.Settings" Button to exist
+    t =     6.20s     Checking `Expect predicate `existsNoRetry == 1` for object "tab.Settings" Button`
+    t =     6.20s         Checking existence of `"tab.Settings" Button`
+    t =     6.22s Tap "tab.Settings" Button
+    t =     6.22s     Wait for com.ccvl.Veltranomixa to idle
+    t =     6.22s     Find the "tab.Settings" Button
+    t =     6.24s     Check for interrupting elements affecting "tab.Settings" Button
+    t =     6.25s     Synthesize event
+    t =     6.54s     Wait for com.ccvl.Veltranomixa to idle
+    t =     6.55s Find the "Reset all progress" Button
+    t =     6.58s Swipe up Target Application 'com.ccvl.Veltranomixa'
+    t =     6.58s     Wait for com.ccvl.Veltranomixa to idle
+    t =     6.58s     Find the Target Application 'com.ccvl.Veltranomixa'
+    t =     6.59s     Check for interrupting elements affecting "Lucky Island" Application
+    t =     6.60s     Synthesize event
+    t =     7.02s     Wait for com.ccvl.Veltranomixa to idle
+    t =     7.62s Find the "Reset all progress" Button
+    t =     7.66s Find the "Reset all progress" Button
+    t =     7.67s Find the "Reset all progress" Button
+    t =     7.69s Find the "Reset all progress" Button
+    t =     7.70s Waiting 5.0s for "Reset all progress" Button to exist
+    t =     8.74s     Checking `Expect predicate `existsNoRetry == 1` for object "Reset all progress" Button`
+    t =     8.74s         Checking existence of `"Reset all progress" Button`
+    t =     8.77s Tap "Reset all progress" Button
+    t =     8.77s     Wait for com.ccvl.Veltranomixa to idle
+    t =     8.77s     Find the "Reset all progress" Button
+    t =     8.78s     Check for interrupting elements affecting "Reset all progress" Button
+    t =     8.79s     Synthesize event
+    t =     9.08s     Wait for com.ccvl.Veltranomixa to idle
+    t =     9.34s Tap "Reset progress" Button
+    t =     9.34s     Wait for com.ccvl.Veltranomixa to idle
+    t =     9.34s     Find the "Reset progress" Button
+    t =     9.36s     Check for interrupting elements affecting "Reset progress" Button
+    t =     9.38s     Synthesize event
+    t =     9.67s     Wait for com.ccvl.Veltranomixa to idle
+    t =     9.92s Find the "Start challenge" Button
+    t =     9.94s Swipe up Target Application 'com.ccvl.Veltranomixa'
+    t =     9.94s     Wait for com.ccvl.Veltranomixa to idle
+    t =     9.94s     Find the Target Application 'com.ccvl.Veltranomixa'
+    t =     9.95s     Check for interrupting elements affecting "Lucky Island" Application
+    t =     9.96s     Synthesize event
+    t =    10.38s     Wait for com.ccvl.Veltranomixa to idle
+    t =    11.04s Find the "Start challenge" Button
+    t =    11.07s Find the "Start challenge" Button
+    t =    11.09s Find the "Start challenge" Button
+    t =    11.10s Find the "Start challenge" Button
+    t =    11.12s Waiting 5.0s for "Start challenge" Button to exist
+    t =    12.13s     Checking `Expect predicate `existsNoRetry == 1` for object "Start challenge" Button`
+    t =    12.13s         Checking existence of `"Start challenge" Button`
+    t =    12.16s Tap "Start challenge" Button
+    t =    12.16s     Wait for com.ccvl.Veltranomixa to idle
+    t =    12.16s     Find the "Start challenge" Button
+    t =    12.17s     Check for interrupting elements affecting "Start challenge" Button
+    t =    12.19s     Synthesize event
+    t =    12.47s     Wait for com.ccvl.Veltranomixa to idle
+    t =    12.75s Tap "Start challenge" Button
+    t =    12.75s     Wait for com.ccvl.Veltranomixa to idle
+    t =    12.76s     Find the "Start challenge" Button
+    t =    12.79s     Check for interrupting elements affecting "Start challenge" Button
+    t =    12.81s     Synthesize event
+    t =    13.10s     Wait for com.ccvl.Veltranomixa to idle
+    t =    13.37s Find the "game.workshop" Button
+    t =    13.39s Swipe up Target Application 'com.ccvl.Veltranomixa'
+    t =    13.39s     Wait for com.ccvl.Veltranomixa to idle
+    t =    13.39s     Find the Target Application 'com.ccvl.Veltranomixa'
+    t =    13.40s     Check for interrupting elements affecting "Lucky Island" Application
+    t =    13.41s     Synthesize event
+    t =    13.83s     Wait for com.ccvl.Veltranomixa to idle
+    t =    14.61s Find the "game.workshop" Button
+    t =    14.63s Find the "game.workshop" Button
+    t =    14.65s Find the "game.workshop" Button
+    t =    14.66s Find the "game.workshop" Button
+    t =    14.68s Waiting 5.0s for "game.workshop" Button to exist
+    t =    15.69s     Checking `Expect predicate `existsNoRetry == 1` for object "game.workshop" Button`
+    t =    15.70s         Checking existence of `"game.workshop" Button`
+    t =    15.72s Tap "game.workshop" Button
+    t =    15.72s     Wait for com.ccvl.Veltranomixa to idle
+    t =    15.72s     Find the "game.workshop" Button
+    t =    15.73s     Check for interrupting elements affecting "game.workshop" Button
+    t =    15.75s     Synthesize event
+    t =    16.04s     Wait for com.ccvl.Veltranomixa to idle
+    t =    16.09s Added attachment named '11-workshop-large-text-layout'
+    t =    16.09s Find the "workshop.apply" Button
+    t =    16.11s Swipe up Target Application 'com.ccvl.Veltranomixa'
+    t =    16.11s     Wait for com.ccvl.Veltranomixa to idle
+    t =    16.11s     Find the Target Application 'com.ccvl.Veltranomixa'
+    t =    16.12s     Check for interrupting elements affecting "Lucky Island" Application
+    t =    16.13s     Synthesize event
+    t =    16.55s     Wait for com.ccvl.Veltranomixa to idle
+    t =    18.66s Find the "workshop.apply" Button
+    t =    18.69s Swipe up Target Application 'com.ccvl.Veltranomixa'
+    t =    18.69s     Wait for com.ccvl.Veltranomixa to idle
+    t =    18.69s     Find the Target Application 'com.ccvl.Veltranomixa'
+    t =    18.70s     Check for interrupting elements affecting "Lucky Island" Application
+    t =    18.71s     Synthesize event
+    t =    19.13s     Wait for com.ccvl.Veltranomixa to idle
+    t =    21.24s Find the "workshop.apply" Button
+    t =    21.28s Find the "workshop.apply" Button
+    t =    21.30s Find the "workshop.apply" Button
+    t =    21.32s Find the "workshop.apply" Button
+    t =    21.34s Find the "workshop.apply" Button
+    t =    21.36s Find the "workshop.apply" Button
+    t =    21.38s Find the "workshop.apply" Button
+    t =    21.40s Find the "workshop.preview" StaticText
+    t =    21.44s Added attachment named '12-workshop-large-text-preview'
+    t =    21.44s Tap "workshop.apply" Button
+    t =    21.44s     Wait for com.ccvl.Veltranomixa to idle
+    t =    21.44s     Find the "workshop.apply" Button
+    t =    21.45s     Check for interrupting elements affecting "workshop.apply" Button
+    t =    21.46s     Synthesize event
+    t =    21.75s     Wait for com.ccvl.Veltranomixa to idle
+    t =    21.75s Find the "game.message" StaticText
+    t =    21.76s Tear Down
+Test Case '-[LuckyIslandUITests.LuckyIslandUITests testLargeTextWorkshopPreview]' passed (22.009 seconds).
+Test Case '-[LuckyIslandUITests.LuckyIslandUITests testWheelHalfTurnAndRecovery]' started.
+    t =     0.00s Start Test at 2026-09-17 17:17:05.066
+    t =     0.03s Set Up
+    t =     0.03s Open com.ccvl.Veltranomixa
+    t =     0.03s     Launch com.ccvl.Veltranomixa
+    t =     0.03s         Terminate com.ccvl.Veltranomixa:26167
+2026-09-17 17:17:06.154 xcodebuild[25467:434668] [MT] IDELaunchParametersSnapshot: The operation couldn’t be completed. (DebuggerLLDB.DebuggerVersionStore.StoreError error 0.)
+2026-09-17 17:17:06.154 xcodebuild[25467:434668] [MT] IDELaunchParametersSnapshot: no debugger version
+    t =     1.30s         Setting up automation session
+    t =     1.88s         Wait for com.ccvl.Veltranomixa to idle
+    t =     3.06s Waiting 2.0s for "Let's begin" Button to exist
+    t =     4.10s     Checking `Expect predicate `existsNoRetry == 1` for object "Let's begin" Button`
+    t =     4.10s         Checking existence of `"Let's begin" Button`
+    t =     4.15s Tap "Let's begin" Button
+    t =     4.15s     Wait for com.ccvl.Veltranomixa to idle
+    t =     4.15s     Find the "Let's begin" Button
+    t =     4.17s     Check for interrupting elements affecting "Let's begin" Button
+    t =     4.19s     Synthesize event
+    t =     4.48s     Wait for com.ccvl.Veltranomixa to idle
+    t =     4.72s Find the "tab.Settings" Button
+    t =     4.74s Find the "tab.Settings" Button
+    t =     4.76s Find the "tab.Settings" Button
+    t =     4.77s Find the "tab.Settings" Button
+    t =     4.78s Find the "tab.Settings" Button
+    t =     4.80s Waiting 5.0s for "tab.Settings" Button to exist
+    t =     5.82s     Checking `Expect predicate `existsNoRetry == 1` for object "tab.Settings" Button`
+    t =     5.82s         Checking existence of `"tab.Settings" Button`
+    t =     5.84s Tap "tab.Settings" Button
+    t =     5.84s     Wait for com.ccvl.Veltranomixa to idle
+    t =     5.85s     Find the "tab.Settings" Button
+    t =     5.86s     Check for interrupting elements affecting "tab.Settings" Button
+    t =     5.88s     Synthesize event
+    t =     6.17s     Wait for com.ccvl.Veltranomixa to idle
+    t =     6.17s Find the "Reset all progress" Button
+    t =     6.20s Swipe up Target Application 'com.ccvl.Veltranomixa'
+    t =     6.20s     Wait for com.ccvl.Veltranomixa to idle
+    t =     6.20s     Find the Target Application 'com.ccvl.Veltranomixa'
+    t =     6.21s     Check for interrupting elements affecting "Lucky Island" Application
+    t =     6.22s     Synthesize event
+    t =     6.64s     Wait for com.ccvl.Veltranomixa to idle
+    t =     7.13s Find the "Reset all progress" Button
+    t =     7.16s Find the "Reset all progress" Button
+    t =     7.18s Find the "Reset all progress" Button
+    t =     7.20s Find the "Reset all progress" Button
+    t =     7.22s Waiting 5.0s for "Reset all progress" Button to exist
+    t =     8.24s     Checking `Expect predicate `existsNoRetry == 1` for object "Reset all progress" Button`
+    t =     8.24s         Checking existence of `"Reset all progress" Button`
+    t =     8.26s Tap "Reset all progress" Button
+    t =     8.26s     Wait for com.ccvl.Veltranomixa to idle
+    t =     8.27s     Find the "Reset all progress" Button
+    t =     8.28s     Check for interrupting elements affecting "Reset all progress" Button
+    t =     8.30s     Synthesize event
+    t =     8.59s     Wait for com.ccvl.Veltranomixa to idle
+    t =     8.84s Tap "Reset progress" Button
+    t =     8.84s     Wait for com.ccvl.Veltranomixa to idle
+    t =     8.85s     Find the "Reset progress" Button
+    t =     8.88s     Check for interrupting elements affecting "Reset progress" Button
+    t =     8.90s     Synthesize event
+    t =     9.19s     Wait for com.ccvl.Veltranomixa to idle
+    t =     9.44s Find the "tab.Settings" Button
+    t =     9.46s Find the "tab.Settings" Button
+    t =     9.47s Find the "tab.Settings" Button
+    t =     9.49s Find the "tab.Settings" Button
+    t =     9.50s Find the "tab.Settings" Button
+    t =     9.51s Waiting 5.0s for "tab.Settings" Button to exist
+    t =    10.54s     Checking `Expect predicate `existsNoRetry == 1` for object "tab.Settings" Button`
+    t =    10.55s         Checking existence of `"tab.Settings" Button`
+    t =    10.57s Tap "tab.Settings" Button
+    t =    10.57s     Wait for com.ccvl.Veltranomixa to idle
+    t =    10.57s     Find the "tab.Settings" Button
+    t =    10.59s     Check for interrupting elements affecting "tab.Settings" Button
+    t =    10.60s     Synthesize event
+    t =    10.89s     Wait for com.ccvl.Veltranomixa to idle
+    t =    10.90s Find the "How to play" Button
+    t =    10.93s Find the "How to play" Button
+    t =    10.95s Find the "How to play" Button
+    t =    10.96s Find the "How to play" Button
+    t =    10.98s Find the "How to play" Button
+    t =    10.99s Waiting 5.0s for "How to play" Button to exist
+    t =    12.02s     Checking `Expect predicate `existsNoRetry == 1` for object "How to play" Button`
+    t =    12.02s         Checking existence of `"How to play" Button`
+    t =    12.05s Tap "How to play" Button
+    t =    12.05s     Wait for com.ccvl.Veltranomixa to idle
+    t =    12.05s     Find the "How to play" Button
+    t =    12.07s     Check for interrupting elements affecting "How to play" Button
+    t =    12.08s     Synthesize event
+    t =    12.37s     Wait for com.ccvl.Veltranomixa to idle
+    t =    12.63s Tap "Let's begin" Button
+    t =    12.63s     Wait for com.ccvl.Veltranomixa to idle
+    t =    12.64s     Find the "Let's begin" Button
+    t =    12.67s     Check for interrupting elements affecting "Let's begin" Button
+    t =    12.69s     Synthesize event
+    t =    12.98s     Wait for com.ccvl.Veltranomixa to idle
+    t =    13.22s Find the "tab.Island" Button
+    t =    13.25s Find the "tab.Island" Button
+    t =    13.27s Find the "tab.Island" Button
+    t =    13.28s Find the "tab.Island" Button
+    t =    13.30s Find the "tab.Island" Button
+    t =    13.31s Waiting 5.0s for "tab.Island" Button to exist
+    t =    14.34s     Checking `Expect predicate `existsNoRetry == 1` for object "tab.Island" Button`
+    t =    14.34s         Checking existence of `"tab.Island" Button`
+    t =    14.37s Tap "tab.Island" Button
+    t =    14.37s     Wait for com.ccvl.Veltranomixa to idle
+    t =    14.37s     Find the "tab.Island" Button
+    t =    14.39s     Check for interrupting elements affecting "tab.Island" Button
+    t =    14.41s     Synthesize event
+    t =    14.70s     Wait for com.ccvl.Veltranomixa to idle
+    t =    14.71s Find the "Start challenge" Button
+    t =    14.74s Swipe up Target Application 'com.ccvl.Veltranomixa'
+    t =    14.74s     Wait for com.ccvl.Veltranomixa to idle
+    t =    14.74s     Find the Target Application 'com.ccvl.Veltranomixa'
+    t =    14.75s     Check for interrupting elements affecting "Lucky Island" Application
+    t =    14.76s     Synthesize event
+    t =    15.18s     Wait for com.ccvl.Veltranomixa to idle
+    t =    15.70s Find the "Start challenge" Button
+    t =    15.73s Find the "Start challenge" Button
+    t =    15.75s Find the "Start challenge" Button
+    t =    15.76s Find the "Start challenge" Button
+    t =    15.77s Waiting 5.0s for "Start challenge" Button to exist
+    t =    16.80s     Checking `Expect predicate `existsNoRetry == 1` for object "Start challenge" Button`
+    t =    16.80s         Checking existence of `"Start challenge" Button`
+    t =    16.83s Tap "Start challenge" Button
+    t =    16.83s     Wait for com.ccvl.Veltranomixa to idle
+    t =    16.83s     Find the "Start challenge" Button
+    t =    16.84s     Check for interrupting elements affecting "Start challenge" Button
+    t =    16.86s     Synthesize event
+    t =    17.14s     Wait for com.ccvl.Veltranomixa to idle
+    t =    17.39s Tap "Start challenge" Button
+    t =    17.39s     Wait for com.ccvl.Veltranomixa to idle
+    t =    17.40s     Find the "Start challenge" Button
+    t =    17.42s     Check for interrupting elements affecting "Start challenge" Button
+    t =    17.45s     Synthesize event
+    t =    17.74s     Wait for com.ccvl.Veltranomixa to idle
+    t =    17.98s Find the "game.spin" Button
+    t =    18.00s Find the "game.spin" Button
+    t =    18.01s Find the "game.spin" Button
+    t =    18.03s Find the "game.spin" Button
+    t =    18.04s Find the "game.spin" Button
+    t =    18.05s Waiting 5.0s for "game.spin" Button to exist
+    t =    19.08s     Checking `Expect predicate `existsNoRetry == 1` for object "game.spin" Button`
+    t =    19.08s         Checking existence of `"game.spin" Button`
+    t =    19.10s Tap "game.spin" Button
+    t =    19.10s     Wait for com.ccvl.Veltranomixa to idle
+    t =    19.10s     Find the "game.spin" Button
+    t =    19.12s     Check for interrupting elements affecting "game.spin" Button
+    t =    19.13s     Synthesize event
+    t =    19.42s     Wait for com.ccvl.Veltranomixa to idle
+    t =    20.63s Checking `Expect predicate `label == "Wood +1"` for object "game.message" StaticText`
+    t =    20.64s     Find the "game.message" StaticText
+    t =    20.66s     Capturing element debug description
+    t =    20.70s         Requesting snapshot of accessibility hierarchy for app with pid 26230
+    t =    20.71s         Find: Descendants matching type StaticText
+    t =    20.71s         Find: Elements matching predicate '"game.message" IN identifiers'
+    t =    20.71s         Requesting snapshot of accessibility hierarchy for app with pid 26230
+    t =    20.72s         Find: Descendants matching type StaticText
+    t =    20.72s         Requesting snapshot of accessibility hierarchy for app with pid 26230
+    t =    21.67s Checking `Expect predicate `label == "Wood +1"` for object "game.message" StaticText`
+    t =    21.67s     Find the "game.message" StaticText
+    t =    21.69s     Capturing element debug description
+    t =    21.81s         Requesting snapshot of accessibility hierarchy for app with pid 26230
+    t =    21.83s         Find: Descendants matching type StaticText
+    t =    21.84s         Find: Elements matching predicate '"game.message" IN identifiers'
+    t =    21.84s         Requesting snapshot of accessibility hierarchy for app with pid 26230
+    t =    21.85s         Find: Descendants matching type StaticText
+    t =    21.86s         Requesting snapshot of accessibility hierarchy for app with pid 26230
+    t =    22.64s Checking `Expect predicate `label == "Wood +1"` for object "game.message" StaticText`
+    t =    22.64s     Find the "game.message" StaticText
+    t =    22.69s Added attachment named '13-wheel-half-turn-upright'
+    t =    22.69s Terminate com.ccvl.Veltranomixa:26230
+    t =    23.73s Open com.ccvl.Veltranomixa
+    t =    23.73s     Launch com.ccvl.Veltranomixa
+2026-09-17 17:17:28.796 xcodebuild[25467:434668] [MT] IDELaunchParametersSnapshot: The operation couldn’t be completed. (DebuggerLLDB.DebuggerVersionStore.StoreError error 0.)
+2026-09-17 17:17:28.796 xcodebuild[25467:434668] [MT] IDELaunchParametersSnapshot: no debugger version
+    t =    23.94s         Setting up automation session
+    t =    24.53s         Wait for com.ccvl.Veltranomixa to idle
+    t =    25.70s Waiting 5.0s for Button (First Match) to exist
+    t =    26.73s     Checking `Expect predicate `existsNoRetry == 1` for object Button (First Match)`
+    t =    26.73s         Checking existence of `Button (First Match)`
+    t =    26.78s Tap Button (First Match)
+    t =    26.78s     Wait for com.ccvl.Veltranomixa to idle
+    t =    26.78s     Find the Button (First Match)
+    t =    26.80s     Check for interrupting elements affecting "Continue · Light the Lighthouse" Button
+    t =    26.81s     Synthesize event
+    t =    26.92s         Scroll element to visible
+    t =    26.92s         Find the "Continue · Light the Lighthouse" Button
+    t =    26.94s         Computed hit point {187.5, 448.5} after scrolling to visible
+    t =    27.23s     Wait for com.ccvl.Veltranomixa to idle
+    t =    27.23s Waiting 5.0s for "game.spin" Button to exist
+    t =    28.26s     Checking `Expect predicate `existsNoRetry == 1` for object "game.spin" Button`
+    t =    28.26s         Checking existence of `"game.spin" Button`
+    t =    28.33s Added attachment named '14-wheel-recovered-upright'
+    t =    28.33s Tear Down
+Test Case '-[LuckyIslandUITests.LuckyIslandUITests testWheelHalfTurnAndRecovery]' passed (28.587 seconds).
+Test Suite 'LuckyIslandUITests' passed at 2026-09-17 17:17:33.654.
+	 Executed 4 tests, with 0 failures (0 unexpected) in 154.972 (154.978) seconds
+Test Suite 'LuckyIslandUITests.xctest' passed at 2026-09-17 17:17:33.655.
+	 Executed 4 tests, with 0 failures (0 unexpected) in 154.972 (154.980) seconds
+Test Suite 'All tests' passed at 2026-09-17 17:17:33.655.
+	 Executed 4 tests, with 0 failures (0 unexpected) in 154.972 (154.982) seconds
+2026-09-17 17:17:34.054 xcodebuild[25467:434668] [MT] IDETestOperationsObserverDebug: 201.284 elapsed -- Testing started completed.
+2026-09-17 17:17:34.054 xcodebuild[25467:434668] [MT] IDETestOperationsObserverDebug: 0.000 sec, +0.000 sec -- start
+2026-09-17 17:17:34.054 xcodebuild[25467:434668] [MT] IDETestOperationsObserverDebug: 201.284 sec, +201.284 sec -- end
+
+Test session results, code coverage, and logs:
+	/tmp/LuckyIslandEnglishSE.xcresult
+
+** TEST SUCCEEDED **
+
+Testing started

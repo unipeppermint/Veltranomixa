@@ -1,96 +1,67 @@
-# 幸运小岛 · 产品方案
+# Lucky Island · Product plan
 
-版本：V1.0｜整理日期：2026-09-16｜状态：开发前基线，具体数值待试玩验证
+Baseline: September 16, 2026. English edition: September 17, 2026. The native strategy refinements are documented in [Strategy polish](05-strategy-polish.md).
 
-## 1. 已确认方向
+## Direction and core experience
 
-制作单人、离线的转盘轻策略游戏，保留转盘改造、资源收集、关卡挑战和岛屿建设。中国大陆 App Store 必须包含在首发范围。当前名称「幸运小岛」为暂定展示名称，工程名称为 Veltranomixa。
+A single-player, offline wheel strategy game: shape your wheel, collect resources, complete challenges, and turn an island into a lively home. The alternative ambient island experience is a backup concept, not the chosen implementation. Mainland China remains part of the intended initial App Store distribution.
 
-用户认可立体玩具小岛的视觉方向，已制作三屏视觉稿和可交互 HTML 原型。娱乐类互动小岛仅作备用方案，不替换当前游戏方案。
+Designed for portrait iPhone play during short breaks, with an initial target of 3–5 minutes per run. The loop is: choose a goal → spin → collect resources → select upgrades or refit tiles → complete a challenge → keep a new landmark. There are no energy timers.
 
-## 2. 定位与核心体验
+## Original lighthouse challenge
 
-一句话：转动并改造自己的转盘，收集资源，完成挑战，让一座小岛逐渐热闹起来。
+Start with 12 spins, no Wood, and no Coins. Collect at least 20 Wood before running out of spins.
 
-- 使用场景：休息、通勤等碎片时间。
-- 单局时长：目标 3～5 分钟。
-- 设备：iPhone 竖屏，单手操作。
-- 核心体验：随机结果带来期待，升级选择影响结果，建设奖励留下成果。
-- 核心流程：选择目标 → 转动获取资源 → 改造或选择升级 → 完成挑战 → 解锁岛屿景观。
+| Tile | Count | Base effect |
+| --- | --- | --- |
+| Wood | 3 | Yields 2, 1, and 1 Wood |
+| Coins | 3 | Yields 2, 1, and 3 Coins |
+| Chest | 1 | Choose one of three upgrades |
+| Breeze | 1 | Double the next Wood or Coins reward |
 
-## 3. 灯塔样例关卡
+All eight tiles are equally likely: 12.5% per tile. Increasing the number of a resource's tiles increases its total probability. There are no hidden probability adjustments.
 
-初始 12 次转动，在次数用尽前收集至少 20 个木材。初始木材和金币均为 0。
+Every third spin also offers an upgrade. If a Chest and the third-spin trigger coincide, the player gets one choice, not two:
 
-| 格子 | 数量 | 基础效果 |
-|---|---:|---|
-| 木材 | 3 | 分别产出 2、1、1 个木材 |
-| 金币 | 3 | 分别产出 2、1、3 枚金币 |
-| 宝箱 | 1 | 触发一次三选一升级 |
-| 天气 | 1 | 下次木材或金币奖励翻倍 |
+- **Better Tools:** every Wood tile yields +1 for the run; stacks.
+- **Fair Breeze:** double the next Wood or Coins reward. Multiple Breezes do not stack. Other tile types do not consume it.
+- **Extra Chances:** gain 2 spins.
 
-8 个等大格子，单格概率均为 12.5%。同类格子增多时，对应资源的总概率增大。公开规则，不做隐藏概率调整。
+Spend 4 Coins to boost all Wood tiles by 1. Base yield and tool boosts are added before Breeze doubles the reward. On the last spin, resolve the reward and goal first, then any upgrade opportunity, then check remaining spins. This allows Extra Chances to rescue a run.
 
-### 升级与改造
+Tile replacement was outside the original HTML prototype. The native version now provides a first free swap per new run, then charges 6 Coins per replacement; see the strategy document for complete mechanics.
 
-- 每转动 3 次获得一次升级；抽到宝箱也触发升级。同一转动同时触发时只给一次选择，与现有原型一致。
-- 加固工具：本局所有木材格每次额外产出 1 个木材，可叠加。
-- 顺风时刻：下一次木材或金币奖励翻倍，连续获得不叠加倍数；遇到宝箱或天气不消耗。
-- 备用机会：增加 2 次转动。
-- 金币改造：支付 4 枚金币，为本局所有木材格增加 1 点产出。
-- 奖励顺序：基础产出 + 工具加成，再应用双倍。
-- 最后一次转动：先计算奖励；达成目标则成功；否则处理本次升级机会，再检查剩余次数，保证增加次数的升级仍有意义。
-- 格子替换为正式版计划能力，不在当前 HTML 原型内；规则与价格在首个原生关卡验证后确定。
+## Progress and screens
 
-## 4. 结算与长期进度
+Successful challenges unlock permanent landmarks, decorations, achievements, or wheel styles. Levels can be replayed. Failure never removes existing collection items. Run resources, boosts, and wheel changes reset with a new run. Current runs save automatically and can resume after interruption.
 
-成功解锁对应建筑或装饰，可重玩。失败不扣除已经获得的长期收藏，可立即重试。
+Screens: island home, map, level details, wheel game, upgrade choice, workshop, result, collection, and settings. Settings include sound, haptics, quick animation, tutorial replay, rules and odds, privacy and local saves, about, and a confirmed reset action.
 
-局内资源、金币、临时效果和转盘改造在新局重置；已完成关卡、建筑、成就与外观长期保留。不设置等待恢复的体力。正式版自动保存当前局，允许中断后继续。
+## Initial content scope
 
-## 5. 页面范围
+One island with three regions and 15 levels; six tile types; 15 upgrades; 12 landmarks/decorations; 10 achievements; three wheel styles. These are product scope targets, not an App Store approval threshold. Challenges should vary through resource combinations and rule interactions, rather than only larger numeric goals.
 
-| 页面 | 核心内容 |
-|---|---|
-| 小岛首页 | 建设成果、区域进度、下一目标、继续挑战 |
-| 关卡详情 | 目标、特殊规则、额外挑战 |
-| 转盘对局 | 目标进度、资源、次数、转盘、改造入口 |
-| 升级选择 | 三选一及效果说明 |
-| 结算 | 成功或失败、资源汇总、重试、回岛 |
-| 收藏 | 建筑、装饰、成就、转盘皮肤 |
-| 设置 | 声音、触感、快速动画、教学、隐私、支持信息 |
+## Art and feedback
 
-## 6. 正式首发内容预算
+A warm miniature toy island in ocean blue, cream, and coral. Use layered illustrations, readable icons, and text labels. Focus on decelerating spins, pointer motion, resource feedback, and visible construction progress. Respect Reduce Motion and provide independent sound and haptic switches. The HTML scene and emoji are only prototype representations.
 
-一座小岛、3 个区域、约 15 个关卡、6 种格子类型、15 种升级、12 项建筑与装饰、10 项成就和3套转盘皮肤。首个关卡先实现上面的 4 种基础格子和 3 种升级，其余按试玩结果扩展。
+## Business model and boundaries
 
-这些数量是范围预算，不是已经完成的内容，也不是 Apple 规定的上架门槛。新手引导可重看；关卡目标及额外挑战应有差异，避免只增加数值。
+Current implementation is free of advertising and in-app purchases. No account, social features, server, leaderboard, or cash/physical rewards. Any future paid chapter or cosmetic purchase is outside this implementation. Final name and commercial decisions still require owner confirmation.
 
-## 7. 美术与体验
+## Release prerequisites
 
-暖色玩具质感，海蓝、奶油白、珊瑚橙为主色。用分层插画呈现岛屿立体感。优先打磨转盘减速、指针跳动、资源飞行、建筑点亮。提供音效和触感开关，适配减弱动态效果；资源同时使用文字和图标标识。
+The chosen gameplay is a game regardless of its category label. The original release investigation identified mainland China publishing approval and related documentation as unresolved prerequisites; offline operation is not a claimed exemption. The owner currently has no game publication number or publishing partner.
 
-## 8. 商业化与边界
+Before submission: complete functional QA, verify asset rights, supply actual app screenshots, support and privacy-policy URLs, answer the age-rating questionnaire, prepare review notes, and perform device/TestFlight validation. Do not promise approval. Do not change Bundle ID, signing team, or distribution settings without authorization.
 
-首版建议免费、无广告、无内购，尚待最终确认。无账号、社交、服务器、排行榜、现金或实物兑换。未来可评估明确内容的一次性章节或外观购买，不纳入当前实现范围。
+## Backup concept
 
-## 9. 发行准备与未决事项
+An ambient interactive island where the wheel changes weather, time, music, and atmosphere, with free scene arrangement and postcards. It removes resource goals, win/loss, and capability upgrades. It remains a separate fallback and is not mixed into this game.
 
-当前产品按实际玩法属于游戏方向。类别选择不改变产品性质。中国大陆发行资质需单独落实；离线运行不作为免除资质的依据。Apple 文档明确说明大陆游戏上架需要网络游戏出版物号及相关证明，部分 App 涉及 ICP 备案。用户目前没有出版发行合作资源，因此这是尚未解决的发行前置事项，不代表开发完成后即可发布。
+## References
 
-正式提交还需完整功能、隐私政策及支持网址、素材使用权、真实截图、年龄分级问卷、审核说明、真机和 TestFlight 验证。年龄分级按最终内容填写，不预设固定等级。
-
-## 10. 备用方案
-
-娱乐类「互动小岛」：转盘决定天气、时间、音乐和氛围；自由布置场景、保存明信片；取消关卡胜负、资源经济及能力升级。只保留为备选，不混入当前首发需求，最终分类仍以实际产品为准。
-
-## 11. 验收与待确认
-
-先验证一局完整闭环、升级差异和转盘手感，再扩内容。待确认项：最终名称、商业化、发行资质路径、正式素材与关卡数值。Bundle ID、签名和发布配置不在本方案中授权变更。
-
-## 参考
-
-- [Apple 类别定义](https://developer.apple.com/app-store/categories/)
-- [Apple App 信息及大陆发行要求](https://developer.apple.com/cn/help/app-store-connect/reference/app-information/app-information)
-- [Apple 审核指南](https://developer.apple.com/app-store/review/guidelines/)
-- [App 隐私信息](https://developer.apple.com/help/app-store-connect/manage-app-information/manage-app-privacy)
+- [Apple categories](https://developer.apple.com/app-store/categories/)
+- [App information and regional requirements](https://developer.apple.com/help/app-store-connect/reference/app-information/app-information)
+- [App Review Guidelines](https://developer.apple.com/app-store/review/guidelines/)
+- [App privacy information](https://developer.apple.com/help/app-store-connect/manage-app-information/manage-app-privacy)

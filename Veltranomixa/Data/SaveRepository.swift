@@ -18,14 +18,14 @@ final class SaveRepository {
                 if let object = try? JSONSerialization.jsonObject(with: data) as? [String: Any], let version = object["version"] as? Int, version > 1 { throw GameError.invalidSave }
                 if let save = try? JSONDecoder().decode(SaveEnvelope.self, from: data), (try? GameEngine.validate(save)) != nil {
                     if file == backup { try data.write(to: primary, options: .atomic) }
-                    return (save, file == backup ? "主存档无法读取，已恢复上一份有效备份。" : nil)
+                    return (save, file == backup ? "Your main save could not be read. The last valid backup has been restored." : nil)
                 }
             }
             // Preserve unreadable data for diagnostics before starting a clean local game.
             for file in [primary, backup] where fm.fileExists(atPath: file.path) {
                 try fm.moveItem(at: file, to: directory.appendingPathComponent("damaged-\(UUID().uuidString).json"))
             }
-            return (SaveEnvelope(), "存档及备份无法读取，已保留损坏文件并创建新进度。")
+            return (SaveEnvelope(), "Neither save could be read. The damaged files were preserved and a new island was started.")
         }
     }
     func write(_ save: SaveEnvelope) throws {

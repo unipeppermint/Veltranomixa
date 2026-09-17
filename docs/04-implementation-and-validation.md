@@ -1,10 +1,10 @@
-# 幸运小岛 · 实现与验证
+# Lucky Island · Implementation and validation
 
-更新时间：2026-09-16。开发在原有 Veltranomixa Target 内完成，未另建替代应用。
+The app is implemented in the original **Veltranomixa** target. It is not a replacement project. See [Strategy polish](05-strategy-polish.md) for subsequent gameplay changes and [English edition](06-english-edition.md) for the language/layout update.
 
-## 打开与运行
+## Build and run
 
-打开 `Veltranomixa.xcworkspace`，选择 `Veltranomixa` scheme。依赖为 CocoaPods 1.17.0 + SnapKit 5.7.1，版本见 Gemfile.lock / Podfile.lock。
+Open `Veltranomixa.xcworkspace` and select the `Veltranomixa` scheme. Dependency versions are CocoaPods 1.17.0 and SnapKit 5.7.1, recorded in Gemfile.lock and Podfile.lock.
 
 ```sh
 bundle install
@@ -15,60 +15,61 @@ xcodebuild -workspace Veltranomixa.xcworkspace -scheme Veltranomixa \
 swift test --scratch-path /tmp/lucky-rule-tests
 ```
 
-本机 Homebrew CocoaPods 使用独立 GEM_HOME；直接 `pod install` 已实测成功。Gemfile.lock 使用其已安装依赖解析生成。其他机器可通过 Bundler 标准安装还原。
+On this machine, Homebrew CocoaPods uses an isolated GEM_HOME; direct `pod install` also succeeded. Gemfile.lock was resolved from its installed dependencies. Other machines can restore through Bundler normally.
 
-Podfile 的 post_integrate 仅为 CocoaPods 资源复制脚本声明临时输出文件，使其在 Xcode 的脚本沙箱下正常工作；没有关闭脚本沙箱。Bundle ID `com.ccvl.Veltranomixa`、签名方式、版本号和原有发布设置保留。改为程序化 SceneDelegate 入口，保留原 storyboard 文件与启动屏。
+The Podfile post-integrate hook declares a temporary output for the CocoaPods resource-copy script. Xcode script sandboxing remains enabled. The existing Bundle ID `com.ccvl.Veltranomixa`, signing configuration, and version values remain unchanged. SceneDelegate now creates the root controller programmatically; the original storyboards and launch screen remain in the project.
 
-## 已实现
+## Implemented features
 
-- Swift / UIKit / SnapKit 原生首页、地图、关卡详情、转盘、升级、工坊、结算、收藏与设置，无 WebView。
-- 3 区域、15 关；6 种格子、15 种升级；12 景观、10 成就、3 转盘配色。
-- 灯塔为文档规定的 12 次、20 木材、八格等概率及三种基础升级。目标优先于升级；最后一转可用备用机会救场。
-- 第 2 关起开放 6 金币替换单格为基础产出 2 的木材/金币格，第 6 关起可替换贝壳格。强化木材仍为 4 金币。单格始终 12.5%。
-- 第 6 关引入贝壳，第 11 关引入补给。贝壳不消耗顺风，补给返还一次机会并提供 1 木材。
-- 额外挑战为胜利时至少保留 3 次机会。主目标在木材、金币、贝壳与组合目标间变化。
-- 首套海风皮肤默认可用，珊瑚/星夜在第 13/14 关完成后解锁，第 15 关解锁全岛成就。
-- Core Animation 转盘减速、指针摆动、资源飞行动画；真实生成插画拆层场景和收藏、资源图标、App Icon；原创合成音效与原生触感。
-- 声音、触感、快速动画、教学重看、玩法与概率、隐私说明、关于应用、清空进度二次确认。系统减弱动态效果自动适配。
-- 本地 JSON v1 存档与上一份备份。新快照原子落盘后才发布 UI 状态。转动结果包含 UUID、索引及奖励消息；奖励预先提交，动画结束只清除 pending，恢复不重抽不重奖。
-- 主存档损坏尝试备份；全部损坏保留副本并说明；未知未来版本拒绝写入。当前版本为首个格式，尚无旧正式版本需要迁移。
+- Native UIKit/SnapKit island, map, level details, wheel gameplay, upgrades, workshop, results, collection, and settings. No WebView.
+- Three regions, 15 levels, six tile types, 15 upgrades, 12 landmarks, 10 achievements, and three wheel styles.
+- Lighthouse baseline: 12 spins, 20 Wood, eight equal-probability tiles, and the original three upgrade choices. Wins take priority; Extra Chances can rescue the last spin.
+- Native workshop: first swap free per new run, then 6 Coins. Replacements have base yield 2. A separate 4-Coin purchase boosts all Wood tiles by 1. Each tile always retains 12.5% odds.
+- Shells appear from level 6; Supply from level 11. Shells preserve Breeze. Supply refunds a spin and adds 1 Wood.
+- Bonus challenge: finish with at least 3 spins left. Targets vary across Wood, Coins, Shells, and combinations.
+- Breeze style is initially available. Coral unlocks after level 13, Starlight after level 14, and the final island achievement after level 15.
+- Core Animation spin deceleration, pointer feedback, resource flight, generated layered artwork, collection art, resource icons, app icon, synthesized sounds, and native haptics.
+- Sound, haptic, quick-spin, tutorial replay, rules/odds, privacy/local save, about, and confirmed reset controls. Reduce Motion is respected.
+- Local JSON v1 saves and backup. Each candidate is atomically written before being displayed. Pending spins contain a UUID, tile index, and message; rewards commit before animation. Acknowledgement only clears the pending marker.
+- Backup fallback, damaged-file preservation, and rejection of future save versions. Optional mechanics fields keep old runs on their original rules.
 
-## 代码结构
+## Source map
 
-- `Domain/GameEngine.swift`：配置、模型、随机源协议、纯规则、状态校验。
-- `Data/SaveRepository.swift`：串行存档、原子提交、备份恢复。
-- `ViewController.swift`：原生页面、交互与持久化提交后更新。
-- `Views/`：转盘、岛屿分层、设计组件、声音与触感。
-- `Assets.xcassets/`：岛屿底图、建筑图集、资源图集、图标。
-- `Tests/`：可独立在 macOS 运行的规则/持久化 XCTest。
-- `UITests/`：模拟器实际 UI 流程与大文字/偏好持久化。
+| Path | Responsibility |
+| --- | --- |
+| `Domain/GameEngine.swift` | Configuration, models, rules, randomness, validation |
+| `Data/SaveRepository.swift` | Serialized atomic persistence and recovery |
+| `ViewController.swift` | Screens, inputs, and persistence-backed updates |
+| `Views/` | Wheel, island, shared UI, audio, haptics, decorative wheel |
+| `Assets.xcassets/` | Island, building/item atlases, app icon |
+| `Tests/` | Independent macOS rule/save XCTest suite |
+| `UITests/` | Simulator user flows and accessibility layouts |
 
-## 美术与资源
+## Assets and attribution
 
-图片由本任务通过内置 ImageGen 生成，最终素材全部保存在工程 Asset Catalog。建筑 4×3 图集由原生视图裁切，按真实解锁进度叠加到无建筑岛屿底图；资源图标为 3×2 图集。未使用原型三屏合成图作为游戏页面，也未采用 HTML emoji 场景。
+Images were generated with the built-in ImageGen tool and saved inside the asset catalog. A 4×3 building atlas supplies individual collectible sprites, overlaid on a building-free island background according to actual completion. A 3×2 atlas supplies resource icons. The reference mockup and HTML emoji scenery are not shipping screens.
 
-`spin.wav` / `success.wav` 为正弦波叠加和包络生成的原创短音效。SnapKit MIT 原文包含在应用中。应用与 SnapKit 隐私清单均已编译进模拟器包，未接入账号、广告、内购、分析或网络服务。
+`spin.wav` and `success.wav` are original synthesized short sounds. The original SnapKit MIT notice remains bundled. Both the app privacy manifest and SnapKit privacy resource bundle were verified in simulator products. No account, ad, analytics, purchase, or network SDK was introduced.
 
-## 验证记录
+## Historical validation: September 16
 
-- Xcode 26.6 / iOS 26.5 SDK / CocoaPods 1.17.0。
-- workspace Debug 模拟器构建通过。
-- workspace Release 模拟器构建通过；未签名归档。
-- 16 项规则及持久化 XCTest：0 失败。覆盖全部基础格子、先加后乘、顺风非叠加与消耗、最后一转、胜利优先、双触发去重、金币与替换、UUID 防重复、pending 恢复、损坏备份、未来版本保护、写入失败和非法状态。
-- 第一轮真实随机 UI 测试通过：转动后退出应用、重启继续、升级、结束一局、收藏、设置。
-- 最终 2 项 UI 测试均通过：固定结果完整通关并解锁下一关；最大辅助字号收藏/设置与重启后偏好保持。截图检查发现并修复底部导航裁切后，针对性大文字 UI 测试再次通过。证据见 `validation/screenshots/` 与测试日志。
-- 15,000 局固定种子策略模拟：各关胜率 89.3%–99.7%，平均转动 12.959–35.871 次。策略优先工具、低剩余选备用机会并适度改造，属于诊断而非玩家胜率承诺。数值见 `validation/balance.csv`。
-- 构建仅出现无 AppIntents 依赖的元数据提取提示，不影响应用功能。
+- Xcode 26.6, iOS 26.5 SDK, CocoaPods 1.17.0.
+- Workspace Debug and Release simulator builds passed. No signed archive was produced.
+- 16 rule/persistence tests passed, covering base outcomes, operation order, Breeze, last-spin behavior, trigger deduplication, workshop funds, UUID acknowledgement, pending recovery, corrupted saves, future versions, and write errors.
+- A random UI run passed: terminate after a spin, relaunch, resume, upgrade, finish, and visit collection/settings.
+- Deterministic win and large-text UI tests passed. Screenshot inspection found clipped navigation at the largest accessibility size; the navigation sizing was corrected and the targeted test passed again.
+- A 15,000-run fixed-seed diagnostic reported 89.3%–99.7% win rates and 12.959–35.871 average spins across levels. This was an automated policy, not a player win-rate claim. See `validation/balance.csv`.
+- Builds emitted an AppIntents metadata extraction notice because the app does not depend on that framework.
 
-UI 测试固定随机入口由 `#if DEBUG` 包裹，仅显式环境变量 `ISLAND_UI_FIXED_WOOD=1` 生效，画面带测试标识。Release 不编译此入口。界面测试截图不可直接作为 App Store 商品截图。
+Test-only fixed randomness requires `ISLAND_UI_FIXED_WOOD=1` and is compiled only under `#if DEBUG`, with an explicit screen banner. UI tests now use a separate save directory. Test-mode captures must not be used as App Store marketing screenshots. Historical logs/captures retain the exact copy rendered by those builds; current-language evidence is stored separately.
 
-## 仍需外部验收与发行材料
+## Product presentation cleanup: September 17
 
-- 真机音效、静音开关、触感、VoiceOver 实际朗读、不同 iOS 版本、长时间帧率/内存/热量与 TestFlight 尚未验证。
-- 当前支持页提供本地故障指引；正式支持邮箱/网址、线上隐私政策网址、最终名称及商业化确认仍需用户提供。当前实现为无广告无内购。
-- 中国大陆发行资质前置问题延续原文档状态，尚未解决。完成开发和模拟器测试不等同于能够提交或通过审核；未执行发布操作。
-- 关卡节奏与 15 种升级还需真实玩家试玩；当前差异主要来自目标组合、格子解锁和升级选择。
+Settings no longer exposes an open-source-license row, development-version banner, release TODO, artwork-generation tools, or layout-framework details. About Lucky Island shows a product introduction and the actual bundle version. The dependency copyright notice is still packaged. Release TODOs live in documentation rather than player screens.
 
-## 正式产品界面整理（2026-09-17）
+## Remaining external validation and release inputs
 
-设置页移除了单独的开源许可入口、开发版本提示、发行待办、素材生成工具及布局框架等实现信息。「关于幸运小岛」展示产品介绍与从 Bundle 读取的真实版本号。SnapKit 原始版权及许可文件继续随应用打包。开发与发行待办仅保留在项目文档中。显式自动测试会话的 Debug 标记保留，Release 不包含该入口。
+- Physical-device audio, silent switch, haptics, VoiceOver reading, older supported OS versions, sustained performance/thermals/memory, and TestFlight remain unverified.
+- The owner must provide a real support endpoint and public privacy-policy URL, and confirm final branding/commercial choices. Current implementation has no ads or purchases.
+- Mainland China publishing prerequisites remain unresolved. Development and simulator QA do not authorize or guarantee release. No publishing action has been performed.
+- Balance, pacing, and strategic depth still require human playtesting. Automated policies only help identify dead ends and numeric anomalies.

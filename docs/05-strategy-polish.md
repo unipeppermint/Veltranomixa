@@ -1,58 +1,54 @@
-# 幸运小岛 · 策略体验打磨
+# Lucky Island · Strategy polish
 
-日期：2026-09-17。本轮在现有原生工程内改进玩法与工坊，未添加依赖。
+September 17, 2026. Changes were made in the existing native app without additional dependencies.
 
-## 可体验的变化
+## Playable improvements
 
-- 每个新对局有一次免费格子替换，从第 1 关即可使用；之后每次 6 金币。强化木材仍为 4 金币。相同配置不能重复购买或消耗免费次数。
-- 工坊成为独立页面，展示原格子、新资源、三种资源的命中率变化、下一转命中该格的产出、金币预算。删除最后一个未完成目标资源格时显示提醒。
-- 转盘使用放射式排版：图标靠外，名称与数值靠内，内容沿每格半径朝向圆心，并随整盘旋转。盘面显示基础值与工具加成；下一转的完整产出在工坊预览中查看。工坊从初始顶部起顺时针编号 1–8。
-- 对局目标卡显示下一转的环境，关卡详情说明规则。主页和教学突出改造策略。
-- 第 2 关起，升级首选成长项按尚未完成的资源目标提供木材、贝壳或金币强化；保留续航选择，第三项提供变化，无力支付的以金换木不进入新候选。
+- One free tile replacement per new run, available from level 1. Later swaps cost 6 Coins. Boosting Wood tiles still costs 4 Coins. An identical replacement cannot consume Coins or the free swap.
+- The dedicated workshop shows the original tile, replacement resource, probability changes, next-spin yield, and Coin budget. It warns when a swap removes the last source of an unfinished target resource.
+- The wheel uses radial layout: icon outside, label/value inside, all following the sector angle. The board and content rotate together. Labels show base plus tools; the workshop shows full next-spin yield. Original tile positions are numbered 1–8 clockwise from the top.
+- Goal cards show the next-spin environment. Level details explain the local rule. Home and tutorial emphasize wheel strategy.
+- From level 2, the growth upgrade follows the unfinished Wood, Shells, or Coins goal. A continuation option remains available; the third offer adds variety. Unaffordable Timber Trade is excluded from new offers.
 
-## 关卡机制
+## Island rules
 
-| 关卡 | 机制 | 决策 |
+| Levels | Rule | Decision |
 | --- | --- | --- |
-| 1、2 | 自由工坊 | 换格增加命中率，或保留金币用于强化 |
-| 4、5、7、10 | 林地连携 | 命中木材时，每个相邻木材格额外 +1；首尾相邻，鼓励成片布局 |
-| 6、8、11、12、14 | 潮汐节律 | 每第 3 转贝壳 +3，其余转木材 +1；观察下一转阶段再安排改造 |
-| 3、9、13、15 | 轮换集市 | 奇数转木材 +2、偶数转金币 +2；兼顾建设目标和改造预算 |
+| 1, 2 | Free workshop | Trade resource probability against saving Coins for boosts |
+| 4, 5, 7, 10 | Grove neighbors | Each adjacent Wood tile adds +1 to landed Wood; tiles 1 and 8 are adjacent |
+| 6, 8, 11, 12, 14 | Tidal rhythm | Every third spin gives Shells +3; other spins give Wood +1 |
+| 3, 9, 13, 15 | Island market | Odd spins give Wood +2; even spins give Coins +2 |
 
-所有格子仍各有 12.5% 的概率，不更改随机抽取权重。木材与金币奖励顺序为基础 + 工具 + 关卡加成，再乘顺风；贝壳不消耗顺风。
+Each tile remains 12.5% likely. Wood and Coins resolve base + tools + island bonus, then Breeze. Shells do not consume Breeze.
 
-## 存档与验证方式
+## Persistence and verification
 
-现有 v1 存档无需重置。新增可选的对局机制版本及免费换格计数；旧对局没有这些字段，继续使用经典产出与原换格收费，新开的对局启用新机制。潮汐和集市阶段由已经持久化的转动次数推导，退出重进不会重置周期。
+Existing v1 saves do not require reset. Optional mechanics-version and free-refit fields allow older runs to retain classic yields and replacement prices. Newly started runs use the new mechanics. Tide and market phases derive from persisted spin count, so relaunching cannot reset their cycle.
 
-UI 自动测试使用 DEBUG 专属的独立存档子目录，避免清空玩家存档。测试模式截图不能直接用作 App Store 商品截图。
+UI automation uses a DEBUG-only save subdirectory, separate from player progress. Fixed-result test images are not App Store marketing captures.
 
-新增回归覆盖免费次数持久化、相同配置拒绝、林地首尾邻接及顺风顺序、潮汐周期恢复、集市轮换、旧存档兼容及升级候选。UI 覆盖改造预览、换格后的概率、付费限制、恢复与通关、大文字工坊。
+Regression coverage includes free-swap persistence, identical swaps, grove wraparound adjacency and Breeze order, tide-cycle recovery, market alternation, old-save compatibility, and upgrade offers. UI coverage includes previews, new probabilities, paid-swap constraints, resume/win, and large-text workshop confirmation.
 
-## 数值观察
+## Balance diagnostics
 
-固定种子，每关 1,000 局共 15,000 局。策略会使用免费换格、保留目标资源来源、按目标选择成长升级并在机会不足时续航。此模拟用于发现卡关与数值异常，不代表玩家胜率，也不代表已完成真实试玩调优。保留必要资源来源的策略下，各关模拟胜率为 93.0%–100%，平均转动 8.525–27.172 次。前几关保持偏宽松的入门难度；这不是策略深度的充分证明。结果保存在 validation/strategy-balance.csv。
+A fixed-seed policy ran 1,000 games per level, 15,000 total. It uses the free swap, preserves necessary resource sources, chooses goal-relevant growth upgrades, and extends low-spin runs. Win rates were 93.0%–100%, with average spin counts of 8.525–27.172. Early levels intentionally remain forgiving. This does not establish player win rates or prove strategic depth. Results are in `validation/strategy-balance.csv`.
 
-首次模拟发现，若把唯一的金币格换走，金币目标可能长期无法完成。工坊因此增加资源来源提醒，模拟策略也保留必要资源格；玩家仍可自行选择有风险的布局。
+An earlier policy could remove the only Coins tile and stall a Coins goal. The workshop now warns about removing necessary sources, and the diagnostic policy preserves them. Players can still choose risky layouts.
 
-本轮提高玩法辨识度，不构成 App Store 审核通过保证。真机体验和真实玩家的策略深度评价仍需后续验证。
+## Historical verification results
 
-## 本轮验证结果
+- Debug and Release simulator builds passed; no signed archive.
+- 22 rule/save tests passed at this stage.
+- Three UI tests passed across two runs: free swap/preview/paid limit/resume/win, large-text collection/settings, and large-text workshop preview/confirmation.
+- The 15,000-run simulation completed with every level achievable.
+- The wheel and large-text workshop screenshots were visually inspected. Original evidence is in `validation/strategy-screenshots/`.
+- Test device: iPhone 17 Pro simulator on iOS 26.5. No new device or TestFlight verification.
+- No dependencies, Bundle ID, signing team, or distribution settings changed.
 
-- Debug 与 Release 模拟器构建通过，未执行签名归档。
-- 22 项规则及存档 XCTest 全部通过。
-- 3 项 UI 测试通过：免费换格／概率预览／付费限制／恢复与通关；大文字收藏及设置；大文字工坊预览及确认。前两项与最终新增工坊项分两次运行。
-- 15,000 局固定种子模拟完成，全部关卡可完成。
-- 已目视检查改造后的转盘、大文字工坊布局和预览截图，证据位于 validation/strategy-screenshots/。
-- 本轮测试设备为 iPhone 17 Pro 模拟器（iOS 26.5）；没有新增真机和 TestFlight 验证。
-- 未新增依赖，未修改 Bundle ID、签名团队或发布配置。
+## Radial wheel behavior
 
-## 转盘放射式布局
+The top pointer stays fixed while the entire board rotates. Tile i starts with content rotation i × 45 degrees. The selected board angle is −i × 45 degrees, so the winning tile becomes upright when it stops under the pointer. Restored runs use the same relation. There is no independently counter-rotating content and no orbiting pointer.
 
-按用户确认的样式，顶部指针固定，整只转盘旋转。每格图标与文字按该格的角度预先旋转，沿半径由外向内朝向圆心；图标在外侧，名称和数值在内侧。内容没有独立的反向动画，也没有固定盘面、移动指针的行为。
+The fifth-tile half-turn and relaunch UI regression passed after an initial test setup issue with onboarding was corrected. The radial arrangement was visually inspected. The reference capture is `validation/strategy-screenshots/wheel-radial-layout.png`.
 
-格子 i 的内容初始角度为 i × 45°；抽中后盘面角度为 −i × 45°。因此抽中格停在顶部指针下时，图标和文字自然正向。恢复存档应用同样的角度关系。
-
-验证：Debug 模拟器构建通过；抽中第 5 格、旋转停止及重启恢复的 UI 回归通过。首轮测试在重启教学弹窗的时序上失败，显式完成测试前置教学后复测通过。已目视确认径向布局，截图：validation/strategy-screenshots/wheel-radial-layout.png。
-
-指示箭头动画已按初始提交原样恢复：向转动方向轻摆再回正，周期为 0.12 秒，使用初版默认关键帧节奏与重复次数。去掉后加的关键帧时间比例和周期取整。快速转动和系统减弱动态效果开启时省略摆动。
+Pointer feedback follows the original keyframe rhythm: a small deflection and return every 0.12 seconds, using the initial default keyframe timing and repeat count. Quick spins and Reduce Motion skip the pointer wobble.

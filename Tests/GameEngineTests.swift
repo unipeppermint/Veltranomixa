@@ -104,7 +104,7 @@ extension GameEngineTests {
         try spin(&s, 0); XCTAssertEqual(s.run!.wood, 3); try ack(&s)
         try spin(&s, 1); try ack(&s)
         s = try JSONDecoder().decode(SaveEnvelope.self, from: JSONEncoder().encode(s))
-        XCTAssertTrue(s.run!.ruleStatus.contains("涨潮"))
+        XCTAssertTrue(s.run!.ruleStatus.contains("high tide"))
         XCTAssertEqual(s.run!.yield(at: 5, spinNumber: 3), 5)
         s.run!.doubleNext = true
         try spin(&s, 5)
@@ -142,5 +142,15 @@ extension GameEngineTests {
         var shells = try new(5); shells.run!.wood = 12; shells.run!.spins = 2
         try spin(&shells, 3)
         XCTAssertEqual(shells.run!.offers.first, .shellwork)
+    }
+}
+
+extension GameEngineTests {
+    func testLegacyRewardMessageDisplaysEnglishWithoutChangingTransaction() throws {
+        let record = SpinRecord(id: UUID(), index: 0, message: "\u{6728}\u{6750} +2")
+        let decoded = try JSONDecoder().decode(SpinRecord.self, from: JSONEncoder().encode(record))
+        XCTAssertEqual(decoded, record)
+        XCTAssertEqual(decoded.displayMessage, "Saved spin revealed. Your resources are up to date.")
+        XCTAssertEqual(SpinRecord(id: UUID(), index: 0, message: "Wood +2").displayMessage, "Wood +2")
     }
 }
