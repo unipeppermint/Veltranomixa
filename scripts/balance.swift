@@ -20,8 +20,17 @@ struct Seeded: RandomSource {
                         if r.remaining <= 3 { choice = .reserve }
                         else if r.wood < level.wood { choice = .tools }
                         else { choice = r.offers.first(where: { [.purse,.shellwork,.savings,.beach,.tide].contains($0) }) ?? .reserve }
-                        try GameEngine.choose(choice,in:&s)
+                        try GameEngine.choose(r.offers.contains(choice) ? choice : r.offers[0],in:&s)
                     } else {
+                        if (r.freeRefits ?? 0) > 0 {
+                            let kind: Tile = level.shells > 0 ? .shell : (level.wood > 0 ? .wood : .coin)
+                            let index = r.wheel.indices.first { index in
+                                let tile = r.wheel[index]
+                                let required = tile.kind == .wood ? level.wood : (tile.kind == .coin ? level.coins : (tile.kind == .shell ? level.shells : 0))
+                                return tile.kind != kind && (required == 0 || r.wheel.filter { $0.kind == tile.kind }.count > 1)
+                            } ?? (kind == .wood ? 2 : 4)
+                            try GameEngine.craft(&s, replacing: index, with: kind)
+                        }
                         if r.coins >= level.coins + 4 && r.wood < level.wood && r.boost < 3 { try GameEngine.craft(&s) }
                         try GameEngine.spin(&s,random:&random)
                     }

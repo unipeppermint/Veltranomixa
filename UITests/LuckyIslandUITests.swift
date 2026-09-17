@@ -10,12 +10,26 @@ final class LuckyIslandUITests: XCTestCase {
         XCTAssertTrue(button.waitForExistence(timeout: 5), name); button.tap()
     }
     func testCompleteRunAndRecovery() {
-        let app = XCUIApplication(); app.launchEnvironment["ISLAND_UI_FIXED_WOOD"] = "1"; app.launch()
+        let app = XCUIApplication(); app.launchEnvironment["ISLAND_UI_TEST_SESSION"] = "1"; app.launchEnvironment["ISLAND_UI_FIXED_WOOD"] = "1"; app.launch()
         if app.buttons["让好运靠岸"].waitForExistence(timeout: 3) { app.buttons["让好运靠岸"].tap() }
         tap(app,"tab.设置"); tap(app,"清空所有进度"); app.alerts.buttons["清空进度"].tap()
         capture("01-island")
         tap(app,"开始挑战"); app.alerts.buttons["开始挑战"].tap()
         capture("02-game")
+        tap(app, "game.workshop")
+        let preview = app.staticTexts["workshop.preview"]
+        XCTAssertTrue(preview.label.contains("37.5% → 50.0%"))
+        tap(app, "workshop.slot.3")
+        XCTAssertTrue(app.staticTexts["workshop.preview"].label.contains("顺风 → 木材"))
+        tap(app, "workshop.slot.1")
+        tap(app, "workshop.apply")
+        XCTAssertTrue(app.staticTexts["game.message"].label.contains("50.0%"))
+        capture("10-refitted-wheel")
+        tap(app, "game.workshop")
+        let apply = app.buttons["workshop.apply"]
+        XCTAssertEqual(apply.label, "确认换格 · 6 金币")
+        XCTAssertFalse(apply.isEnabled)
+        tap(app, "返回对局")
         tap(app,"game.spin")
         app.terminate(); app.launch()
         if app.buttons["让好运靠岸"].waitForExistence(timeout: 2) { app.buttons["让好运靠岸"].tap() }
@@ -34,8 +48,50 @@ final class LuckyIslandUITests: XCTestCase {
         tap(app,"tab.设置"); capture("07-settings")
         XCTAssertTrue(app.switches["游戏音效"].exists)
     }
+    func testWheelHalfTurnAndRecovery() {
+        let app = XCUIApplication()
+        app.launchEnvironment["ISLAND_UI_TEST_SESSION"] = "1"
+        app.launchEnvironment["ISLAND_UI_FIXED_WOOD"] = "1"
+        app.launchEnvironment["ISLAND_UI_FIXED_INDEX"] = "4"
+        app.launch()
+        if app.buttons["让好运靠岸"].waitForExistence(timeout: 2) { app.buttons["让好运靠岸"].tap() }
+        tap(app, "tab.设置"); tap(app, "清空所有进度"); app.alerts.buttons["清空进度"].tap()
+        // Reset clears the onboarding flag. Finish it explicitly before testing recovery.
+        tap(app, "tab.设置"); tap(app, "重新查看教学")
+        app.alerts.buttons["让好运靠岸"].tap(); tap(app, "tab.小岛")
+        tap(app, "开始挑战"); app.alerts.buttons["开始挑战"].tap()
+        tap(app, "game.spin")
+        let awarded = NSPredicate(format: "label == %@", "木材 +1")
+        expectation(for: awarded, evaluatedWith: app.staticTexts["game.message"])
+        waitForExpectations(timeout: 8)
+        capture("13-wheel-half-turn-upright")
+        app.terminate(); app.launch()
+        let resume = app.buttons.matching(NSPredicate(format: "label CONTAINS %@", "继续 ·")).firstMatch
+        XCTAssertTrue(resume.waitForExistence(timeout: 5)); resume.tap()
+        XCTAssertTrue(app.buttons["game.spin"].waitForExistence(timeout: 5))
+        capture("14-wheel-recovered-upright")
+    }
+    func testLargeTextWorkshopPreview() {
+        let app = XCUIApplication()
+        app.launchEnvironment["ISLAND_UI_TEST_SESSION"] = "1"
+        app.launchArguments = ["-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL"]
+        app.launch()
+        if app.buttons["让好运靠岸"].waitForExistence(timeout: 2) { app.buttons["让好运靠岸"].tap() }
+        tap(app, "tab.设置"); tap(app, "清空所有进度"); app.alerts.buttons["清空进度"].tap()
+        tap(app, "开始挑战"); app.alerts.buttons["开始挑战"].tap()
+        tap(app, "game.workshop")
+        capture("11-workshop-large-text-layout")
+        let apply = app.buttons["workshop.apply"]
+        for _ in 0..<8 where !apply.isHittable { app.swipeUp() }
+        XCTAssertTrue(apply.isHittable)
+        XCTAssertTrue(app.staticTexts["workshop.preview"].label.contains("37.5% → 50.0%"))
+        capture("12-workshop-large-text-preview")
+        apply.tap()
+        XCTAssertTrue(app.staticTexts["game.message"].label.contains("50.0%"))
+    }
     func testLargeTextSettingsAndCollection() {
         let app = XCUIApplication()
+        app.launchEnvironment["ISLAND_UI_TEST_SESSION"] = "1"
         app.launchArguments = ["-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL"]
         app.launch()
         if app.buttons["让好运靠岸"].waitForExistence(timeout: 2) { app.buttons["让好运靠岸"].tap() }

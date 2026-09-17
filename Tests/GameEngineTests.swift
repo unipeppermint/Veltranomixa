@@ -26,7 +26,7 @@ final class GameEngineTests: XCTestCase {
         var s = try new(); s.run!.remaining = 1; try spin(&s,6); try ack(&s); try GameEngine.choose(.tools,in:&s); XCTAssertEqual(s.run!.phase,.lost)
     }
     func testCraftFundsAndReplacement() throws {
-        var s = try new(5); XCTAssertThrowsError(try GameEngine.craft(&s)); s.run!.coins = 10; try GameEngine.craft(&s); XCTAssertEqual(s.run!.coins,6); XCTAssertEqual(s.run!.boost,1); try GameEngine.craft(&s,replacing:7,with:.shell); XCTAssertEqual(s.run!.coins,0); XCTAssertEqual(s.run!.wheel[7].kind,.shell)
+        var s = try new(5); s.run!.freeRefits = 0; XCTAssertThrowsError(try GameEngine.craft(&s)); s.run!.coins = 10; try GameEngine.craft(&s); XCTAssertEqual(s.run!.coins,6); XCTAssertEqual(s.run!.boost,1); try GameEngine.craft(&s,replacing:7,with:.shell); XCTAssertEqual(s.run!.coins,0); XCTAssertEqual(s.run!.wheel[7].kind,.shell)
     }
     func testCombinedUpgradeOnlyOnce() throws {
         var s = try new(); s.run!.spins = 2; try spin(&s,6); try ack(&s); try GameEngine.choose(.tools,in:&s); XCTAssertThrowsError(try GameEngine.choose(.tools,in:&s)); XCTAssertEqual(s.run!.boost,1)
@@ -70,5 +70,77 @@ extension GameEngineTests {
         var s = try new(); s.run!.phase = .upgrade; s.run!.offers = [.tools,.breeze,.reserve]
         XCTAssertThrowsError(try GameEngine.choose(.festival,in:&s)); try GameEngine.choose(.tools,in:&s)
         s.run!.phase = .won; XCTAssertThrowsError(try GameEngine.validate(s))
+    }
+}
+
+
+extension GameEngineTests {
+    func testFreeRefitIsConsumedOnceAndPersists() throws {
+        var s = try new()
+        XCTAssertThrowsError(try GameEngine.craft(&s, replacing: 0, with: .wood))
+        XCTAssertEqual(s.run!.freeRefits, 1)
+        try GameEngine.craft(&s, replacing: 1, with: .wood)
+        XCTAssertEqual(s.run!.probability(.wood), 50)
+        XCTAssertEqual(s.run!.coins, 0)
+        XCTAssertEqual(s.run!.freeRefits, 0)
+        s = try JSONDecoder().decode(SaveEnvelope.self, from: JSONEncoder().encode(s))
+        XCTAssertThrowsError(try GameEngine.craft(&s, replacing: 5, with: .wood))
+        s.run!.coins = 6
+        try GameEngine.craft(&s, replacing: 5, with: .wood)
+        XCTAssertEqual(s.run!.coins, 0)
+        XCTAssertEqual(s.run!.probability(.wood), 62.5)
+    }
+    func testGroveWraparoundAndWindOrder() throws {
+        var s = try new(3)
+        try GameEngine.craft(&s, replacing: 7, with: .wood)
+        s.run!.boost = 1; s.run!.doubleNext = true
+        XCTAssertEqual(s.run!.yield(at: 0, spinNumber: 1), 8)
+        try spin(&s, 0)
+        XCTAssertEqual(s.run!.wood, 8)
+        XCTAssertFalse(s.run!.doubleNext)
+    }
+    func testTidePreviewMatchesAwardAndCycleSurvivesReload() throws {
+        var s = try new(5)
+        try spin(&s, 0); XCTAssertEqual(s.run!.wood, 3); try ack(&s)
+        try spin(&s, 1); try ack(&s)
+        s = try JSONDecoder().decode(SaveEnvelope.self, from: JSONEncoder().encode(s))
+        XCTAssertTrue(s.run!.ruleStatus.contains("涨潮"))
+        XCTAssertEqual(s.run!.yield(at: 5, spinNumber: 3), 5)
+        s.run!.doubleNext = true
+        try spin(&s, 5)
+        XCTAssertEqual(s.run!.shells, 5)
+        XCTAssertTrue(s.run!.doubleNext)
+    }
+    func testMarketAlternatesWithoutChangingOdds() throws {
+        var s = try new(2)
+        try spin(&s, 0); XCTAssertEqual(s.run!.wood, 4); try ack(&s)
+        try spin(&s, 1); XCTAssertEqual(s.run!.coins, 4)
+        XCTAssertEqual(s.run!.probability(.coin), 37.5)
+    }
+    func testLegacySaveRetainsClassicRulesAndPaidRefits() throws {
+        var s = try new(3)
+        var json = try JSONSerialization.jsonObject(with: JSONEncoder().encode(s)) as! [String: Any]
+        var run = json["run"] as! [String: Any]
+        run.removeValue(forKey: "mechanicsVersion"); run.removeValue(forKey: "freeRefits")
+        json["run"] = run
+        s = try JSONDecoder().decode(SaveEnvelope.self, from: JSONSerialization.data(withJSONObject: json))
+        try GameEngine.validate(s)
+        XCTAssertNil(s.run!.mechanicsVersion)
+        XCTAssertEqual(s.run!.replacementCost, 6)
+        s.run!.wheel[7] = Segment(kind: .wood, value: 2)
+        try spin(&s, 0); XCTAssertEqual(s.run!.wood, 2)
+        try GameEngine.start(3, in: &s)
+        XCTAssertEqual(s.run!.rule, .grove)
+        XCTAssertEqual(s.run!.freeRefits, 1)
+    }
+    func testOffersSupportUnfinishedGoalAndAreAffordable() throws {
+        var s = try new(2); s.run!.spins = 2
+        try spin(&s, 3)
+        XCTAssertEqual(s.run!.offers.first, .purse)
+        XCTAssertEqual(Set(s.run!.offers).count, 3)
+        XCTAssertFalse(s.run!.offers.contains(.exchange))
+        var shells = try new(5); shells.run!.wood = 12; shells.run!.spins = 2
+        try spin(&shells, 3)
+        XCTAssertEqual(shells.run!.offers.first, .shellwork)
     }
 }

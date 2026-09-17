@@ -6,6 +6,20 @@ enum Tile: String, Codable, CaseIterable {
     var symbol: String { ["wood":"leaf.fill", "coin":"dollarsign.circle.fill", "chest":"shippingbox.fill", "wind":"wind", "shell":"fan.fill", "supply":"ticket.fill"][rawValue]! }
 }
 struct Segment: Codable, Equatable { var kind: Tile; var value: Int }
+enum IslandRule: String {
+    case calm, grove, tide, market
+    var title: String {
+        switch self { case .calm: return "自由工坊"; case .grove: return "林地连携"; case .tide: return "潮汐节律"; case .market: return "轮换集市" }
+    }
+    var detail: String {
+        switch self {
+        case .calm: return "每局首次换格免费。多放一格目标资源，命中率增加 12.5 个百分点。"
+        case .grove: return "抽中木材时，每个相邻木材格额外提供 1 木材，再计算顺风。首尾格也相邻。"
+        case .tide: return "每第 3 转涨潮：贝壳产出 +3；其余转退潮：木材产出 +1，再计算顺风。"
+        case .market: return "奇数转木材产出 +2，偶数转金币产出 +2，再计算顺风。换格时要兼顾两种资源。"
+        }
+    }
+}
 struct Level {
     let id: Int
     let name: String
@@ -14,6 +28,9 @@ struct Level {
     let coins: Int
     let shells: Int
     let turns: Int
+    var rule: IslandRule {
+        switch id { case 3, 4, 6, 9: return .grove; case 5, 7, 10, 11, 13: return .tide; case 2, 8, 12, 14: return .market; default: return .calm }
+    }
     var region: Int { id / 5 }
     var target: String { [(wood > 0 ? "木材 \(wood)" : nil), (coins > 0 ? "金币 \(coins)" : nil), (shells > 0 ? "贝壳 \(shells)" : nil)].compactMap { $0 }.joined(separator: " · ") }
     var reward: String { Content.buildings[min(id, 11)] }
@@ -63,7 +80,43 @@ struct RunState: Codable {
     var wheel: [Segment]
     var offers: [Upgrade] = []
     var crafts = 0
-    init(level: Level) { self.level = level.id; remaining = level.turns; wheel = level.wheel }
+    // Missing fields decode as nil in v1 saves: an existing run keeps its original rules.
+    var mechanicsVersion: Int?
+    var freeRefits: Int?
+    var rule: IslandRule { mechanicsVersion == 1 ? Content.levels[level].rule : .calm }
+    var replacementCost: Int { (freeRefits ?? 0) > 0 ? 0 : 6 }
+    var canReplace: Bool { mechanicsVersion == 1 || level > 0 }
+    var ruleStatus: String {
+        guard mechanicsVersion == 1 else { return "经典规则 · 当前对局保持原有玩法" }
+        switch rule {
+        case .calm: return (freeRefits ?? 0) > 0 ? "自由工坊 · 首次换格免费" : "自由工坊 · 换格调概率，强化提产出"
+        case .grove: return "林地连携 · 相邻木材格各加成 +1"
+        case .tide: return (spins + 1) % 3 == 0 ? "下一转涨潮 · 贝壳 +3" : "下一转退潮 · 木材 +1 · 距涨潮 \(3 - spins % 3) 转"
+        case .market: return (spins + 1) % 2 == 1 ? "下一转木材集市 · 木材 +2" : "下一转金币集市 · 金币 +2"
+        }
+    }
+    func probability(_ kind: Tile) -> Double { Double(wheel.filter { $0.kind == kind }.count) * 12.5 }
+    func yield(at index: Int, spinNumber: Int) -> Int {
+        let tile = wheel[index]
+        var amount = tile.value + (tile.kind == .wood ? boost : (tile.kind == .coin ? coinBoost : (tile.kind == .shell ? shellBoost : 0)))
+        if mechanicsVersion == 1 {
+            switch rule {
+            case .grove where tile.kind == .wood:
+                amount += [wheel[(index + 7) % 8], wheel[(index + 1) % 8]].filter { $0.kind == .wood }.count
+            case .tide:
+                if spinNumber % 3 == 0 && tile.kind == .shell { amount += 3 }
+                if spinNumber % 3 != 0 && tile.kind == .wood { amount += 1 }
+            case .market:
+                if (spinNumber % 2 == 1 && tile.kind == .wood) || (spinNumber % 2 == 0 && tile.kind == .coin) { amount += 2 }
+            default: break
+            }
+        }
+        return amount * (doubleNext && [.wood, .coin].contains(tile.kind) ? 2 : 1)
+    }
+    init(level: Level) {
+        self.level = level.id; remaining = level.turns; wheel = level.wheel
+        mechanicsVersion = 1; freeRefits = 1
+    }
 }
 struct Preferences: Codable { var sound = true; var haptics = true; var fast = false; var skin = 0; var tutorialSeen = false }
 struct SaveEnvelope: Codable {
@@ -100,12 +153,12 @@ enum GameEngine {
         var message: String
         switch tile.kind {
         case .wood, .coin:
-            let amount = (tile.value + (tile.kind == .wood ? r.boost : r.coinBoost)) * (r.doubleNext ? 2 : 1)
+            let amount = r.yield(at: index, spinNumber: r.spins)
             if tile.kind == .wood { r.wood += amount } else { r.coins += amount }
             r.doubleNext = false; message = "\(tile.kind.title) +\(amount)"
         case .chest: message = "发现宝箱，选择一次升级"
         case .wind: r.doubleNext = true; message = "顺风就绪，下次木材或金币翻倍"
-        case .shell: let amount = tile.value + r.shellBoost; r.shells += amount; message = "贝壳 +\(amount)"
+        case .shell: let amount = r.yield(at: index, spinNumber: r.spins); r.shells += amount; message = "贝壳 +\(amount)"
         case .supply: r.remaining += 1; r.wood += 1; message = "补给：机会 +1，木材 +1"
         }
         save.totalSpins += 1; save.totalWood += r.wood - oldWood; save.discovered.insert(tile.kind)
@@ -113,7 +166,14 @@ enum GameEngine {
         else if tile.kind == .chest || r.spins % 3 == 0 {
             r.phase = .upgrade
             if r.level == 0 { r.offers = [.tools, .breeze, .reserve] }
-            else { let pool = Upgrade.allCases.filter { r.level >= 5 || ![.shellwork,.beach,.tide,.festival].contains($0) }; r.offers = [.tools, .reserve, pool[(r.spins + r.level) % pool.count]]; if Set(r.offers).count < 3 { r.offers[2] = .breeze } }
+            else {
+                let level = Content.levels[r.level]
+                let growth: Upgrade = r.wood < level.wood ? .tools : (r.shells < level.shells ? .shellwork : .purse)
+                let pool = Upgrade.allCases.filter {
+                    $0 != growth && $0 != .reserve && (r.level >= 5 || ![.shellwork,.beach,.tide,.festival].contains($0)) && ($0 != .exchange || r.coins >= 3)
+                }
+                r.offers = [growth, .reserve, pool[(r.spins + r.level) % pool.count]]
+            }
         } else if r.remaining == 0 { r.phase = .lost }
         r.pending = SpinRecord(id: UUID(), index: index, message: message)
         r.lastResult = r.pending
@@ -149,11 +209,13 @@ enum GameEngine {
     }
     static func craft(_ save: inout SaveEnvelope, replacing: Int? = nil, with kind: Tile = .wood) throws {
         guard var r = save.run, r.phase == .ready, r.pending == nil else { throw GameError.invalidAction }
-        let price = replacing == nil ? 4 : 6
+        let price = replacing == nil ? 4 : r.replacementCost
         guard r.coins >= price else { throw GameError.insufficientCoins }
         if let index = replacing {
-            guard r.level > 0, r.wheel.indices.contains(index), [.wood,.coin,.shell].contains(kind), kind != .shell || r.level >= 5 else { throw GameError.invalidAction }
+            guard r.canReplace, r.wheel.indices.contains(index), [.wood,.coin,.shell].contains(kind), kind != .shell || r.level >= 5 else { throw GameError.invalidAction }
+            guard r.wheel[index] != Segment(kind: kind, value: 2) else { throw GameError.invalidAction }
             r.wheel[index] = Segment(kind: kind, value: 2)
+            if price == 0 { r.freeRefits = max(0, (r.freeRefits ?? 0) - 1) }
         } else { r.boost += 1 }
         r.coins -= price; r.crafts += 1; save.totalCrafts += 1; save.run = r
     }
@@ -162,6 +224,9 @@ enum GameEngine {
     static func validate(_ s: SaveEnvelope) throws {
         guard s.version == 1, s.completed.allSatisfy({ Content.levels.indices.contains($0) }), s.medals.isSubset(of: s.completed), (0...2).contains(s.settings.skin), [s.totalSpins,s.totalWood,s.totalCrafts,s.wins].allSatisfy({ (0...100_000_000).contains($0) }) else { throw GameError.invalidSave }
         if let r = s.run {
+            guard r.mechanicsVersion == nil || r.mechanicsVersion == 1,
+                  r.freeRefits == nil || (0...1).contains(r.freeRefits!),
+                  r.mechanicsVersion != nil || r.freeRefits == nil else { throw GameError.invalidSave }
             guard Content.levels.indices.contains(r.level), [r.wood,r.coins,r.shells,r.spins,r.boost,r.coinBoost,r.shellBoost,r.remaining,r.crafts].allSatisfy({ (0...100_000).contains($0) }), r.wheel.count == 8, r.wheel.allSatisfy({ (0...3).contains($0.value) }), r.pending.map({ (0..<8).contains($0.index) }) ?? true, r.lastResult.map({ (0..<8).contains($0.index) }) ?? true, r.phase != .upgrade || (r.offers.count == 3 && Set(r.offers).count == 3), r.phase != .ready || r.remaining > 0, r.phase != .lost || r.remaining == 0, r.phase != .won || (meetsGoal(r) && s.completed.contains(r.level)) else { throw GameError.invalidSave }
         }
     }
