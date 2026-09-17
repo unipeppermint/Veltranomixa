@@ -154,3 +154,53 @@ extension GameEngineTests {
         XCTAssertEqual(SpinRecord(id: UUID(), index: 0, message: "Wood +2").displayMessage, "Wood +2")
     }
 }
+
+
+extension GameEngineTests {
+    func testResetRemovesQuarantineAndClearsBothSaves() throws {
+        let dir = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+        defer { try? FileManager.default.removeItem(at: dir) }
+        let repo = SaveRepository(directory: dir)
+        _ = try repo.load()
+        for name in ["progress.json", "progress.backup.json"] {
+            try Data("broken".utf8).write(to: dir.appendingPathComponent(name))
+        }
+        _ = try repo.load()
+        let quarantined = try FileManager.default.contentsOfDirectory(at: dir, includingPropertiesForKeys: nil)
+        XCTAssertEqual(quarantined.count, 2)
+        let unrelated = dir.appendingPathComponent("damaged-not-a-save.json")
+        try Data("keep".utf8).write(to: unrelated)
+        try repo.write(new())
+        try repo.reset()
+        for file in quarantined { XCTAssertFalse(FileManager.default.fileExists(atPath: file.path)) }
+        XCTAssertEqual(try String(contentsOf: unrelated, encoding: .utf8), "keep")
+        XCTAssertNil(try repo.load().0.run)
+        // A later fallback must also recover the reset state, not the old run.
+        try Data("broken".utf8).write(to: dir.appendingPathComponent("progress.json"))
+        XCTAssertNil(try repo.load().0.run)
+        try repo.reset()
+        XCTAssertNil(try repo.load().0.run)
+    }
+
+    func testSpecialTileDescriptionsExplainEffects() {
+        let run = RunState(level: Content.levels[10])
+        XCTAssertEqual(run.effectDescription(at: 6), "Choose one of three upgrades.")
+        XCTAssertEqual(run.effectDescription(at: 3), "Prepare Breeze to double the next Wood or Coins reward. Does not stack.")
+        XCTAssertEqual(run.effectDescription(at: 7), "Gain 1 spin and 1 Wood.")
+    }
+
+    func testResourceDescriptionsMatchNextAwardWithBonuses() throws {
+        for (level, index) in [(3, 0), (2, 1), (5, 5)] {
+            var save = try new(level)
+            save.run!.spins = 2
+            save.run!.boost = 2; save.run!.coinBoost = 1; save.run!.shellBoost = 1
+            save.run!.doubleNext = true
+            let before = save.run!
+            let description = before.effectDescription(at: index)
+            try spin(&save, index)
+            let after = save.run!
+            let delta = index == 0 ? after.wood - before.wood : (index == 1 ? after.coins - before.coins : after.shells - before.shells)
+            XCTAssertTrue(description.contains("\(delta) \(before.wheel[index].kind.title)"))
+        }
+    }
+}

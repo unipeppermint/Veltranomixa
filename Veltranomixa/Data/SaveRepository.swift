@@ -40,6 +40,16 @@ final class SaveRepository {
     func reset() throws {
         // Write both files: a later backup recovery must not resurrect erased progress.
         try queue.sync {
+            let fm = FileManager.default
+            try fm.createDirectory(at: directory, withIntermediateDirectories: true)
+            // Clean only our quarantined files. Fail before replacing active saves if cleanup fails.
+            for file in try fm.contentsOfDirectory(at: directory, includingPropertiesForKeys: [.isRegularFileKey]) {
+                let name = file.deletingPathExtension().lastPathComponent
+                guard file.pathExtension == "json", name.hasPrefix("damaged-"),
+                      UUID(uuidString: String(name.dropFirst("damaged-".count))) != nil,
+                      try file.resourceValues(forKeys: [.isRegularFileKey]).isRegularFile == true else { continue }
+                try fm.removeItem(at: file)
+            }
             let data = try JSONEncoder().encode(SaveEnvelope())
             try data.write(to: backup, options: .atomic)
             try data.write(to: primary, options: .atomic)

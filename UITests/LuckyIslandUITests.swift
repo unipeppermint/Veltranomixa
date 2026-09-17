@@ -105,3 +105,30 @@ final class LuckyIslandUITests: XCTestCase {
     }
 
 }
+
+
+extension LuckyIslandUITests {
+    func testPrivacyAndWheelAccessibility() {
+        let app = XCUIApplication()
+        app.launchEnvironment["ISLAND_UI_TEST_SESSION"] = "1"
+        app.launchArguments = ["-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL"]
+        app.launch()
+        if app.buttons["Let's begin"].waitForExistence(timeout: 2) { app.buttons["Let's begin"].tap() }
+        tap(app, "tab.Settings"); tap(app, "Privacy and saves")
+        let policy = app.alerts["Privacy and local saves"]
+        XCTAssertTrue(policy.waitForExistence(timeout: 3))
+        let text = policy.staticTexts.allElementsBoundByIndex.map(\.label).joined(separator: " ")
+        XCTAssertTrue(text.contains("iCloud Backup or a computer backup"))
+        XCTAssertTrue(text.contains("It does not delete existing device backups"))
+        XCTAssertTrue(policy.buttons["Got it"].isHittable)
+        capture("15-privacy-large-text")
+        policy.buttons["Got it"].tap()
+        tap(app, "Reset all progress"); app.alerts.buttons["Reset progress"].tap()
+        tap(app, "Start challenge"); app.alerts.buttons["Start challenge"].tap()
+        let wheel = app.otherElements["game.wheel"]
+        XCTAssertTrue(wheel.waitForExistence(timeout: 3))
+        XCTAssertTrue(wheel.label.contains("Choose one of three upgrades"))
+        XCTAssertTrue(wheel.label.contains("Prepare Breeze to double the next Wood or Coins reward"))
+        XCTAssertFalse(wheel.label.contains("next-spin yield 0"))
+    }
+}

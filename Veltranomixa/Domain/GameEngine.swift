@@ -104,6 +104,15 @@ struct RunState: Codable {
         case .market: return (spins + 1) % 2 == 1 ? "Next: timber market · Wood +2" : "Next: coin market · Coins +2"
         }
     }
+    func effectDescription(at index: Int) -> String {
+        switch wheel[index].kind {
+        case .chest: return "Choose one of three upgrades."
+        case .wind: return "Prepare Breeze to double the next Wood or Coins reward. Does not stack."
+        case .supply: return "Gain 1 spin and 1 Wood."
+        case .wood, .coin, .shell:
+            return "Next-spin yield: \(yield(at: index, spinNumber: spins + 1)) \(wheel[index].kind.title), including active bonuses."
+        }
+    }
     func probability(_ kind: Tile) -> Double { Double(wheel.filter { $0.kind == kind }.count) * 12.5 }
     func yield(at index: Int, spinNumber: Int) -> Int {
         let tile = wheel[index]

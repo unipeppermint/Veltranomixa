@@ -34,7 +34,8 @@ final class WheelView: UIView {
         addSubview(hub); hub.snp.makeConstraints { $0.center.equalToSuperview(); $0.width.height.equalToSuperview().multipliedBy(0.25) }
         pointer.tintColor = Theme.orange; pointer.contentMode = .scaleAspectFit; pointer.layer.shadowOpacity = 0.25; pointer.layer.shadowRadius = 3
         addSubview(pointer); pointer.snp.makeConstraints { $0.centerX.equalToSuperview(); $0.top.equalToSuperview(); $0.width.equalTo(34); $0.height.equalTo(40) }
-        isAccessibilityElement = true; accessibilityLabel = "Eight-tile wheel. " + tiles.enumerated().map { "Tile \($0.offset + 1), \($0.element.kind.title), next-spin yield \(run.yield(at: $0.offset, spinNumber: run.spins + 1))" }.joined(separator: ", "); accessibilityHint = "Each tile has a 12.5% chance. Use the button below to spin. The pointer marks the winning tile."
+        accessibilityIdentifier = "game.wheel"
+        isAccessibilityElement = true; accessibilityLabel = "Eight-tile wheel. " + tiles.enumerated().map { "Tile \($0.offset + 1), \($0.element.kind.title), \(run.effectDescription(at: $0.offset))" }.joined(separator: " "); accessibilityHint = "Each tile has a 12.5% chance. Use the button below to spin. The pointer marks the winning tile."
     }
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
     override func layoutSubviews() {

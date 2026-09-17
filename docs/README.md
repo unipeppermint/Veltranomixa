@@ -8,6 +8,7 @@ Lucky Island is a single-player, offline wheel strategy game built in the existi
 | [Prototype guide](02-prototype-guide.md) | Visual reference and historical HTML interaction prototype |
 | [Technical plan](03-technical-plan.md) | Architecture, transactions, persistence, dependencies, and verification |
 | [Implementation and validation](04-implementation-and-validation.md) | Implemented features, build instructions, test evidence, and limitations |
+| [Pre-submission audit](07-release-readiness-audit.md) | Worldwide submission gates, confirmed findings, and archive validation |
 | [English edition](06-english-edition.md) | English copy, layout adaptation, legacy saves, and validation |
 | [Strategy polish](05-strategy-polish.md) | Free swaps, workshop previews, island rules, and radial wheel layout |
 
