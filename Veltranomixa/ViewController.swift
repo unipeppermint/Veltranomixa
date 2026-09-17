@@ -66,7 +66,23 @@ final class ViewController: UIViewController {
     }
     private func add(_ v: UIView) { stack.addArrangedSubview(v) }
     private func heading(_ eyebrow: String, _ title: String, _ subtitle: String? = nil) {
-        add(Theme.label(eyebrow, size: 12, color: Theme.teal)); add(Theme.label(title, size: 30)); if let subtitle { add(Theme.label(subtitle, size: 15, color: Theme.ink.withAlphaComponent(0.65))) }
+        add(Theme.label(eyebrow, size: 12, color: Theme.teal))
+        let titleLabel = Theme.label(title, size: 30)
+        if [.island, .levels, .collection, .settings].contains(page) {
+            let row = UIStackView(); row.axis = .horizontal; row.alignment = .center; row.spacing = 12
+            row.addArrangedSubview(titleLabel)
+            let decoration = UIImageView(image: WheelDecoration.image)
+            decoration.contentMode = .scaleAspectFit
+            decoration.isAccessibilityElement = false
+            decoration.isUserInteractionEnabled = false
+            row.addArrangedSubview(decoration)
+            let size: CGFloat = traitCollection.preferredContentSizeCategory.isAccessibilityCategory ? 54 : 76
+            decoration.snp.makeConstraints { $0.width.height.equalTo(size) }
+            add(row)
+        } else {
+            add(titleLabel)
+        }
+        if let subtitle { add(Theme.label(subtitle, size: 15, color: Theme.ink.withAlphaComponent(0.65))) }
     }
     private func island() {
         heading("LUCKY ISLAND  /  用你的策略，建一座小岛", "幸运小岛", "改造八格转盘，读懂潮汐与林地，让每次选择留下风景。")
@@ -304,10 +320,12 @@ final class ViewController: UIViewController {
         add(Theme.button("重新查看教学",symbol:"questionmark.circle") { [weak self] in self?.tutorial() })
         add(Theme.button("玩法与概率",symbol:"info.circle") { [weak self] in self?.rules() })
         add(Theme.button("隐私与本地存档",symbol:"lock.shield") { [weak self] in self?.info("你的岛，只在你的设备上", "本应用无需账号，不接入广告、分析或服务器，不收集或传输个人信息。游戏进度和设置仅保存在设备上，无云同步。删除应用可能导致进度丢失。\n\n每次操作自动保存，转动中离开也不会重新抽取。系统减弱动态效果开启时自动缩短转盘动画。") })
-        add(Theme.button("关于与支持",symbol:"lifepreserver") { [weak self] in self?.info("幸运小岛 · 1.0", "单人离线的小岛建设游戏。\n若遇到问题，请先重新打开应用；请勿删除应用，以免丢失存档。发行前将补充正式支持网址。\n\n插画：OpenAI ImageGen 生成\n音效：项目原创合成\n布局：SnapKit 5.7.1（MIT）\n完整开源许可随应用附带。") })
-        add(Theme.button("开源许可",symbol:"doc.text") { [weak self] in let url = Bundle.main.url(forResource:"SnapKit-LICENSE",withExtension:"txt"); self?.info("SnapKit · MIT License", url.flatMap { try? String(contentsOf: $0, encoding: .utf8) } ?? "请参见项目 Pods/SnapKit/LICENSE。") })
+        add(Theme.button("关于幸运小岛",symbol:"info.circle") { [weak self] in
+            let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "1.0"
+            self?.info("幸运小岛 · \(version)", "改造转盘，收集资源，让每一次选择成为小岛的风景。\n\n探索海风港湾、花语丘陵与星光海岸，建造属于你的小岛。无需联网，随时继续你的旅程。")
+        })
         add(Theme.button("清空所有进度",symbol:"trash") { [weak self] in self?.reset() })
-        add(Theme.label("本地自动保存 · 无广告 · 无内购\n当前为开发版本，正式发行资料另行准备。",size:13,color:Theme.ink.withAlphaComponent(0.6)))
+        add(Theme.label("本地自动保存 · 无广告 · 无内购",size:13,color:Theme.ink.withAlphaComponent(0.6)))
     }
     private func reset() {
         let a = UIAlertController(title:"清空这座小岛？",message:"当前对局、所有建筑与成就将被删除，无法撤销。",preferredStyle:.alert)
