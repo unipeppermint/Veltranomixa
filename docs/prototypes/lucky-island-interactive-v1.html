@@ -1,0 +1,1414 @@
+<!doctype html>
+<html lang="en" data-visualize-standalone>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline' 'unsafe-eval' 'wasm-unsafe-eval' blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; style-src 'unsafe-inline' blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; img-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; font-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; media-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; worker-src blob:; connect-src blob: data:; frame-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<title>Lucky Island Source V1</title>
+<style>:root{color-scheme:light dark;background:light-dark(rgb(255 255 255), rgb(24 24 24))}html,body{margin:0}body{box-sizing:border-box;padding:1rem;background:inherit}iframe{display:block;width:100%;height:calc(100vh - 2rem);margin:0 auto;border:0}</style>
+</head>
+<body>
+<iframe sandbox="allow-scripts" referrerpolicy="no-referrer" title="Lucky Island Source V1" srcdoc="&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot; data-visualize-standalone&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;utf-8&quot;&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+&lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot;&gt;
+&lt;meta http-equiv=&quot;Content-Security-Policy&quot; content=&quot;default-src &#x27;none&#x27;; script-src &#x27;unsafe-inline&#x27; &#x27;unsafe-eval&#x27; &#x27;wasm-unsafe-eval&#x27; blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; style-src &#x27;unsafe-inline&#x27; blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; img-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; font-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; media-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; worker-src blob:; connect-src blob: data:; frame-src &#x27;none&#x27;; object-src &#x27;none&#x27;; base-uri &#x27;none&#x27;; form-action &#x27;none&#x27;&quot;&gt;
+&lt;title&gt;Lucky Island Source V1&lt;/title&gt;
+&lt;style&gt;:root {
+  color-scheme: light dark;
+  background-color: var(
+    --background,
+    var(--color-background-primary, light-dark(rgb(255 255 255), rgb(24 24 24)))
+  ) !important;
+
+  /* Agent-facing contract; keep in sync with SKILL.md. */
+  --background: var(
+    --color-background-primary,
+    light-dark(rgb(255 255 255), rgb(24 24 24))
+  );
+  --foreground: var(
+    --color-text-primary,
+    light-dark(rgb(26 28 31), rgb(255 255 255))
+  );
+  --card: color-mix(in oklab, var(--foreground) 5%, var(--background));
+  --card-foreground: var(
+    --color-text-primary,
+    light-dark(rgb(26 28 31), rgb(255 255 255))
+  );
+  --popover: var(
+    --color-background-secondary,
+    light-dark(rgb(255 255 255), rgb(45 45 45))
+  );
+  --popover-foreground: var(
+    --color-text-primary,
+    light-dark(rgb(26 28 31), rgb(255 255 255))
+  );
+  --primary: var(
+    --color-text-info,
+    light-dark(rgb(51 156 255), rgb(131 195 255))
+  );
+  --primary-foreground: var(
+    --color-text-inverse,
+    light-dark(rgb(255 255 255), rgb(13 13 13))
+  );
+  --secondary: var(
+    --color-background-secondary,
+    light-dark(rgb(255 255 255 / 96%), rgb(54 54 54 / 96%))
+  );
+  --secondary-foreground: var(
+    --color-text-primary,
+    light-dark(rgb(26 28 31), rgb(255 255 255))
+  );
+  --muted: color-mix(in srgb, var(--foreground) 10%, transparent);
+  --muted-foreground: var(
+    --color-text-secondary,
+    light-dark(rgb(26 28 31 / 49.4%), rgb(255 255 255 / 49.8%))
+  );
+  --accent: var(
+    --color-background-info,
+    light-dark(rgb(229 242 255), rgb(13 39 63))
+  );
+  --accent-foreground: var(
+    --color-text-info,
+    light-dark(rgb(51 156 255), rgb(131 195 255))
+  );
+  --destructive: var(
+    --color-text-warning,
+    light-dark(rgb(226 85 7), rgb(255 133 73))
+  );
+  --border: var(
+    --color-border-secondary,
+    light-dark(rgb(26 28 31 / 8%), rgb(255 255 255 / 8.2%))
+  );
+  --input: var(
+    --color-border-primary,
+    light-dark(
+      rgb(26 28 31 / 11.8%),
+      color-mix(in oklab, rgb(0 0 0) 10%, transparent)
+    )
+  );
+  --ring: var(
+    --color-ring-primary,
+    light-dark(rgb(51 156 255), rgb(131 195 255 / 76%))
+  );
+  --font-size-base: var(--font-text-md-size, 14px);
+  --blue: light-dark(rgb(51 156 255), rgb(51 156 255));
+  --orange: light-dark(rgb(226 85 7), rgb(251 106 34));
+  --green: light-dark(rgb(0 162 64), rgb(64 201 119));
+  --red: light-dark(rgb(224 46 42), rgb(255 103 100));
+  --purple: light-dark(rgb(146 79 247), rgb(173 123 249));
+  --yellow: light-dark(rgb(255 195 0), rgb(255 210 64));
+  --viz-series-1: var(--primary);
+  --viz-series-2: light-dark(rgb(243 136 59), rgb(245 154 86));
+  --viz-series-3: light-dark(rgb(93 201 119), rgb(116 213 139));
+  --viz-series-4: light-dark(rgb(235 119 177), rgb(240 143 192));
+  --viz-series-5: light-dark(rgb(155 121 236), rgb(170 145 239));
+  --viz-series-6: light-dark(rgb(58 185 177), rgb(90 203 194));
+
+  /* Internal implementation variables; not part of the agent contract. */
+  --font-sans: -apple-system, system-ui, &quot;Segoe UI&quot;, sans-serif;
+  --font-mono:
+    ui-monospace, SFMono-Regular, &quot;SF Mono&quot;, Menlo, Consolas, &quot;Liberation Mono&quot;,
+    monospace;
+  --font-size-normal: max(11px, var(--font-size-base));
+  --font-size-tooltip: calc(var(--font-size-base) - 1px);
+  --font-size-small: max(11px, calc(var(--font-size-base) - 2px));
+  --font-size-h1: calc(var(--font-size-normal) * 1.7142857143);
+  --font-size-h2: calc(var(--font-size-normal) * 1.4285714286);
+  --font-size-h3: calc(var(--font-size-normal) * 1.2857142857);
+  --font-weight-normal: 430;
+  --font-weight-medium: 500;
+  --icon-size: 16px;
+  --line-height-normal: calc(var(--font-size-normal) * 1.5);
+  --line-height-tooltip: calc(var(--font-size-tooltip) * 1.4285714286);
+  --line-height-small: calc(var(--font-size-small) + 4px);
+  --corner-shape: round;
+  --radius: var(--border-radius-lg, 10px);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-2xl: calc(var(--radius) * 1.6);
+  --radius-full: 9999px;
+  --shadow-sm: 0 1px 2px -1px rgb(0 0 0 / 8%);
+  --checkmark-image: url(&quot;data:image/svg+xml,%3Csvg xmlns=&#x27;http://www.w3.org/2000/svg&#x27; viewBox=&#x27;0 0 17 17&#x27;%3E%3Cpath d=&#x27;M12.8961 3.64101C13.1297 3.41418 13.4984 3.37523 13.7779 3.56581C14.0571 3.75635 14.1554 4.11331 14.0299 4.41347L13.9615 4.53847L7.71151 13.7045C7.59411 13.8767 7.4063 13.9877 7.19881 14.0072C6.99136 14.0267 6.78564 13.9533 6.63826 13.806L2.88826 10.056L2.79842 9.9457C2.6192 9.67407 2.64927 9.30496 2.88826 9.06581C3.12738 8.82669 3.49647 8.79676 3.76815 8.97597L3.8785 9.06581L7.03084 12.2182L12.8053 3.74941L12.8961 3.64101Z&#x27;/%3E%3C/svg%3E&quot;);
+
+  /* Legacy aliases; not part of the current agent contract. */
+  --viz-bg: transparent;
+  --viz-panel: var(--card);
+  --viz-border: var(--border);
+  --viz-text: var(--foreground);
+  --viz-muted: var(--muted-foreground);
+  --viz-accent: var(--primary);
+  --viz-accent-text: var(--primary-foreground);
+  --viz-accent-bg: var(--accent);
+  --viz-font-size: var(--font-size-base);
+  --viz-warning: var(--destructive);
+}
+
+:root[data-theme=&quot;light&quot;] {
+  color-scheme: light;
+}
+
+:root[data-theme=&quot;dark&quot;] {
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html &gt; body {
+  /* Preserve MCP aliases for older inline renderers without creating :root cycles. */
+  --color-background-primary: var(
+    --background,
+    light-dark(rgb(255 255 255), rgb(24 24 24))
+  );
+  --color-text-primary: var(
+    --foreground,
+    light-dark(rgb(26 28 31), rgb(255 255 255))
+  );
+  --color-border-secondary: var(
+    --border,
+    light-dark(rgb(26 28 31 / 8%), rgb(255 255 255 / 8.2%))
+  );
+
+  margin: 0;
+  padding: var(--visualize-paint-gutter, 0px);
+  color: var(--foreground);
+  background: transparent !important;
+  font-family: var(--font-sans) !important;
+  font-size: var(--font-size-normal);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--line-height-normal);
+}
+
+a {
+  color: color-mix(in srgb, var(--viz-accent) 80%, var(--viz-text) 20%);
+  cursor: pointer;
+  font-weight: var(--font-weight-medium, 500);
+  text-decoration: none;
+  text-underline-offset: 2px;
+}
+
+a:is(:hover, :focus-visible) {
+  text-decoration-line: underline;
+  text-decoration-style: dashed;
+  text-decoration-thickness: 0.5px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin-block: 0;
+}
+
+h1 {
+  font-size: var(--font-size-h1);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.25;
+}
+
+h2 {
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.25;
+}
+
+h3,
+h4,
+h5,
+h6 {
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.3;
+}
+
+b,
+strong,
+th {
+  font-weight: var(--font-weight-medium);
+}
+
+code:not(pre code) {
+  display: inline;
+  padding: 1px 6px;
+  border-radius: var(--radius-sm);
+  corner-shape: var(--corner-shape);
+  background: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.92em;
+  overflow-wrap: anywhere;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  word-break: break-word;
+}
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  color: var(--foreground);
+  font: inherit;
+  text-align: start;
+}
+
+.table :is(th, td) {
+  padding-block: 10px;
+  padding-inline: 0 24px;
+  overflow-wrap: anywhere;
+  border-bottom: 1px solid var(--border);
+  text-align: start;
+  vertical-align: top;
+}
+
+.table-responsive &gt; .table :is(th, td) {
+  overflow-wrap: break-word;
+}
+
+.table :is(th, td):last-child {
+  padding-inline-end: 0;
+}
+
+.table :is(caption, thead th) {
+  font-weight: 600;
+}
+
+.table thead th {
+  padding-block: 8px;
+  border-bottom-color: color-mix(in srgb, var(--foreground) 16%, transparent);
+}
+
+.table tbody tr:last-child :is(th, td) {
+  border-bottom: 0;
+}
+
+.table.table-sm :is(th, td) {
+  padding-block: 6px;
+}
+
+.table.table-sm :is(th, td):not(:last-child) {
+  padding-inline-end: 16px;
+}
+
+.table :is(.text-end, [align=&quot;right&quot;]) {
+  text-align: end;
+  font-variant-numeric: tabular-nums;
+}
+
+.table :is(.text-center, [align=&quot;center&quot;]) {
+  text-align: center;
+}
+
+.table .text-nowrap {
+  white-space: nowrap;
+}
+
+#widget {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  padding: 0;
+  background: transparent !important;
+}
+
+.card {
+  min-width: 0;
+  padding: 12px;
+  overflow: hidden;
+  overflow-wrap: break-word;
+  border-radius: var(--radius-2xl);
+  corner-shape: var(--corner-shape);
+  color: var(--card-foreground);
+  background: var(--card);
+}
+
+#widget &gt; :not(.card, .progress) {
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.tooltip {
+  position: fixed;
+  z-index: 50;
+  top: 0;
+  left: 0;
+  width: max-content;
+  max-width: min(
+    20rem,
+    var(--tooltip-available-width, calc(100vw - 10px)),
+    calc(100vw - 10px)
+  );
+  max-height: min(
+    var(--tooltip-available-height, calc(100vh - 10px)),
+    calc(100vh - 10px)
+  );
+  padding: 4px 8px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  corner-shape: var(--corner-shape);
+  color: var(--popover-foreground);
+  background: var(--popover);
+  box-shadow: none;
+  font-size: var(--font-size-tooltip);
+  line-height: var(--line-height-tooltip);
+  overflow-wrap: break-word;
+  white-space: normal;
+  pointer-events: none;
+  user-select: none;
+}
+
+.viz-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(max(180px, 24%), 1fr));
+  gap: 10px;
+}
+
+.viz-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.viz-stat-value {
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.25;
+}
+
+.viz-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+hr {
+  width: 100%;
+  height: 1px;
+  margin-block: 6px;
+  border: 0;
+  background: var(--border);
+}
+
+.nav {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 4px;
+}
+
+.progress {
+  display: flex;
+  height: 8px;
+  margin-block: calc((var(--line-height-normal, 1.5em) - 8px) / 2);
+  overflow: hidden;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: var(--muted);
+}
+
+.progress-bar:only-child {
+  border-radius: var(--radius-full);
+}
+
+.progress-bar {
+  height: 100%;
+  flex-shrink: 0;
+  border: 0;
+  background: var(--viz-series-1);
+}
+
+.viz-badge {
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+  color: var(--accent-foreground);
+  background: var(--accent);
+  font-weight: var(--font-weight-medium);
+}
+
+small,
+.text-small,
+.viz-badge {
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-small);
+}
+
+.text-muted {
+  color: var(--muted-foreground);
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.viz-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.viz-controls &gt; .form-label {
+  display: grid;
+  min-width: min(100%, 260px);
+  flex: 1 1 280px;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 2px 12px;
+  margin-bottom: 0;
+}
+
+.viz-controls &gt; .form-label &gt; :is(.form-control, .form-range, .form-select) {
+  grid-column: 1 / -1;
+}
+
+.btn,
+.nav-link,
+.form-check-input,
+.form-control,
+.form-range,
+.form-select {
+  font: inherit;
+}
+
+.btn,
+.nav-link {
+  appearance: button;
+  display: inline-flex;
+  inline-size: fit-content;
+  max-inline-size: 100%;
+  min-height: 28px;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin: 0;
+  padding: 0 8px;
+  -webkit-app-region: no-drag;
+  border: 1px solid var(--input);
+  border-radius: var(--radius-lg);
+  corner-shape: var(--corner-shape);
+  color: var(--secondary-foreground);
+  background: var(--secondary);
+  cursor: var(--cursor-interaction, pointer);
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+.btn:is(.btn-block, .viz-tile) {
+  inline-size: 100%;
+}
+
+.btn.viz-tile {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+
+a.btn {
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn:not(:disabled):hover,
+.nav-link:not(:disabled):not([aria-disabled=&quot;true&quot;]):hover {
+  background: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
+}
+
+.btn-primary {
+  border-color: transparent;
+  color: var(--primary-foreground);
+  background: var(--foreground);
+  background-clip: padding-box;
+}
+
+.btn-primary .text-muted {
+  color: color-mix(in srgb, var(--primary-foreground) 50%, transparent);
+}
+
+.btn-primary:not(:disabled):hover {
+  background: color-mix(in srgb, var(--foreground) 80%, transparent);
+  background-clip: padding-box;
+}
+
+.btn-ghost {
+  border-color: transparent;
+  color: var(--muted-foreground);
+  background: transparent;
+}
+
+.btn-ghost:not(:disabled):hover {
+  color: var(--foreground);
+  background: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
+}
+
+.nav-pills .nav-link {
+  min-width: 0;
+  border-color: transparent;
+  color: var(--muted-foreground);
+  background: transparent;
+}
+
+.nav-justified .nav-link {
+  flex: 1 1 0;
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+
+.nav-pills .nav-link.active {
+  color: var(--foreground);
+  background: var(--muted);
+}
+
+.btn:disabled,
+.nav-link:disabled,
+.nav-link[aria-disabled=&quot;true&quot;] {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+[data-lucide] {
+  stroke-width: 1.6;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--foreground);
+}
+
+.form-control {
+  display: block;
+  width: 100%;
+  min-height: 28px;
+  padding: 0 8px;
+  outline: none;
+  border: 1px solid var(--input);
+  border-radius: var(--radius-lg);
+  corner-shape: var(--corner-shape);
+  color: var(--foreground);
+  background: var(--secondary);
+}
+
+.form-control::placeholder {
+  color: var(--muted-foreground);
+}
+
+.form-control[type=&quot;file&quot;] {
+  padding: 0;
+  overflow: hidden;
+  cursor: var(--cursor-interaction, pointer);
+}
+
+.form-control[type=&quot;file&quot;]::file-selector-button {
+  min-height: 26px;
+  margin-right: 8px;
+  padding: 0 8px;
+  border: 0;
+  border-right: 1px solid var(--input);
+  color: var(--secondary-foreground);
+  background: var(--secondary);
+  cursor: inherit;
+  font: inherit;
+}
+
+.form-control[type=&quot;file&quot;]:not(:disabled):hover::file-selector-button {
+  background: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
+}
+
+.form-control-color[type=&quot;color&quot;] {
+  width: 40px;
+  height: 28px;
+  padding: 3px;
+  cursor: var(--cursor-interaction, pointer);
+}
+
+.form-control-color[type=&quot;color&quot;]::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+.form-control-color[type=&quot;color&quot;]::-webkit-color-swatch {
+  border: 0;
+  border-radius: calc(var(--radius-lg) - 4px);
+  corner-shape: var(--corner-shape);
+}
+
+textarea.form-control {
+  height: auto;
+  min-height: 72px;
+  padding: 8px 10px;
+  resize: vertical;
+}
+
+.form-control:focus-visible {
+  border-color: var(--ring);
+  box-shadow: inset 0 0 0 1px var(--ring);
+}
+
+.form-control:disabled,
+.form-select:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.form-select {
+  appearance: none;
+  display: block;
+  width: 100%;
+  min-height: 28px;
+  margin: 0;
+  padding: 0 32px 0 8px;
+  outline: none;
+  border: 1px solid var(--input);
+  border-radius: var(--radius-lg);
+  corner-shape: var(--corner-shape);
+  color: var(--foreground);
+  background-color: var(--secondary);
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--muted-foreground) 50%),
+    linear-gradient(135deg, var(--muted-foreground) 50%, transparent 50%);
+  background-position:
+    calc(100% - 14px) 50%,
+    calc(100% - 10px) 50%;
+  background-repeat: no-repeat;
+  background-size: 4px 4px;
+  cursor: var(--cursor-interaction, default);
+}
+
+.form-select:not(:disabled):hover {
+  background-color: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
+}
+
+.form-select:focus-visible {
+  border-color: var(--ring);
+  box-shadow: inset 0 0 0 1px var(--ring);
+}
+
+.form-check {
+  display: flex;
+  min-height: 20px;
+  align-items: center;
+  gap: 6px;
+}
+
+.form-check-input {
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  flex: 0 0 auto;
+  margin: 0;
+  border: 1px solid var(--input);
+  color: var(--primary-foreground);
+  background-color: transparent;
+  cursor: var(--cursor-interaction, default);
+  transition:
+    background-color 150ms,
+    border-color 150ms,
+    box-shadow 150ms;
+}
+
+.form-check:not(.form-switch) .form-check-input[type=&quot;checkbox&quot;] {
+  border-color: var(--input);
+  border-radius: var(--radius-sm);
+  corner-shape: var(--corner-shape);
+  background-color: var(--secondary);
+  box-shadow: var(--shadow-sm);
+}
+
+.form-check:not(.form-switch)
+  .form-check-input:not(:disabled):not(:checked):hover {
+  background-color: var(--card);
+}
+
+.form-check:not(.form-switch) .form-check-input[type=&quot;checkbox&quot;]:checked {
+  border-color: var(--primary);
+  background-color: var(--primary);
+}
+
+.form-check:not(.form-switch)
+  .form-check-input[type=&quot;checkbox&quot;]:checked::before {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--primary-foreground);
+  content: &quot;&quot;;
+  mask: var(--checkmark-image) center / 12px 12px no-repeat;
+}
+
+.form-check-input[type=&quot;radio&quot;] {
+  width: 14px;
+  height: 14px;
+  border-radius: var(--radius-full);
+}
+
+.form-check-input[type=&quot;radio&quot;]:checked {
+  border: 2px solid var(--primary);
+  background:
+    radial-gradient(circle, var(--primary-foreground) 0 2.5px, transparent 3px),
+    var(--primary);
+}
+
+.form-check:not(.form-switch) .form-check-input:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+.form-check:not(.form-switch) .form-check-input:disabled {
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.form-check:not(.form-switch) .form-check-input:disabled + .form-check-label {
+  cursor: not-allowed;
+}
+
+.form-switch .form-check-input:disabled,
+.form-switch .form-check-input:disabled + .form-check-label {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.form-check-label {
+  color: var(--foreground);
+  cursor: var(--cursor-interaction, default);
+}
+
+.form-switch .form-check-input {
+  position: relative;
+  width: 32px;
+  height: 20px;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: var(--muted);
+  box-shadow: none;
+  transition: background-color 200ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.form-switch .form-check-input::before {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 16px;
+  height: 16px;
+  box-sizing: border-box;
+  border: 1px solid light-dark(var(--primary-foreground), var(--foreground));
+  border-radius: var(--radius-full);
+  background: light-dark(var(--primary-foreground), var(--foreground));
+  box-shadow: var(--shadow-sm);
+  content: &quot;&quot;;
+  transform: translate(2px, -50%);
+  transition: transform 200ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.form-switch .form-check-input:checked {
+  background: var(--primary);
+}
+
+.form-switch .form-check-input:checked::before {
+  transform: translate(14px, -50%);
+}
+
+.form-switch .form-check-input:focus-visible {
+  box-shadow: 0 0 0 2px var(--ring);
+}
+
+.form-range {
+  appearance: none;
+  display: block;
+  width: 100%;
+  height: 28px;
+  flex: 1;
+  margin: 0;
+  padding: 0;
+  outline: none;
+  border: 0;
+  accent-color: var(--primary);
+  background: linear-gradient(
+      color-mix(in srgb, var(--foreground) 7%, transparent),
+      color-mix(in srgb, var(--foreground) 7%, transparent)
+    )
+    center / 100% 2px no-repeat;
+}
+
+.form-range::-webkit-slider-runnable-track {
+  height: 28px;
+  background: transparent;
+}
+
+.form-range::-webkit-slider-thumb {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  margin-top: 4px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  background: light-dark(var(--primary-foreground), var(--foreground));
+}
+
+.form-range:focus-visible::-webkit-slider-thumb {
+  border-color: var(--ring);
+  box-shadow: inset 0 0 0 1px var(--ring);
+}
+
+.form-range::-moz-range-track {
+  height: 28px;
+  background: transparent;
+}
+
+.form-range::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  background: light-dark(var(--primary-foreground), var(--foreground));
+}
+
+.form-range:focus-visible::-moz-range-thumb {
+  border-color: var(--ring);
+  box-shadow: inset 0 0 0 1px var(--ring);
+}
+
+.form-range:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.btn:not(.btn-primary, .viz-tile):is(
+  [aria-pressed=&quot;true&quot;],
+  [aria-selected=&quot;true&quot;],
+  .is-selected
+) {
+  border-color: var(--primary);
+  color: var(--primary-foreground);
+  background: var(--primary);
+}
+
+.btn.viz-tile:is([aria-pressed=&quot;true&quot;], [aria-selected=&quot;true&quot;], .is-selected) {
+  border-color: var(--primary);
+  box-shadow: inset 0 0 0 1px var(--primary);
+}
+
+.btn:focus-visible,
+.nav-link:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+@media (pointer: coarse) {
+  .btn,
+  .nav-link,
+  .form-control,
+  .form-select {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  /* Keep small-screen WebKit from zooming when a text field receives focus. */
+  .form-control,
+  .form-select {
+    font-size: max(16px, var(--font-size-normal));
+  }
+
+  .form-control[type=&quot;file&quot;]::file-selector-button {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  .form-control-color[type=&quot;color&quot;] {
+    width: 44px;
+    height: 44px;
+  }
+
+  .form-control:is(
+    [type=&quot;date&quot;],
+    [type=&quot;datetime-local&quot;],
+    [type=&quot;month&quot;],
+    [type=&quot;time&quot;],
+    [type=&quot;week&quot;]
+  ) {
+    min-width: 0;
+    max-width: 100%;
+    padding-block: 8px;
+  }
+
+  .form-check {
+    min-height: 44px;
+    padding-inline: 15px;
+  }
+
+  .form-check-input {
+    position: relative;
+  }
+
+  .form-check-input::after {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 44px;
+    height: 44px;
+    content: &quot;&quot;;
+    transform: translate(-50%, -50%);
+  }
+
+  .form-check-label {
+    display: inline-flex;
+    min-width: 44px;
+    min-height: 44px;
+    align-items: center;
+  }
+
+  .form-range {
+    height: 44px;
+    touch-action: pan-y;
+  }
+
+  .form-range::-webkit-slider-runnable-track {
+    height: 44px;
+  }
+
+  .form-range::-moz-range-track {
+    height: 44px;
+  }
+
+  .form-range::-webkit-slider-thumb {
+    margin-top: 12px;
+  }
+}
+
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+#widget &gt; svg {
+  width: 100%;
+}
+
+/* Model-authored chart rules can otherwise stretch icons after these styles load. */
+svg.lucide {
+  display: block;
+  width: var(--icon-size) !important;
+  height: var(--icon-size) !important;
+  flex: none;
+  margin: 0 !important;
+  stroke-width: 1.6;
+}
+
+.text-warning,
+.text-destructive {
+  color: var(--destructive);
+}
+
+html&gt;body{padding:0}&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div id=&quot;lucky-island&quot; aria-label=&quot;幸运小岛交互原型&quot;&gt;
+&lt;style&gt;
+#lucky-island{--li-orange:#ff783e;--li-ink:#174d5b;--li-paper:#fff9ee;font:15px/1.5 -apple-system,BlinkMacSystemFont,&quot;PingFang SC&quot;,sans-serif;color:var(--li-ink);max-width:410px;margin:12px auto}#lucky-island *{box-sizing:border-box}#lucky-island button{font:inherit;color:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}#lucky-island button:disabled{cursor:default;opacity:.6}#lucky-island .phone{position:relative;overflow:hidden;border-radius:34px;background:#d8f4f4;box-shadow:0 18px 60px #164d5b25;border:6px solid #fffaf2;min-height:750px}#lucky-island .status{display:flex;justify-content:space-between;padding:14px 23px 2px;font-size:12px;font-weight:650}#lucky-island .screen{padding:12px 21px 20px;min-height:700px;background:linear-gradient(#d8f4f4,#85d9db 65%,#dcf4e9)}#lucky-island h1,#lucky-island h2,#lucky-island p{margin:0}#lucky-island h1{font-size:37px;letter-spacing:-2px;font-weight:900}#lucky-island h2{font-size:23px;font-weight:800}#lucky-island .sub{font-size:12px;color:#49747a;margin-top:6px}#lucky-island .brand{text-align:center;padding-top:15px}#lucky-island .eyebrow{font-size:10px;letter-spacing:3px;color:#43838a;font-weight:700}#lucky-island .primary{background:linear-gradient(#ff9553,var(--li-orange));color:#fff;border:1px solid #ee7337;box-shadow:0 4px 0 #d95b2b, inset 0 2px 0 #ffffff65;border-radius:18px;padding:15px 18px;width:100%;font-size:18px;font-weight:750}#lucky-island .secondary{background:var(--li-paper);border:1px solid #decdb9;border-radius:14px;padding:11px 17px;box-shadow:0 3px 0 #bdab9330}#lucky-island .plain{background:none;border:0;padding:12px;font-size:12px}#lucky-island .island{position:relative;height:315px;margin:0 -10px;isolation:isolate}#lucky-island .land{position:absolute;left:8%;right:8%;top:112px;height:158px;background:#a8cb86;border:15px solid #f5dfaa;border-radius:51% 44% 49% 48%;transform:rotate(-9deg);box-shadow:0 13px 0 #65c2c8,0 19px 0 #ffffff66,0 27px 0 #ffffff22}#lucky-island .path{position:absolute;width:130px;height:30px;left:105px;top:204px;background:#f3dfa9;transform:rotate(-29deg);border-radius:50%}#lucky-island .house{position:absolute;top:134px;left:70px;width:91px;height:80px;background:linear-gradient(90deg,#fff5d5 70%,#e5cca0 70%);border-radius:5px;box-shadow:8px 10px 0 #4a78452a}#lucky-island .roof{position:absolute;left:-12px;top:-34px;width:104px;height:49px;background:repeating-linear-gradient(90deg,transparent 0 13px,#c45d3633 14px 16px),#f58758;clip-path:polygon(18% 0,85% 0,100% 100%,0 100%);border-radius:6px}#lucky-island .door{position:absolute;bottom:0;left:32px;width:23px;height:38px;background:#659b9b;border-radius:12px 12px 0 0;border:4px solid #f7dfaa}#lucky-island .window{position:absolute;top:23px;left:10px;width:16px;height:19px;background:#99ced0;border:3px solid #fffdf3}#lucky-island .tower{position:absolute;top:64px;right:70px;width:43px;height:132px;background:repeating-linear-gradient(0deg,#fff5db 0 35px,#f29264 35px 48px);clip-path:polygon(20% 0,80% 0,100% 100%,0 100%);filter:drop-shadow(4px 5px 0 #39604a44)}#lucky-island .cap{position:absolute;right:69px;top:45px;width:46px;height:29px;background:#f38052;border-radius:50% 50% 4px 4px;border-bottom:8px solid #3c7e86}#lucky-island .tree{position:absolute;width:49px;height:67px;border-radius:50%;background:#4e9874;box-shadow:inset 12px 4px #6eaf7e,8px 8px #2b756634}#lucky-island .tree:after{content:&#x27;&#x27;;position:absolute;width:8px;height:32px;background:#927751;bottom:-19px;left:23px;border-radius:3px}#lucky-island .t1{left:37px;top:93px;transform:scale(.85)}#lucky-island .t2{right:22px;top:134px;transform:scale(.75)}#lucky-island .t3{right:113px;top:110px;transform:scale(.55)}#lucky-island .dock{position:absolute;top:236px;left:95px;width:38px;height:62px;transform:rotate(15deg);background:repeating-linear-gradient(0deg,#ba8d60 0 10px,#976e45 11px 13px);border-left:4px solid #efd1a1;border-right:4px solid #efd1a1;border-radius:3px}#lucky-island .cloud{position:absolute;top:31px;left:26px;font-size:39px;opacity:.8}#lucky-island .bird{position:absolute;right:26px;top:20px;font-size:28px;color:#fff;transform:rotate(-10deg)}#lucky-island .pill{text-align:center;background:#fff9eeda;border:1px solid #ffffff9c;border-radius:30px;padding:7px 16px;width:max-content;max-width:100%;margin:0 auto;font-size:12px;font-weight:650}#lucky-island .mission{background:var(--li-paper);border-radius:23px;padding:19px;margin-top:18px;box-shadow:0 7px 14px #21586512}#lucky-island .mission .primary{margin-top:16px}#lucky-island .nav{display:flex;justify-content:space-around;background:var(--li-paper);margin:20px -21px -20px;padding:8px 10px 12px}#lucky-island .nav button{border:0;background:none;display:grid;gap:2px;justify-items:center;font-size:11px;min-width:66px;padding:8px;color:#7d8d8e}#lucky-island .nav button:first-child{color:#128d98}#lucky-island .nav i{font-style:normal;font-size:21px}#lucky-island .topbar{display:flex;justify-content:space-between;align-items:center;margin:7px 0 23px}#lucky-island .round{width:42px;height:42px;border:0;border-radius:50%;background:var(--li-paper);font-size:23px;box-shadow:0 3px 0 #2c7f8620}#lucky-island .goal{background:var(--li-paper);padding:18px;border-radius:20px}#lucky-island .goalhead{display:flex;justify-content:space-between;align-items:center;font-size:17px;font-weight:750}#lucky-island .track{height:9px;background:#e3ded0;border-radius:8px;margin-top:12px;overflow:hidden}#lucky-island .fill{height:100%;background:#319f94;border-radius:8px;transition:width .3s}#lucky-island .stats{display:flex;gap:10px;margin:12px 0}#lucky-island .stats div{flex:1;background:#fff9eeda;border-radius:14px;padding:11px;text-align:center;font-size:13px}#lucky-island .wheelbox{container-type:inline-size;position:relative;max-width:322px;width:100%;margin:23px auto 18px;aspect-ratio:1}#lucky-island .wheel{width:100%;height:100%;border:10px solid #ebc287;border-radius:50%;box-shadow:0 7px 0 #a77848,0 12px 24px #13525b30,inset 0 0 0 3px #fff1cf;position:relative;background:conic-gradient(from -22.5deg,#62b8b0 0 45deg,#ffb567 45deg 90deg,#68bdb3 90deg 135deg,#b7d9e5 135deg 180deg,#5fb0a7 180deg 225deg,#ffd291 225deg 270deg,#f69661 270deg 315deg,#ffe1ac 315deg 360deg);transition:transform 2.8s cubic-bezier(.12,.65,.13,1)}#lucky-island .wlabel{position:absolute;left:50%;top:50%;width:52px;height:58px;margin:-29px -26px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-shadow:0 2px 0 #ffffff55;font-size:28px}#lucky-island .wlabel small{font-size:13px;font-weight:800}#lucky-island .hub{position:absolute;left:38%;top:38%;width:24%;height:24%;border-radius:50%;background:linear-gradient(#fff1ca,#edbc77);border:5px solid #ffe2ac;display:grid;place-items:center;font-size:35px;color:#c58936;box-shadow:0 3px 5px #8c603733}#lucky-island .pointer{position:absolute;z-index:2;left:calc(50% - 16px);top:-10px;width:32px;height:41px;background:#ff844e;clip-path:polygon(0 0,100% 0,50% 100%);filter:drop-shadow(0 3px 0 #a95531)}#lucky-island .message{text-align:center;min-height:28px;font-size:13px;font-weight:650;margin:12px 0}#lucky-island .bottomactions{text-align:center}#lucky-island .bottomactions .secondary{margin-top:14px}#lucky-island .veil{position:absolute;inset:0;background:#123b4c88;z-index:5;display:flex;align-items:flex-end}#lucky-island .sheet{background:var(--li-paper);width:100%;padding:24px 22px 30px;border-radius:29px 29px 0 0;box-shadow:0 -8px 35px #14394022}#lucky-island .handle{width:42px;height:5px;background:#d1cbbd;border-radius:6px;margin:0 auto 21px}#lucky-island .sheethead{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}#lucky-island .choices{display:grid;gap:12px;margin:23px 0}#lucky-island .choice{display:flex;align-items:center;text-align:left;gap:13px;background:#fffdf7;border:2px solid #e8dfd1;border-radius:18px;padding:17px 12px;min-height:94px}#lucky-island .choice[aria-pressed=true]{border-color:#149ca4;background:#f1fbf6}#lucky-island .choice span{font-size:32px}#lucky-island .choice strong{font-size:17px;display:block}#lucky-island .choice small{font-size:12px;display:block;margin-top:4px;color:#60757a}#lucky-island .sheet p{margin:10px 0;font-size:14px;line-height:1.8}#lucky-island .sheet .foot{text-align:center;font-size:12px;color:#7d8989;margin-top:15px}#lucky-island .resulticon{text-align:center;font-size:62px;margin:15px}#lucky-island .collection{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin:25px 0}#lucky-island .collectitem{text-align:center;padding:24px 8px;background:#fffdf5;border-radius:16px}#lucky-island .collectitem span{display:block;font-size:35px}#lucky-island label{display:flex;justify-content:space-between;padding:17px 0;border-bottom:1px solid #e6ddcf}#lucky-island input{accent-color:#129ca4;width:20px;height:20px}#lucky-island [hidden]{display:none!important}@media(prefers-reduced-motion:reduce){#lucky-island .wheel{transition-duration:.01s}}@media(max-width:360px){#lucky-island .screen{padding-left:14px;padding-right:14px}#lucky-island h1{font-size:32px}#lucky-island .wlabel{font-size:24px}}
+&lt;/style&gt;
+&lt;div class=&quot;phone&quot;&gt;&lt;div class=&quot;status&quot;&gt;&lt;span&gt;9:41&lt;/span&gt;&lt;span&gt;●●● ▰&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;screen&quot; id=&quot;li-screen&quot;&gt;&lt;/div&gt;&lt;div id=&quot;li-overlay&quot; hidden&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;script&gt;
+(()=&gt;{const root=document.getElementById(&#x27;lucky-island&#x27;),screen=root.querySelector(&#x27;#li-screen&#x27;),overlay=root.querySelector(&#x27;#li-overlay&#x27;);const design={accent:&#x27;#ff783e&#x27;,fast:false};let s={wood:0,coins:0,left:12,boost:0,double:false,spins:0,busy:false,won:false,angle:0},completed=false,pendingUpgrade=false,selection=0,lastFocus=null;const types=[&#x27;wood&#x27;,&#x27;coin&#x27;,&#x27;wood&#x27;,&#x27;weather&#x27;,&#x27;wood&#x27;,&#x27;coin&#x27;,&#x27;chest&#x27;,&#x27;coin&#x27;];const icons={wood:&#x27;🪵&#x27;,coin:&#x27;🪙&#x27;,weather:&#x27;☁️&#x27;,chest:&#x27;🎁&#x27;};const values=[2,2,1,1,1,1,1,3];const island=`&lt;div class=&quot;island&quot; role=&quot;img&quot; aria-label=&quot;海边小岛上的小屋、树木、码头和灯塔&quot;&gt;&lt;div class=&quot;cloud&quot;&gt;☁&lt;/div&gt;&lt;div class=&quot;bird&quot;&gt;⌁&lt;/div&gt;&lt;div class=&quot;land&quot;&gt;&lt;/div&gt;&lt;div class=&quot;path&quot;&gt;&lt;/div&gt;&lt;div class=&quot;tree t1&quot;&gt;&lt;/div&gt;&lt;div class=&quot;tree t3&quot;&gt;&lt;/div&gt;&lt;div class=&quot;tower&quot;&gt;&lt;/div&gt;&lt;div class=&quot;cap&quot;&gt;&lt;/div&gt;&lt;div class=&quot;house&quot;&gt;&lt;div class=&quot;roof&quot;&gt;&lt;/div&gt;&lt;div class=&quot;window&quot;&gt;&lt;/div&gt;&lt;div class=&quot;door&quot;&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;tree t2&quot;&gt;&lt;/div&gt;&lt;div class=&quot;dock&quot;&gt;&lt;/div&gt;&lt;/div&gt;`;
+function home(){screen.innerHTML=`&lt;div class=&quot;brand&quot;&gt;&lt;div class=&quot;eyebrow&quot;&gt;A LITTLE LUCK, EVERY DAY&lt;/div&gt;&lt;h1&gt;幸运小岛&lt;/h1&gt;&lt;p class=&quot;sub&quot;&gt;把每一次幸运，变成小岛的风景。&lt;/p&gt;&lt;/div&gt;${island}&lt;div class=&quot;pill&quot;&gt;⌖ 海风港湾 · ${completed?&#x27;4&#x27;:&#x27;3&#x27;}/5&lt;/div&gt;&lt;div class=&quot;mission&quot;&gt;&lt;div class=&quot;eyebrow&quot;&gt;YOUR NEXT ADVENTURE&lt;/div&gt;&lt;h2&gt;${completed?&#x27;灯塔已经亮起&#x27;:&#x27;下一站：点亮灯塔&#x27;}&lt;/h2&gt;&lt;p class=&quot;sub&quot;&gt;${completed?&#x27;再挑战一次，试试不同的转盘组合。&#x27;:&#x27;收集 20 个木材，修复海边灯塔。&#x27;}&lt;/p&gt;&lt;button class=&quot;primary&quot; data-action=&quot;start&quot;&gt;${s.spins&amp;&amp;!s.won&amp;&amp;s.left?&#x27;继续挑战&#x27;:&#x27;开始挑战&#x27;} →&lt;/button&gt;&lt;/div&gt;&lt;nav class=&quot;nav&quot; aria-label=&quot;主要导航&quot;&gt;&lt;button data-action=&quot;home&quot;&gt;&lt;i&gt;⌂&lt;/i&gt;小岛&lt;/button&gt;&lt;button data-action=&quot;collection&quot;&gt;&lt;i&gt;☆&lt;/i&gt;收藏&lt;/button&gt;&lt;button data-action=&quot;settings&quot;&gt;&lt;i&gt;⚙&lt;/i&gt;设置&lt;/button&gt;&lt;/nav&gt;`}
+function game(){screen.innerHTML=`&lt;div class=&quot;topbar&quot;&gt;&lt;button class=&quot;round&quot; data-action=&quot;back&quot; aria-label=&quot;返回小岛&quot;&gt;‹&lt;/button&gt;&lt;h2&gt;点亮灯塔&lt;/h2&gt;&lt;button class=&quot;round&quot; data-action=&quot;rules&quot; aria-label=&quot;玩法说明&quot;&gt;?&lt;/button&gt;&lt;/div&gt;&lt;div class=&quot;goal&quot;&gt;&lt;div class=&quot;goalhead&quot;&gt;&lt;span&gt;🪵 木材 &lt;b id=&quot;li-wood&quot;&gt;${s.wood}&lt;/b&gt;/20&lt;/span&gt;&lt;span&gt;⚑&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;track&quot; role=&quot;progressbar&quot; aria-label=&quot;木材收集进度&quot; aria-valuemin=&quot;0&quot; aria-valuemax=&quot;20&quot; aria-valuenow=&quot;${Math.min(s.wood,20)}&quot;&gt;&lt;div class=&quot;fill&quot; style=&quot;width:${Math.min(s.wood/20*100,100)}%&quot;&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;stats&quot;&gt;&lt;div&gt;🪙 金币 &lt;b id=&quot;li-coins&quot;&gt;${s.coins}&lt;/b&gt;&lt;/div&gt;&lt;div&gt;🎟 剩余 &lt;b id=&quot;li-left&quot;&gt;${s.left}&lt;/b&gt; 次&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;wheelbox&quot;&gt;&lt;div class=&quot;pointer&quot;&gt;&lt;/div&gt;&lt;div class=&quot;wheel&quot; style=&quot;transform:rotate(${s.angle}deg)&quot;&gt;${types.map((t,i)=&gt;`&lt;div class=&quot;wlabel&quot; style=&quot;transform:rotate(${i*45}deg) translateY(-32cqw) rotate(${-i*45}deg)&quot;&gt;${icons[t]}&lt;small&gt;+${t===&#x27;wood&#x27;?values[i]+s.boost:values[i]}&lt;/small&gt;&lt;/div&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;&lt;div class=&quot;hub&quot;&gt;☀&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;message&quot; aria-live=&quot;polite&quot;&gt;${s.double?&#x27;顺风已就绪 · 下次资源翻倍&#x27;:&#x27;转动转盘，让好运靠岸&#x27;}&lt;/div&gt;&lt;div class=&quot;bottomactions&quot;&gt;&lt;button class=&quot;primary&quot; data-action=&quot;spin&quot;&gt;转动转盘&lt;/button&gt;&lt;button class=&quot;secondary&quot; data-action=&quot;craft&quot;&gt;改造转盘 · 4 金币&lt;/button&gt;&lt;br&gt;&lt;button class=&quot;plain&quot; data-action=&quot;rules&quot;&gt;每格概率相同 · 查看规则&lt;/button&gt;&lt;/div&gt;`}
+function update(msg){root.querySelector(&#x27;#li-wood&#x27;).textContent=s.wood;root.querySelector(&#x27;#li-coins&#x27;).textContent=s.coins;root.querySelector(&#x27;#li-left&#x27;).textContent=s.left;root.querySelector(&#x27;.fill&#x27;).style.width=Math.min(s.wood/20*100,100)+&#x27;%&#x27;;root.querySelector(&#x27;.track&#x27;).setAttribute(&#x27;aria-valuenow&#x27;,Math.min(s.wood,20));root.querySelector(&#x27;.message&#x27;).textContent=msg}
+function modal(html,closable=true){lastFocus=document.activeElement;overlay.hidden=false;overlay.className=&#x27;veil&#x27;;overlay.innerHTML=`&lt;section class=&quot;sheet&quot; role=&quot;dialog&quot; aria-modal=&quot;true&quot; aria-label=&quot;游戏面板&quot;&gt;&lt;div class=&quot;handle&quot;&gt;&lt;/div&gt;${html}${closable?&#x27;&lt;button class=&quot;plain&quot; data-action=&quot;close&quot;&gt;返回游戏&lt;/button&gt;&#x27;:&#x27;&#x27;}&lt;/section&gt;`;screen.inert=true;overlay.querySelector(&#x27;button,input&#x27;)?.focus()}
+function close(){overlay.hidden=true;overlay.innerHTML=&#x27;&#x27;;screen.inert=false;if(lastFocus?.isConnected)lastFocus.focus()}
+function upgrades(){selection=0;modal(`&lt;h2&gt;选择一项升级&lt;/h2&gt;&lt;p class=&quot;sub&quot;&gt;让下一次转动更有惊喜。&lt;/p&gt;&lt;div class=&quot;choices&quot;&gt;${[[&#x27;🧰&#x27;,&#x27;加固工具&#x27;,&#x27;木材格每次多产出 1 个木材&#x27;],[&#x27;🌬️&#x27;,&#x27;顺风时刻&#x27;,&#x27;下一次木材或金币奖励翻倍&#x27;],[&#x27;🎟️&#x27;,&#x27;备用机会&#x27;,&#x27;增加 2 次转动&#x27;]].map((x,i)=&gt;`&lt;button class=&quot;choice&quot; data-choice=&quot;${i}&quot; aria-pressed=&quot;${i===0}&quot;&gt;&lt;span&gt;${x[0]}&lt;/span&gt;&lt;div&gt;&lt;strong&gt;${x[1]}&lt;/strong&gt;&lt;small&gt;${x[2]}&lt;/small&gt;&lt;/div&gt;&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;&lt;button class=&quot;primary&quot; data-action=&quot;confirm&quot;&gt;确认升级&lt;/button&gt;&lt;p class=&quot;foot&quot;&gt;仅本局生效&lt;/p&gt;`,false)}
+function finish(){s.won=s.wood&gt;=20;if(s.won)completed=true;modal(`&lt;div class=&quot;resulticon&quot;&gt;${s.won?&#x27;🌅&#x27;:&#x27;⛵&#x27;}&lt;/div&gt;&lt;h2&gt;${s.won?&#x27;灯塔亮起来了！&#x27;:&#x27;离灯塔亮起又近了一步&#x27;}&lt;/h2&gt;&lt;p&gt;${s.won?&#x27;海风港湾有了新的光。灯塔已加入收藏。&#x27;:`这次获得 ${s.wood} 个木材，还差 ${20-s.wood} 个。试试早点升级木材格。`}&lt;/p&gt;&lt;div class=&quot;stats&quot;&gt;&lt;div&gt;🪵 ${s.wood} 木材&lt;/div&gt;&lt;div&gt;🎡 ${s.spins} 次转动&lt;/div&gt;&lt;/div&gt;&lt;button class=&quot;primary&quot; data-action=&quot;restart&quot;&gt;再挑战一次&lt;/button&gt;&lt;button class=&quot;plain&quot; data-action=&quot;finishhome&quot;&gt;回到小岛&lt;/button&gt;`,false)}
+function spin(){if(s.busy||s.left&lt;=0)return;s.busy=true;s.left--;screen.querySelectorAll(&#x27;button&#x27;).forEach(b=&gt;b.disabled=true);let random=new Uint32Array(1);crypto.getRandomValues(random);const index=random[0]&gt;&gt;&gt;29;const target=(360-index*45)%360;s.angle+=360*5+((target-s.angle%360+360)%360);const wheel=root.querySelector(&#x27;.wheel&#x27;);const duration=(design.fast||matchMedia(&#x27;(prefers-reduced-motion: reduce)&#x27;).matches)?40:2800;wheel.style.transitionDuration=duration+&#x27;ms&#x27;;wheel.style.transform=`rotate(${s.angle}deg)`;update(&#x27;好运正在靠岸…&#x27;);setTimeout(()=&gt;{let t=types[index],v=values[index],msg=&#x27;&#x27;;s.spins++;if(t===&#x27;wood&#x27;||t===&#x27;coin&#x27;){if(t===&#x27;wood&#x27;)v+=s.boost;if(s.double){v*=2;s.double=false}if(t===&#x27;wood&#x27;)s.wood+=v;else s.coins+=v;msg=`${icons[t]} 获得 ${v} ${t===&#x27;wood&#x27;?&#x27;个木材&#x27;:&#x27;枚金币&#x27;}`}else if(t===&#x27;weather&#x27;){s.double=true;msg=&#x27;🌬️ 顺风来了！下次资源翻倍&#x27;}else{pendingUpgrade=true;msg=&#x27;🎁 获得一次升级选择&#x27;}s.busy=false;screen.querySelectorAll(&#x27;button&#x27;).forEach(b=&gt;b.disabled=false);update(msg);if(s.wood&gt;=20)finish();else if(pendingUpgrade||s.spins%3===0){pendingUpgrade=false;upgrades()}else if(s.left===0)finish()},duration+50)}
+root.addEventListener(&#x27;click&#x27;,e=&gt;{const b=e.target.closest(&#x27;button&#x27;);if(!b||b.disabled)return;if(b.dataset.choice!==undefined){selection=Number(b.dataset.choice);overlay.querySelectorAll(&#x27;[data-choice]&#x27;).forEach(x=&gt;x.setAttribute(&#x27;aria-pressed&#x27;,Number(x.dataset.choice)===selection));return}switch(b.dataset.action){case&#x27;home&#x27;:case&#x27;back&#x27;:home();break;case&#x27;start&#x27;:if(s.won||s.left===0)reset();game();break;case&#x27;spin&#x27;:spin();break;case&#x27;close&#x27;:close();break;case&#x27;confirm&#x27;:if(selection===0)s.boost++;if(selection===1)s.double=true;if(selection===2)s.left+=2;close();game();if(s.left===0)finish();break;case&#x27;craft&#x27;:if(s.coins&lt;4){modal(&#x27;&lt;h2&gt;改造转盘&lt;/h2&gt;&lt;p&gt;花费 4 枚金币，永久增强本局所有木材格，每次多获得 1 个木材。&lt;/p&gt;&lt;p&gt;当前金币不足，先转动收集金币吧。&lt;/p&gt;&#x27;);}else modal(&#x27;&lt;h2&gt;加固木材格&lt;/h2&gt;&lt;p&gt;消耗 4 枚金币，让本局所有木材格每次多产出 1 个木材。&lt;/p&gt;&lt;button class=&quot;primary&quot; data-action=&quot;buy&quot;&gt;花费 4 金币&lt;/button&gt;&#x27;);break;case&#x27;buy&#x27;:if(s.coins&gt;=4){s.coins-=4;s.boost++;close();game();update(&#x27;🧰 改造完成，所有木材格 +1&#x27;)}break;case&#x27;rules&#x27;:modal(&#x27;&lt;h2&gt;让幸运成为你的策略&lt;/h2&gt;&lt;p&gt;用 12 次转动收集 20 个木材，即可点亮灯塔。8 个格子等概率，每格 12.5%。&lt;/p&gt;&lt;p&gt;🪵 木材用于完成目标&lt;br&gt;🪙 金币用于改造木材格&lt;br&gt;☁️ 天气让下次资源翻倍&lt;br&gt;🎁 宝箱提供一次升级选择&lt;/p&gt;&lt;p&gt;每转动 3 次也可升级一次。顺风效果不叠加，结算后局内升级重置。&lt;/p&gt;&#x27;);break;case&#x27;restart&#x27;:close();reset();game();break;case&#x27;finishhome&#x27;:close();home();break;case&#x27;collection&#x27;:modal(`&lt;h2&gt;小岛收藏&lt;/h2&gt;&lt;p&gt;每一份幸运，都留下了痕迹。&lt;/p&gt;&lt;div class=&quot;collection&quot;&gt;&lt;div class=&quot;collectitem&quot;&gt;&lt;span&gt;🏡&lt;/span&gt;海边小屋&lt;/div&gt;&lt;div class=&quot;collectitem&quot;&gt;&lt;span&gt;🌳&lt;/span&gt;海风花园&lt;/div&gt;&lt;div class=&quot;collectitem&quot;&gt;&lt;span&gt;⚓&lt;/span&gt;木质码头&lt;/div&gt;&lt;div class=&quot;collectitem&quot;&gt;&lt;span&gt;${completed?&#x27;🌅&#x27;:&#x27;🔒&#x27;}&lt;/span&gt;${completed?&#x27;海岸灯塔&#x27;:&#x27;完成灯塔挑战解锁&#x27;}&lt;/div&gt;&lt;/div&gt;`);break;case&#x27;settings&#x27;:modal(`&lt;h2&gt;设置&lt;/h2&gt;&lt;label&gt;快速转动&lt;input id=&quot;li-fast&quot; type=&quot;checkbox&quot; ${design.fast?&#x27;checked&#x27;:&#x27;&#x27;}&gt;&lt;/label&gt;&lt;p&gt;当前为交互原型，进度只在本次打开期间保留。&lt;/p&gt;`);overlay.querySelector(&#x27;#li-fast&#x27;).onchange=e=&gt;{design.fast=e.target.checked};break;}});
+function reset(){s={wood:0,coins:0,left:12,boost:0,double:false,spins:0,busy:false,won:false,angle:0};pendingUpgrade=false}
+root.addEventListener(&#x27;keydown&#x27;,e=&gt;{if(overlay.hidden)return;if(e.key===&#x27;Escape&#x27;&amp;&amp;overlay.querySelector(&#x27;[data-action=close]&#x27;)){close();return}if(e.key===&#x27;Tab&#x27;){const els=[...overlay.querySelectorAll(&#x27;button,input&#x27;)],first=els[0],last=els[els.length-1];if(e.shiftKey&amp;&amp;document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&amp;&amp;document.activeElement===last){e.preventDefault();first.focus()}}});home();if(globalThis.Tweak){const tweak=new Tweak({container:root,onChange:()=&gt;root.style.setProperty(&#x27;--li-orange&#x27;,design.accent)});tweak.addColorPicker(design,&#x27;accent&#x27;,{label:&#x27;主要按钮颜色&#x27;});tweak.addToggle(design,&#x27;fast&#x27;,{label:&#x27;快速转动&#x27;});}
+})();
+&lt;/script&gt;
+&lt;/div&gt;
+
+&lt;script src=&quot;https://unpkg.com/@floating-ui/core@1.7.3/dist/floating-ui.core.umd.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;https://unpkg.com/@floating-ui/dom@1.7.4/dist/floating-ui.dom.umd.min.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+(() =&gt; {
+  if (window.FloatingUIDOM == null) {
+    return;
+  }
+  const { autoUpdate, computePosition, flip, offset, shift, size } =
+    window.FloatingUIDOM;
+  const tooltipPlacements = new Set([&quot;top&quot;, &quot;right&quot;, &quot;bottom&quot;, &quot;left&quot;]);
+  const tooltipId = `codex-visualization-tooltip-${
+    window.crypto?.randomUUID?.() ?? Date.now().toString(36)
+  }`;
+  const tooltipGap = 5;
+  const hoverDelay = 700;
+  const skipDelay = 300;
+  let activeTrigger = null;
+  let pendingTrigger = null;
+  let tooltip = null;
+  let openTimeout = null;
+  let autoUpdateCleanup = null;
+  let positionRequest = 0;
+  let skipDelayUntil = 0;
+  let lastPointerWasTouch = false;
+  let pinnedByTouch = false;
+
+  const getTrigger = (target) =&gt;
+    target?.nodeType === Node.ELEMENT_NODE
+      ? target.closest(&quot;[data-tooltip]&quot;)
+      : null;
+  const containsTarget = (trigger, target) =&gt;
+    target?.nodeType != null &amp;&amp; trigger.contains(target);
+  const getContent = (trigger) =&gt;
+    trigger.getAttribute(&quot;data-tooltip&quot;)?.trim() ?? &quot;&quot;;
+  const getPlacement = (trigger) =&gt; {
+    const placement = trigger.getAttribute(&quot;data-tooltip-placement&quot;);
+    return tooltipPlacements.has(placement) ? placement : &quot;top&quot;;
+  };
+  const getTooltip = () =&gt; {
+    if (tooltip == null) {
+      tooltip = document.createElement(&quot;div&quot;);
+      tooltip.id = tooltipId;
+      tooltip.className = &quot;tooltip&quot;;
+      tooltip.setAttribute(&quot;role&quot;, &quot;tooltip&quot;);
+    }
+    return tooltip;
+  };
+  const setDescribedBy = (trigger, described) =&gt; {
+    const ids = new Set(
+      (trigger.getAttribute(&quot;aria-describedby&quot;) ?? &quot;&quot;)
+        .split(/\s+/)
+        .filter(Boolean),
+    );
+    if (described) {
+      ids.add(tooltipId);
+    } else {
+      ids.delete(tooltipId);
+    }
+    if (ids.size === 0) {
+      trigger.removeAttribute(&quot;aria-describedby&quot;);
+    } else {
+      trigger.setAttribute(&quot;aria-describedby&quot;, [...ids].join(&quot; &quot;));
+    }
+  };
+  const clearOpenTimeout = () =&gt; {
+    if (openTimeout != null) {
+      window.clearTimeout(openTimeout);
+      openTimeout = null;
+    }
+    pendingTrigger = null;
+  };
+  const closeTooltip = (activateSkipDelay = true) =&gt; {
+    clearOpenTimeout();
+    pinnedByTouch = false;
+    positionRequest += 1;
+    autoUpdateCleanup?.();
+    autoUpdateCleanup = null;
+    if (activeTrigger == null) {
+      return;
+    }
+    setDescribedBy(activeTrigger, false);
+    activeTrigger = null;
+    tooltip?.remove();
+    if (activateSkipDelay) {
+      skipDelayUntil = Date.now() + skipDelay;
+    }
+  };
+  const updatePosition = (trigger, floating) =&gt; {
+    const request = ++positionRequest;
+    void computePosition(trigger, floating, {
+      middleware: [
+        offset(tooltipGap),
+        flip({ padding: tooltipGap }),
+        shift({ padding: tooltipGap }),
+        size({
+          padding: tooltipGap,
+          apply({ availableHeight, availableWidth, elements }) {
+            elements.floating.style.setProperty(
+              &quot;--tooltip-available-width&quot;,
+              `${Math.max(0, availableWidth)}px`,
+            );
+            elements.floating.style.setProperty(
+              &quot;--tooltip-available-height&quot;,
+              `${Math.max(0, availableHeight)}px`,
+            );
+          },
+        }),
+      ],
+      placement: getPlacement(trigger),
+      strategy: &quot;fixed&quot;,
+    })
+      .then(({ x, y }) =&gt; {
+        if (activeTrigger !== trigger || request !== positionRequest) {
+          return;
+        }
+        const scale = window.devicePixelRatio || 1;
+        floating.style.transform = `translate(${Math.round(x * scale) / scale}px, ${Math.round(y * scale) / scale}px)`;
+        floating.style.visibility = &quot;visible&quot;;
+      })
+      .catch(() =&gt; {
+        if (activeTrigger === trigger &amp;&amp; request === positionRequest) {
+          closeTooltip(false);
+        }
+      });
+  };
+  const openTooltip = (trigger) =&gt; {
+    const content = getContent(trigger);
+    if (!trigger.isConnected || content.length === 0) {
+      return;
+    }
+    clearOpenTimeout();
+    if (activeTrigger === trigger) {
+      return;
+    }
+    closeTooltip();
+    const floating = getTooltip();
+    floating.textContent = content;
+    floating.style.visibility = &quot;hidden&quot;;
+    floating.style.transform = &quot;translate(0, 0)&quot;;
+    document.body.appendChild(floating);
+    activeTrigger = trigger;
+    setDescribedBy(trigger, true);
+    autoUpdateCleanup = autoUpdate(trigger, floating, () =&gt; {
+      updatePosition(trigger, floating);
+    });
+  };
+  const requestOpen = (trigger, immediate = false) =&gt; {
+    if (
+      getContent(trigger).length === 0 ||
+      activeTrigger === trigger ||
+      pendingTrigger === trigger
+    ) {
+      return;
+    }
+    clearOpenTimeout();
+    pendingTrigger = trigger;
+    const delay =
+      immediate || activeTrigger != null || Date.now() &lt; skipDelayUntil
+        ? 0
+        : hoverDelay;
+    if (delay === 0) {
+      openTooltip(trigger);
+      return;
+    }
+    openTimeout = window.setTimeout(() =&gt; {
+      openTimeout = null;
+      pendingTrigger = null;
+      openTooltip(trigger);
+    }, delay);
+  };
+  const handlePointerOpen = (event) =&gt; {
+    if (event.pointerType === &quot;touch&quot;) {
+      return;
+    }
+    const trigger = getTrigger(event.target);
+    if (trigger == null || containsTarget(trigger, event.relatedTarget)) {
+      return;
+    }
+    requestOpen(trigger);
+  };
+  const handlePointer = (event) =&gt; {
+    lastPointerWasTouch =
+      event.type === &quot;pointerdown&quot; &amp;&amp; event.pointerType === &quot;touch&quot;;
+  };
+  const handleTouchClick = (event) =&gt; {
+    const isTouch = event.pointerType === &quot;touch&quot; || lastPointerWasTouch;
+    lastPointerWasTouch = false;
+    if (!isTouch || event.detail === 0) {
+      return;
+    }
+    const trigger = getTrigger(event.target);
+    if (
+      trigger == null ||
+      !trigger.isConnected ||
+      getContent(trigger).length === 0 ||
+      (pinnedByTouch &amp;&amp; activeTrigger === trigger)
+    ) {
+      if (pinnedByTouch) {
+        closeTooltip();
+      }
+      return;
+    }
+    openTooltip(trigger);
+    pinnedByTouch = activeTrigger === trigger;
+    window.setTimeout(() =&gt; {
+      if (activeTrigger === trigger &amp;&amp; !trigger.isConnected) {
+        closeTooltip(false);
+      }
+    }, 0);
+  };
+  const handleLeave = (event) =&gt; {
+    if (pinnedByTouch) {
+      return;
+    }
+    const trigger = getTrigger(event.target);
+    if (trigger == null || containsTarget(trigger, event.relatedTarget)) {
+      return;
+    }
+    if (activeTrigger === trigger || pendingTrigger === trigger) {
+      closeTooltip();
+    }
+  };
+  const handleFocusIn = (event) =&gt; {
+    const trigger = getTrigger(event.target);
+    if (trigger?.matches(&quot;:focus-visible&quot;)) {
+      requestOpen(trigger, true);
+    }
+  };
+  const handleKeyDown = (event) =&gt; {
+    if (event.key === &quot;Escape&quot;) {
+      closeTooltip();
+    }
+  };
+  const handleContextMenu = (event) =&gt; {
+    lastPointerWasTouch = false;
+    const trigger = getTrigger(event.target);
+    if (activeTrigger === trigger || pendingTrigger === trigger) {
+      closeTooltip();
+    }
+  };
+  const destroy = () =&gt; {
+    closeTooltip(false);
+    lastPointerWasTouch = false;
+    document.removeEventListener(&quot;pointerover&quot;, handlePointerOpen);
+    document.removeEventListener(&quot;pointerdown&quot;, handlePointer);
+    document.removeEventListener(&quot;pointercancel&quot;, handlePointer);
+    document.removeEventListener(&quot;click&quot;, handleTouchClick);
+    document.removeEventListener(&quot;pointerout&quot;, handleLeave);
+    document.removeEventListener(&quot;focusin&quot;, handleFocusIn);
+    document.removeEventListener(&quot;focusout&quot;, handleLeave);
+    document.removeEventListener(&quot;keydown&quot;, handleKeyDown);
+    document.removeEventListener(&quot;contextmenu&quot;, handleContextMenu);
+    tooltip = null;
+  };
+
+  document.addEventListener(&quot;pointerover&quot;, handlePointerOpen);
+  document.addEventListener(&quot;pointerdown&quot;, handlePointer);
+  document.addEventListener(&quot;pointercancel&quot;, handlePointer);
+  document.addEventListener(&quot;click&quot;, handleTouchClick);
+  document.addEventListener(&quot;pointerout&quot;, handleLeave);
+  document.addEventListener(&quot;focusin&quot;, handleFocusIn);
+  document.addEventListener(&quot;focusout&quot;, handleLeave);
+  document.addEventListener(&quot;keydown&quot;, handleKeyDown);
+  document.addEventListener(&quot;contextmenu&quot;, handleContextMenu);
+  window.addEventListener(&quot;pagehide&quot;, destroy, { once: true });
+})();
+&lt;/script&gt;
+&lt;script id=&quot;codex-visualization-tabs&quot;&gt;
+(() =&gt; {
+  const selector = &#x27;.nav[role=&quot;tablist&quot;] [role=&quot;tab&quot;]&#x27;;
+  const disabled = &#x27;:disabled,[aria-disabled=&quot;true&quot;]&#x27;;
+  const selectTab = (selected) =&gt; {
+    const panelId = selected.getAttribute(&quot;aria-controls&quot;);
+    for (const tab of selected.closest(&#x27;[role=&quot;tablist&quot;]&#x27;).querySelectorAll(&#x27;[role=&quot;tab&quot;]&#x27;)) {
+      const active = tab === selected;
+      tab.classList.toggle(&quot;active&quot;, active);
+      tab.setAttribute(&quot;aria-selected&quot;, String(active));
+      const id = tab.getAttribute(&quot;aria-controls&quot;);
+      const panel = id &amp;&amp; document.getElementById(id);
+      if (panel != null) {
+        panel.hidden = id !== panelId;
+        if (!panel.hidden &amp;&amp; selected.id) {
+          panel.setAttribute(&quot;aria-labelledby&quot;, selected.id);
+        }
+      }
+    }
+  };
+  const interact = (event) =&gt; {
+    const tab = event.target?.closest?.(selector);
+    if (event.defaultPrevented || tab == null || tab.matches(disabled)) {
+      return;
+    }
+    if (event.type === &quot;click&quot;) {
+      selectTab(tab);
+      return;
+    }
+    const tabs = Array.from(
+      tab.closest(&#x27;[role=&quot;tablist&quot;]&#x27;).querySelectorAll(&#x27;[role=&quot;tab&quot;]&#x27;),
+    ).filter((candidate) =&gt; !candidate.matches(disabled));
+    const current = tabs.indexOf(tab);
+    let next;
+    if (event.key === &quot;ArrowRight&quot; || event.key === &quot;ArrowDown&quot;) {
+      next = (current + 1) % tabs.length;
+    } else if (event.key === &quot;ArrowLeft&quot; || event.key === &quot;ArrowUp&quot;) {
+      next = (current + tabs.length - 1) % tabs.length;
+    } else if (event.key === &quot;Home&quot;) {
+      next = 0;
+    } else if (event.key === &quot;End&quot;) {
+      next = tabs.length - 1;
+    } else {
+      return;
+    }
+    event.preventDefault();
+    tabs[next].focus();
+    selectTab(tabs[next]);
+  };
+
+  for (const list of document.querySelectorAll(&#x27;.nav[role=&quot;tablist&quot;]&#x27;)) {
+    const selected =
+      list.querySelector(&#x27;[role=&quot;tab&quot;][aria-selected=&quot;true&quot;]&#x27;) ??
+      list.querySelector(&#x27;[role=&quot;tab&quot;].active&#x27;) ??
+      list.querySelector(&#x27;[role=&quot;tab&quot;]&#x27;);
+    if (selected != null) {
+      selectTab(selected);
+    }
+  }
+  document.addEventListener(&quot;click&quot;, interact);
+  document.addEventListener(&quot;keydown&quot;, interact);
+  window.addEventListener(&quot;pagehide&quot;, () =&gt; {
+    document.removeEventListener(&quot;click&quot;, interact);
+    document.removeEventListener(&quot;keydown&quot;, interact);
+  }, { once: true });
+})();
+&lt;/script&gt;
+&lt;script id=&quot;codex-visualization-lucide&quot; async src=&quot;https://unpkg.com/lucide@1.17.0/dist/umd/lucide.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+(() =&gt; {
+  const initialize = () =&gt; {
+    globalThis.lucide?.createIcons({ attrs: { width: 16, height: 16 } });
+  };
+  if (globalThis.lucide != null) {
+    initialize();
+    return;
+  }
+  document
+    .getElementById(&quot;codex-visualization-lucide&quot;)
+    ?.addEventListener(&quot;load&quot;, initialize, { once: true });
+})();
+&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+"></iframe>
+</body>
+</html>

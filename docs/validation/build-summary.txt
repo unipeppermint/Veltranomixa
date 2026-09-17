@@ -1,0 +1,11 @@
+Xcode 26.6 (17F113), iOS Simulator 26.5
+CocoaPods 1.17.0, SnapKit 5.7.1
+Debug workspace build: SUCCEEDED
+Release workspace build (final): SUCCEEDED
+Rules/save XCTest: 16 passed, 0 failed
+Random gameplay/recovery UI: 1 passed
+Final deterministic-win + large-text UI: 2 passed
+Large-text navigation correction UI rerun: 1 passed
+Code signing disabled per build invocation; project signing settings unchanged.
+No device archive, physical-device testing or TestFlight performed.
+Warning: AppIntents metadata extraction skipped (no framework dependency).

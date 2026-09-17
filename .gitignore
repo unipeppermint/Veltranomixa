@@ -1,0 +1,28 @@
+# macOS metadata
+.DS_Store
+._*
+
+# Xcode build products and local user settings
+build/
+DerivedData/
+*.xcuserstate
+xcuserdata/
+*.xcarchive/
+*.xcresult/
+*.ipa
+*.dSYM/
+*.dSYM.zip
+
+# Swift Package Manager local build/workspace state
+.build/
+.swiftpm/xcode/package.xcworkspace/
+
+# CocoaPods dependencies (restore with bundle exec pod install)
+/Pods/
+
+# Bundler local configuration and installed gems
+.bundle/
+vendor/bundle/
+
+# Keep dependency lockfiles, shared Xcode schemes/workspaces, and
+# docs/validation reports under version control for reproducibility.
