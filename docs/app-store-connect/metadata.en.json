@@ -1,0 +1,25 @@
+{
+  "name": "Lucky Island: Slot Builder",
+  "subtitle": "Spin, collect, grow your world",
+  "promotional_text": "Shape your wheel, choose your upgrades, and build a little island across 15 challenges. Play offline, with no ads, purchases, or energy timers.",
+  "keywords": "wheel,strategy,offline,casual,cozy,craft,upgrade,resources,relaxing,harbor,landmarks,adventure",
+  "primary_language": "English (U.S.)",
+  "bundle_id": "com.ccvl.Veltranomixa",
+  "suggested_sku_if_new_record": "lucky-island-ios",
+  "primary_category": "Games",
+  "suggested_game_subcategories": [
+    "Strategy",
+    "Casual"
+  ],
+  "privacy_policy_url": "https://doc-hosting.flycricket.io/lucky-island-privacy-policy/0844502f-3dcc-4b6b-b833-8b7e5930bd9c/privacy",
+  "support_url": null,
+  "review_contact_email_if_monitored": "cressidal@trademarkroofing.homes",
+  "review_contact_first_name": null,
+  "review_contact_last_name": null,
+  "review_contact_phone": null,
+  "copyright_if_owner_confirmed": "2026 Trademark Roofing Co",
+  "suggested_price": "Free",
+  "suggested_release": "Manual",
+  "version_in_project": "1.0",
+  "build_in_project": "1"
+}

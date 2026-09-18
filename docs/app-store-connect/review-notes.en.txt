@@ -1,0 +1,21 @@
+Lucky Island is a single-player island-building strategy game with 15 levels. No sign-in, subscription, or in-app purchase is required. Gameplay works offline; viewing the externally hosted Privacy Policy requires internet access.
+
+HOW TO REVIEW
+1. Launch the app and tap "Let's begin".
+2. On Island, tap "Start challenge" and confirm.
+3. Collect 20 Wood in the first level using "Spin the wheel".
+4. Open the wheel workshop to replace a tile. The first replacement in each new challenge is free; later replacements use Coins earned in the game.
+5. Choose an upgrade every three spins or when landing on a Chest.
+6. Complete levels to unlock landmarks, achievements, additional challenges, and wheel styles. No payment is required to unlock content.
+7. Visit Collection to view unlocks. Settings includes How to play, Rules and odds, Quick spins, Privacy Policy, Save Information, and Reset all progress.
+
+MECHANICS
+All eight wheel tiles have equal 12.5% odds. The wheel grants in-game resources and effects. There is no wagering of money or Coins on spin outcomes, no paid spins, no cash-out, and no monetary prizes. Coins cannot be purchased or exchanged for money.
+
+SAVES AND SETTINGS
+Progress saves locally. If the app closes during a spin, continuing preserves the saved result rather than drawing again. The app has no developer-operated cloud-sync service. Device backups may include saves according to the user's system settings.
+
+Enable Settings > Quick spins for shorter animations. Settings > Reset all progress starts a fresh game after confirmation.
+
+PRIVACY
+The native game has no advertising or analytics SDKs. Settings > Privacy Policy opens the published policy in the system browser. Save Information explains local saves and reset behavior.

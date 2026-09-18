@@ -1,0 +1,18 @@
+Lucky Island Support
+
+For help with Lucky Island, contact cressidal@trademarkroofing.homes.
+Developer / operator: Trademark Roofing Co
+
+Please include your device model, iOS version, app version, and a description of the issue. Screenshots are helpful, but please do not include sensitive personal information.
+
+How to play
+Open Settings > How to play or Settings > Rules and odds for gameplay instructions.
+
+Saved progress
+Progress saves automatically on your device. The app does not offer account-based cloud sync, and we cannot remotely restore local saves. Your device backups may contain app data depending on your system settings.
+
+Resetting your island
+Settings > Reset all progress clears the current run, collection, preferences, local backup, and damaged save copies after confirmation. This does not remove existing device backups. Please do not reset or delete the app when reporting a save problem unless you intend to erase your local progress.
+
+Privacy policy
+https://doc-hosting.flycricket.io/lucky-island-privacy-policy/0844502f-3dcc-4b6b-b833-8b7e5930bd9c/privacy
