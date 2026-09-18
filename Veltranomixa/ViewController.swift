@@ -339,13 +339,24 @@ final class ViewController: UIViewController {
         }
         add(Theme.button("How to play",symbol:"questionmark.circle") { [weak self] in self?.tutorial() })
         add(Theme.button("Rules and odds",symbol:"info.circle") { [weak self] in self?.rules() })
-        add(Theme.button("Privacy and saves",symbol:"lock.shield") { [weak self] in self?.info("Privacy and local saves", "No account, ads, analytics, or servers. The app does not collect or transmit personal information. Progress and settings are stored locally. The app has no cloud-sync service. Depending on your device settings, Apple may include these files in iCloud Backup or a computer backup. These backups are managed by you and are not accessible to us. Deleting the app may erase its local progress.\n\nReset all progress clears the active save, its local backup, and any damaged save copies kept by the app. It does not delete existing device backups; manage those in your device or computer settings.\n\nEvery action saves automatically. Leaving during a spin never draws a new result. Turning on Reduce Motion in system settings shortens wheel animations.") })
+        add(Theme.button("Privacy Policy", symbol: "safari") { [weak self] in self?.openPrivacyPolicy() })
+        add(Theme.button("Save Information", symbol: "externaldrive") { [weak self] in
+            self?.info("Save Information", "Your progress and settings save automatically on this device. Leaving during a spin keeps the same result. The app has no cloud-sync service.\n\nDepending on your device settings, saves may be included in iCloud Backup or a computer backup. Deleting the app may erase its local progress.\n\nReset all progress clears the current game, collection, settings, local backup, and damaged save copies. It does not delete existing device backups; manage those in your device or computer settings.")
+        })
         add(Theme.button("About Lucky Island",symbol:"info.circle") { [weak self] in
             let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "1.0"
             self?.info("Lucky Island · \(version)", "Shape your wheel, gather resources, and turn each choice into a new island landmark.\n\nExplore Breeze Harbor, Blossom Hills, and Starlight Coast. Build your own little island, offline and at your own pace.")
         })
         add(Theme.button("Reset all progress",symbol:"trash") { [weak self] in self?.reset() })
-        add(Theme.label("Saved on device · No ads · No purchases",size:13,color:Theme.ink.withAlphaComponent(0.6)))
+    }
+    private func openPrivacyPolicy() {
+        guard let url = URL(string: "https://doc-hosting.flycricket.io/lucky-island-privacy-policy/0844502f-3dcc-4b6b-b833-8b7e5930bd9c/privacy") else { return }
+        UIApplication.shared.open(url, options: [:]) { [weak self] opened in
+            guard !opened else { return }
+            DispatchQueue.main.async {
+                self?.info("Could not open Privacy Policy", "Please try again. Save Information is still available offline in Settings.")
+            }
+        }
     }
     private func reset() {
         let a = UIAlertController(title:"Reset your island?",message:"Your current run, all landmarks, and all achievements will be deleted. This cannot be undone.",preferredStyle:.alert)

@@ -16,6 +16,10 @@ The owner subsequently authorized the three recommended code/content fixes. The 
 
 Validation: 26 rule/persistence tests passed, including quarantine cleanup, clean backup recovery, unrelated-file preservation, special-tile descriptions and resource-description/award agreement. A targeted iPhone SE UI test passed at the largest accessibility text size, checking the privacy alert's text and dismiss button plus the wheel's exposed accessibility label. The final arm64 Release archive succeeded with signing disabled. Evidence is in `validation/release-fixes/`. Physical-device VoiceOver speech has not been tested. The public policy URL, signing and regional release gates remain open.
 
+## Follow-up: hosted privacy policy connected
+
+The owner supplied the [public privacy policy](https://doc-hosting.flycricket.io/lucky-island-privacy-policy/0844502f-3dcc-4b6b-b833-8b7e5930bd9c/privacy). It returned HTTP 200 and the body matches the current local-save, system-backup and reset behavior. Settings now includes a Privacy Policy button that opens the system browser; the offline summary remains available. Failed browser launches show an error. The hosting page has Flycricket branding and an advertising area, separate from the native game. The in-app policy-link finding below is resolved; the App Store Connect policy field has not been inspected or updated.
+
 ## Confirmed submission gates
 
 | Priority | Finding | Evidence and required resolution |

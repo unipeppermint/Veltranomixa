@@ -114,14 +114,14 @@ extension LuckyIslandUITests {
         app.launchArguments = ["-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL"]
         app.launch()
         if app.buttons["Let's begin"].waitForExistence(timeout: 2) { app.buttons["Let's begin"].tap() }
-        tap(app, "tab.Settings"); tap(app, "Privacy and saves")
-        let policy = app.alerts["Privacy and local saves"]
+        tap(app, "tab.Settings"); tap(app, "Save Information")
+        let policy = app.alerts["Save Information"]
         XCTAssertTrue(policy.waitForExistence(timeout: 3))
         let text = policy.staticTexts.allElementsBoundByIndex.map(\.label).joined(separator: " ")
         XCTAssertTrue(text.contains("iCloud Backup or a computer backup"))
         XCTAssertTrue(text.contains("It does not delete existing device backups"))
         XCTAssertTrue(policy.buttons["Got it"].isHittable)
-        capture("15-privacy-large-text")
+        capture("15-save-information-large-text")
         policy.buttons["Got it"].tap()
         tap(app, "Reset all progress"); app.alerts.buttons["Reset progress"].tap()
         tap(app, "Start challenge"); app.alerts.buttons["Start challenge"].tap()
