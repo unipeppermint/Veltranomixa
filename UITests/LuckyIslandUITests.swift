@@ -132,3 +132,46 @@ extension LuckyIslandUITests {
         XCTAssertFalse(wheel.label.contains("next-spin yield 0"))
     }
 }
+
+
+extension LuckyIslandUITests {
+    func testBlockedSaveExplainsReset() {
+        let app = XCUIApplication()
+        app.launchEnvironment = ["ISLAND_UI_TEST_SESSION": "1", "ISLAND_UI_SAVE_FAILURE": "load"]
+        app.launch()
+        XCTAssertTrue(app.alerts["Save notice"].waitForExistence(timeout: 5))
+        app.alerts.buttons["Got it"].tap()
+        tap(app, "tab.Settings"); tap(app, "Reset all progress")
+        XCTAssertTrue(app.alerts["Reset unavailable"].waitForExistence(timeout: 5))
+        XCTAssertFalse(app.alerts["Reset your island?"].exists)
+    }
+
+    func testResetFailureAppearsAfterConfirmation() {
+        let app = XCUIApplication()
+        app.launchEnvironment = ["ISLAND_UI_TEST_SESSION": "1", "ISLAND_UI_SAVE_FAILURE": "reset"]
+        app.launch()
+        if app.buttons["Let's begin"].waitForExistence(timeout: 2) { app.buttons["Let's begin"].tap() }
+        tap(app, "tab.Settings"); tap(app, "Reset all progress")
+        app.alerts.buttons["Reset progress"].tap()
+        XCTAssertTrue(app.alerts["Could not reset"].waitForExistence(timeout: 5))
+        app.alerts.buttons["Got it"].tap()
+        XCTAssertTrue(app.buttons["Reset all progress"].isHittable)
+    }
+
+    func testWriteFailureAppearsAfterStartConfirmation() {
+        let app = XCUIApplication()
+        app.launchEnvironment = ["ISLAND_UI_TEST_SESSION": "1"]
+        app.launch()
+        if app.buttons["Let's begin"].waitForExistence(timeout: 2) { app.buttons["Let's begin"].tap() }
+        tap(app, "tab.Settings"); tap(app, "Reset all progress")
+        app.alerts.buttons["Reset progress"].tap()
+        tap(app, "tab.Settings"); tap(app, "How to play"); app.alerts.buttons["Let's begin"].tap()
+        app.terminate()
+        app.launchEnvironment["ISLAND_UI_SAVE_FAILURE"] = "write"
+        app.launch()
+        tap(app, "Start challenge"); app.alerts.buttons["Start challenge"].tap()
+        XCTAssertTrue(app.alerts["Action not completed"].waitForExistence(timeout: 5))
+        app.alerts.buttons["Got it"].tap()
+        XCTAssertTrue(app.buttons["Start challenge"].exists)
+    }
+}

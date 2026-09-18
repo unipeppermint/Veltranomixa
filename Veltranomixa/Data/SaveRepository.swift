@@ -7,8 +7,17 @@ final class SaveRepository {
     private var primary: URL { directory.appendingPathComponent("progress.json") }
     private var backup: URL { directory.appendingPathComponent("progress.backup.json") }
     init(directory: URL) { self.directory = directory }
+    #if DEBUG
+    var testFailure: String?
+    private func failIfRequested(_ operation: String) throws {
+        if testFailure == operation { throw CocoaError(.fileWriteNoPermission) }
+    }
+    #endif
     func load() throws -> (SaveEnvelope, String?) {
         try queue.sync {
+            #if DEBUG
+            try failIfRequested("load")
+            #endif
             let fm = FileManager.default
             try fm.createDirectory(at: directory, withIntermediateDirectories: true)
             if !fm.fileExists(atPath: primary.path) && !fm.fileExists(atPath: backup.path) { return (SaveEnvelope(), nil) }
@@ -30,6 +39,9 @@ final class SaveRepository {
     }
     func write(_ save: SaveEnvelope) throws {
         try queue.sync {
+            #if DEBUG
+            try failIfRequested("write")
+            #endif
             try GameEngine.validate(save)
             try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
             let data = try JSONEncoder().encode(save)
@@ -40,6 +52,9 @@ final class SaveRepository {
     func reset() throws {
         // Write both files: a later backup recovery must not resurrect erased progress.
         try queue.sync {
+            #if DEBUG
+            try failIfRequested("reset")
+            #endif
             let fm = FileManager.default
             try fm.createDirectory(at: directory, withIntermediateDirectories: true)
             // Clean only our quarantined files. Fail before replacing active saves if cleanup fails.

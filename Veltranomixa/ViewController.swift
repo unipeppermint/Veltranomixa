@@ -12,6 +12,8 @@ final class ViewController: UIViewController {
     private var busy = false
     private var loadBlocked = false
     private var notice: String?
+    private var pendingNotices: [(title: String, message: String)] = []
+    private var noticeDeliveryScheduled = false
     private var latestMessage = "Shape your wheel. Plan your next spin."
     private var selectedUpgrade: Upgrade?
     private var selectedSlot = 1
@@ -25,6 +27,12 @@ final class ViewController: UIViewController {
         }
         #endif
         repository = SaveRepository(directory: directory)
+        #if DEBUG
+        if ProcessInfo.processInfo.environment["ISLAND_UI_TEST_SESSION"] == "1",
+           let failure = ProcessInfo.processInfo.environment["ISLAND_UI_SAVE_FAILURE"] {
+            repository.testFailure = failure
+        }
+        #endif
         do { (state, notice) = try repository.load() } catch { loadBlocked = true; notice = "Unable to load your save: \(error.localizedDescription) Your progress is protected. Saving is temporarily unavailable." }
         NotificationCenter.default.addObserver(self, selector: #selector(background), name: UIApplication.didEnterBackgroundNotification, object: nil)
         render()
@@ -240,7 +248,7 @@ final class ViewController: UIViewController {
         } else {
             let preview = WheelView(run: r, skin: r.level == 12 ? 1 : 2); add(preview); preview.snp.makeConstraints { $0.height.equalTo(preview.snp.width) }
         }
-        add(Theme.card(Theme.stack([Theme.label("Wood \(r.wood)   Coins \(r.coins)   Shells \(r.shells)",size:18), Theme.label("\(r.spins) spins · \(r.crafts) upgrades and swaps",size:15),Theme.label(won && r.remaining >= 3 ? "★ Bonus challenge complete: Room to Spare" : "Bonus: win with at least 3 spins left",size:14)])))
+        add(Theme.card(Theme.stack([Theme.label("Wood \(r.wood)   Coins \(r.coins)   Shells \(r.shells)",size:18), Theme.label("\(r.spins) spins · \(r.crafts) workshop changes",size:15),Theme.label(won && r.remaining >= 3 ? "★ Bonus challenge complete: Room to Spare" : "Bonus: win with at least 3 spins left",size:14)])))
         if won && r.level < 14 { add(Theme.button("Next stop", symbol: "arrow.right", primary: true) { [weak self] in self?.detail(r.level + 1) }) }
         add(Theme.button("Try again", symbol: "arrow.clockwise", primary: !won) { [weak self] in self?.detail(r.level) })
         add(Theme.button("Back to island", symbol: "house.fill") { [weak self] in self?.go(.island) })
@@ -359,6 +367,10 @@ final class ViewController: UIViewController {
         }
     }
     private func reset() {
+        guard !loadBlocked else {
+            info("Reset unavailable", "Your save could not be loaded safely, so it has not been changed. If it was created by a newer app version, update the app before trying again. Otherwise, reopen the app and try again.")
+            return
+        }
         let a = UIAlertController(title:"Reset your island?",message:"Your current run, all landmarks, and all achievements will be deleted. This cannot be undone.",preferredStyle:.alert)
         a.addAction(UIAlertAction(title:"Reset progress",style:.destructive) { [weak self] _ in guard let self, !self.loadBlocked else { return }; do { try self.repository.reset(); self.state = SaveEnvelope(); self.go(.island) } catch { self.info("Could not reset", error.localizedDescription) } }); a.addAction(UIAlertAction(title:"Keep my island",style:.cancel)); present(a,animated:true)
     }
@@ -367,5 +379,25 @@ final class ViewController: UIViewController {
         a.addAction(UIAlertAction(title:"Let's begin",style:.default) { [weak self] _ in _ = self?.commit { $0.settings.tutorialSeen = true } }); present(a,animated:true)
     }
     private func rules() { info("Fair odds · 12.5% per tile", "All 8 tiles have equal odds, with no hidden adjustments.\n\nWood and Coins: base yield + tools + island bonus, then Breeze doubles the result. Breeze affects only the next Wood or Coins reward. It does not stack, and other tiles do not use it up.\n\nChest: choose one of 3 upgrades. Breeze: prepare a double reward. Shells: base yield + shell tools. Supply: +1 spin and +1 Wood.\n\nUpgrade every 3 spins. A chest on the same spin gives only one choice. On your last spin, check goals first, then upgrades, then remaining spins.\n\nYour first swap is free; later swaps cost 6 coins and create a tile with base yield 2. Spend 4 coins to boost all Wood tiles by 1. The workshop previews odds and next-spin yields.\n\nGrove: +1 Wood per neighboring Wood tile. Tide: +3 Shells every third spin; otherwise +1 Wood. Market: +2 Wood on odd spins, +2 Coins on even spins. Wheel labels show base yield plus tools; the workshop includes all active bonuses. Older runs keep classic rules. Changes last for this run only.\n\nBonus challenge: win with at least 3 spins left.") }
-    private func info(_ title: String, _ message: String) { guard presentedViewController == nil else { return }; let a = UIAlertController(title:title,message:message,preferredStyle:.alert); a.addAction(UIAlertAction(title:"Got it",style:.default)); present(a,animated:true) }
+    private func info(_ title: String, _ message: String) {
+        pendingNotices.append((title, message))
+        deliverNextNotice()
+    }
+    private func deliverNextNotice() {
+        guard !pendingNotices.isEmpty, !noticeDeliveryScheduled else { return }
+        // Alert actions can report errors before UIKit finishes dismissing the alert.
+        // Keep the message until the presentation slot is free; never dismiss a user's dialog.
+        guard presentedViewController == nil, viewIfLoaded?.window != nil else {
+            noticeDeliveryScheduled = true
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { [weak self] in
+                self?.noticeDeliveryScheduled = false
+                self?.deliverNextNotice()
+            }
+            return
+        }
+        let notice = pendingNotices.removeFirst()
+        let alert = UIAlertController(title: notice.title, message: notice.message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Got it", style: .default))
+        present(alert, animated: true) { [weak self] in self?.deliverNextNotice() }
+    }
 }
